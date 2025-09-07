@@ -459,58 +459,44 @@
       <p>Lorem ipsum dolor sit amet</p>
     </div>
     <div class="row gy-4">
-      <div class="col-xl-3 col-md-6 d-flex aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+      @php
+        $teams = App\Models\Team::active()->ordered()->get();
+      @endphp
+      
+      @forelse($teams as $team)
+      <div class="col-xl-3 col-md-6 d-flex aos-init aos-animate" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
         <div class="member">
-          <img src="{{ asset('assets/images/team/team-1.jpg') }}" class="img-fluid" alt="">
-          <h4>John Bi</h4>
-          <span>Application Manager</span>
+          @if($team->image && file_exists(public_path('storage/teams/' . $team->image)))
+            <img src="{{ asset('storage/teams/' . $team->image) }}" class="img-fluid" alt="{{ $team->name }}">
+          @else
+            <img src="{{ asset('assets/images/team/team-1.jpg') }}" class="img-fluid" alt="{{ $team->name }}">
+          @endif
+          <h4>{{ $team->name }}</h4>
+          <span>{{ $team->position }}</span>
+          @if($team->bio)
+            <p class="bio">{{ Str::limit($team->bio, 100) }}</p>
+          @endif
           <div class="social">
-            <a href="#"><i class="bi bi-twitter-x"></i></a>
-            <a href="#"><i class="bi bi-facebook"></i></a>
-            <a href="#"><i class="bi bi-linkedin"></i></a>
-            <a href="#"><i class="bi bi-instagram"></i></a>
+            @if($team->twitter)
+              <a href="{{ $team->twitter }}" target="_blank"><i class="bi bi-twitter-x"></i></a>
+            @endif
+            @if($team->facebook)
+              <a href="{{ $team->facebook }}" target="_blank"><i class="bi bi-facebook"></i></a>
+            @endif
+            @if($team->linkedin)
+              <a href="{{ $team->linkedin }}" target="_blank"><i class="bi bi-linkedin"></i></a>
+            @endif
+            @if($team->instagram)
+              <a href="{{ $team->instagram }}" target="_blank"><i class="bi bi-instagram"></i></a>
+            @endif
           </div>
         </div>
       </div>
-      <div class="col-xl-3 col-md-6 d-flex aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
-        <div class="member">
-          <img src="{{ asset('assets/images/team/team-2.jpg') }}" class="img-fluid" alt="">
-          <h4>Sani Awesome</h4>
-          <span>Social Media</span>
-          <div class="social">
-            <a href="#"><i class="bi bi-twitter-x"></i></a>
-            <a href="#"><i class="bi bi-facebook"></i></a>
-            <a href="#"><i class="bi bi-linkedin"></i></a>
-            <a href="#"><i class="bi bi-instagram"></i></a>
-          </div>
-        </div>
+      @empty
+      <div class="col-12 text-center">
+        <p class="text-muted">No team members found.</p>
       </div>
-      <div class="col-xl-3 col-md-6 d-flex aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
-        <div class="member">
-          <img src="{{ asset('assets/images/team/team-3.jpg') }}" class="img-fluid" alt="">
-          <h4>Andrio Willi</h4>
-          <span>Content Writer</span>
-          <div class="social">
-            <a href="#"><i class="bi bi-twitter-x"></i></a>
-            <a href="#"><i class="bi bi-facebook"></i></a>
-            <a href="#"><i class="bi bi-linkedin"></i></a>
-            <a href="#"><i class="bi bi-instagram"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-md-6 d-flex aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
-        <div class="member">
-          <img src="{{ asset('assets/images/team/team-4.jpg') }}" class="img-fluid" alt="">
-          <h4>Afa Jonson</h4>
-          <span>Business Manager</span>
-          <div class="social">
-            <a href="#"><i class="bi bi-twitter-x"></i></a>
-            <a href="#"><i class="bi bi-facebook"></i></a>
-            <a href="#"><i class="bi bi-linkedin"></i></a>
-            <a href="#"><i class="bi bi-instagram"></i></a>
-          </div>
-        </div>
-      </div>
+      @endforelse
     </div>
   </div>
 </section>

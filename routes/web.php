@@ -34,6 +34,17 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{post}', [App\Http\Controllers\AdminPostController::class, 'destroy'])->name('destroy');
         Route::post('/bulk-delete', [App\Http\Controllers\AdminPostController::class, 'bulkDelete'])->name('bulk-delete');
     });
+    
+    // Admin Team Management
+    Route::prefix('admin/teams')->name('admin.teams.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminTeamController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminTeamController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminTeamController::class, 'store'])->name('store');
+        Route::get('/{team}/edit', [App\Http\Controllers\AdminTeamController::class, 'edit'])->name('edit');
+        Route::put('/{team}', [App\Http\Controllers\AdminTeamController::class, 'update'])->name('update');
+        Route::delete('/{team}', [App\Http\Controllers\AdminTeamController::class, 'destroy'])->name('destroy');
+        Route::post('/bulk-delete', [App\Http\Controllers\AdminTeamController::class, 'bulkDelete'])->name('bulk-delete');
+    });
 });
 
 require __DIR__.'/auth.php';
