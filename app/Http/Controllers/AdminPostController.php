@@ -32,22 +32,30 @@ class AdminPostController extends Controller
         ]);
 
         $data = $request->all();
-        
+
         // Generate slug if not provided
         if (empty($data['slug'])) {
             $data['slug'] = \Str::slug($data['title']);
         }
+
+        \Log::info('Store method called');
+        \Log::info('Has image file: ' . ($request->hasFile('image') ? 'yes' : 'no'));
         
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/posts', $imageName);
+            \Log::info('Storing image: ' . $imageName);
+            $stored = $image->storeAs('posts', $imageName, 'public');
+            \Log::info('Storage result: ' . ($stored ? 'success' : 'failed'));
             $data['image'] = $imageName;
+        } else {
+            \Log::info('No image file in request');
         }
-        
+
 
 
         Post::create($data);
+        
         return redirect()->route('admin.posts.index')->with('success', 'Post created successfully');
     }
 
@@ -69,22 +77,22 @@ class AdminPostController extends Controller
             'meta_keywords' => 'nullable|max:255'
         ]);
 
-        $data = $request->all();
-        
+        $data = $request->except(['image']);
+
         // Generate slug if not provided
         if (empty($data['slug'])) {
             $data['slug'] = \Str::slug($data['title']);
         }
-        
+
         if ($request->hasFile('image')) {
             // Delete old image if exists
             if ($post->image && file_exists(storage_path('app/public/posts/' . $post->image))) {
                 unlink(storage_path('app/public/posts/' . $post->image));
             }
-            
+
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/posts', $imageName);
+            $image->storeAs('posts', $imageName, 'public');
             $data['image'] = $imageName;
         }
 

@@ -20,7 +20,11 @@
       <div class="col-lg-8">
         <article class="blog-post">
           <div class="post-img mb-4">
-            <img src="{{ $post->image ? asset('storage/posts/' . $post->image) : asset('assets/images/blog/blog-1.jpg') }}" alt="{{ $post->title }}" class="img-fluid">
+            @if($post->image && file_exists(public_path('storage/posts/' . $post->image)))
+              <img src="{{ asset('storage/posts/' . $post->image) }}" alt="{{ $post->title }}" class="img-fluid">
+            @else
+              <img src="{{ asset('assets/images/blog/blog-1.jpg') }}" alt="{{ $post->title }}" class="img-fluid">
+            @endif
           </div>
           
           <div class="post-content">

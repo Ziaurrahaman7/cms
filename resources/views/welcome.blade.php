@@ -623,7 +623,11 @@
       <div class="col-lg-4">
         <article>
           <div class="post-img">
-            <img src="{{ $post->image ? asset('storage/posts/' . $post->image) : asset('assets/images/blog/blog-' . (($loop->index % 3) + 1) . '.jpg') }}" alt="" class="img-fluid">
+            @if($post->image && file_exists(public_path('storage/posts/' . $post->image)))
+              <img src="{{ asset('storage/posts/' . $post->image) }}" alt="" class="img-fluid">
+            @else
+              <img src="{{ asset('assets/images/blog/blog-' . (($loop->index % 3) + 1) . '.jpg') }}" alt="" class="img-fluid">
+            @endif
           </div>
           <p class="post-category">Technology</p>
           <h2 class="title">

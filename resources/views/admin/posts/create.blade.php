@@ -49,7 +49,7 @@
                         <div class="mb-4">
                             <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Content</label>
                             <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('content') border-red-500 @enderror" 
-                                      id="content" name="content" rows="35" style="min-height: 700px;" required>{{ old('content') }}</textarea>
+                                      id="content" name="content" rows="35" style="min-height: 700px; display: none;">{{ old('content') }}</textarea>
                             @error('content')
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
@@ -103,7 +103,7 @@
                         
                         <div class="flex justify-between">
                             <a href="{{ route('admin.posts.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md transition-colors">Cancel</a>
-                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors">Create Post</button>
+                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors" onclick="console.log('Button clicked')">Create Post</button>
                         </div>
                     </form>
         </div>
@@ -151,6 +151,8 @@ ClassicEditor.create(document.querySelector('#content'), {
     toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'blockQuote', 'insertTable', 'undo', 'redo']
 }).then(editor => {
     ckeditorInstance = editor;
+    // Remove required attribute from textarea since CKEditor handles it
+    document.getElementById('content').removeAttribute('required');
 }).catch(error => {
     console.error(error);
 });
@@ -226,22 +228,33 @@ function switchEditor() {
 }
 
 // Form submission handler
-document.querySelector('form').addEventListener('submit', function(e) {
-    if (currentEditor === 'ckeditor' && ckeditorInstance) {
-        document.getElementById('content').value = ckeditorInstance.getData();
-    } else if (currentEditor === 'quill') {
-        document.getElementById('content').value = quillInstance.root.innerHTML;
-    } else if (currentEditor === 'summernote') {
-        document.getElementById('content').value = $('#content').summernote('code');
-    }
-    
-    // Ensure content is not empty
-    const content = document.getElementById('content').value;
-    if (!content || content.trim() === '' || content === '<p><br></p>') {
-        e.preventDefault();
-        alert('Content is required');
-        return false;
-    }
-});
+const form = document.querySelector('form');
+if (form) {
+    form.addEventListener('submit', function(e) {
+        console.log('Form submitting...');
+        
+        if (currentEditor === 'ckeditor' && ckeditorInstance) {
+            document.getElementById('content').value = ckeditorInstance.getData();
+        } else if (currentEditor === 'quill') {
+            document.getElementById('content').value = quillInstance.root.innerHTML;
+        } else if (currentEditor === 'summernote') {
+            document.getElementById('content').value = $('#content').summernote('code');
+        }
+        
+        const content = document.getElementById('content').value;
+        console.log('Content:', content);
+        
+        if (!content || content.trim() === '' || content === '<p><br></p>' || content === '<p></p>') {
+            e.preventDefault();
+            alert('Content is required');
+            return false;
+        }
+        
+        // Remove required attribute to prevent browser validation
+        document.getElementById('content').removeAttribute('required');
+        
+        return true;
+    });
+}
 </script>
 @endsection
