@@ -7,9 +7,34 @@ use Illuminate\Http\Request;
 
 class AdminPostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::latest()->paginate(10);
+        $query = Post::query();
+        
+        // Search filter
+        if ($request->filled('search')) {
+            $query->where('title', 'like', '%' . $request->search . '%')
+                  ->orWhere('content', 'like', '%' . $request->search . '%');
+        }
+        
+        // Status filter
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+        
+        // Sorting
+        switch ($request->get('sort', 'latest')) {
+            case 'oldest':
+                $query->oldest();
+                break;
+            case 'title':
+                $query->orderBy('title');
+                break;
+            default:
+                $query->latest();
+        }
+        
+        $posts = $query->paginate(10);
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -102,7 +127,34 @@ class AdminPostController extends Controller
 
     public function destroy(Post $post)
     {
+        // Delete image if exists
+        if ($post->image && file_exists(storage_path('app/public/posts/' . $post->image))) {
+            unlink(storage_path('app/public/posts/' . $post->image));
+        }
+        
         $post->delete();
         return redirect()->route('admin.posts.index')->with('success', 'Post deleted successfully');
+    }
+    
+    public function bulkDelete(Request $request)
+    {
+        $ids = json_decode($request->ids);
+        
+        if (empty($ids)) {
+            return redirect()->route('admin.posts.index')->with('error', 'No posts selected');
+        }
+        
+        $posts = Post::whereIn('id', $ids)->get();
+        
+        // Delete images
+        foreach ($posts as $post) {
+            if ($post->image && file_exists(storage_path('app/public/posts/' . $post->image))) {
+                unlink(storage_path('app/public/posts/' . $post->image));
+            }
+        }
+        
+        Post::whereIn('id', $ids)->delete();
+        
+        return redirect()->route('admin.posts.index')->with('success', count($ids) . ' posts deleted successfully');
     }
 }

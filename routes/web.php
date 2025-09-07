@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/{post}/edit', [App\Http\Controllers\AdminPostController::class, 'edit'])->name('edit');
         Route::put('/{post}', [App\Http\Controllers\AdminPostController::class, 'update'])->name('update');
         Route::delete('/{post}', [App\Http\Controllers\AdminPostController::class, 'destroy'])->name('destroy');
+        Route::post('/bulk-delete', [App\Http\Controllers\AdminPostController::class, 'bulkDelete'])->name('bulk-delete');
     });
 });
 

@@ -118,133 +118,48 @@
 </div>
 
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<div class="mb-4">
-    <label class="block text-sm font-medium text-gray-700 mb-2">Choose Editor:</label>
-    <select id="editorChoice" class="w-full px-3 py-2 border border-gray-300 rounded-md" onchange="switchEditor()">
-        <option value="ckeditor">CKEditor 5</option>
-        <option value="quill">Quill Editor</option>
-        <option value="summernote">Summernote</option>
-        <option value="textarea">Plain Text</option>
-    </select>
-</div>
 
-<div id="quill-container" style="display:none;">
-    <div id="quill-editor" style="height: 700px;"></div>
-</div>
 
 <script>
-let ckeditorInstance;
-let quillInstance;
-let currentEditor = 'ckeditor';
 const initialContent = {!! json_encode(old('content', $post->content)) !!};
 
-// Initialize CKEditor
 ClassicEditor.create(document.querySelector('#content'), {
-    toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'blockQuote', 'insertTable', 'undo', 'redo']
+    toolbar: {
+        items: [
+            'heading', '|',
+            'bold', 'italic', 'underline', 'strikethrough', '|',
+            'fontSize', 'fontColor', 'fontBackgroundColor', '|',
+            'link', 'insertImage', 'insertTable', '|',
+            'bulletedList', 'numberedList', 'outdent', 'indent', '|',
+            'alignment', 'blockQuote', 'codeBlock', '|',
+            'undo', 'redo', 'sourceEditing'
+        ]
+    },
+    heading: {
+        options: [
+            { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+            { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+            { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+            { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
+        ]
+    },
+    fontSize: {
+        options: [ 9, 11, 13, 'default', 17, 19, 21 ]
+    },
+    image: {
+        toolbar: ['imageTextAlternative', 'imageStyle:full', 'imageStyle:side']
+    },
+    table: {
+        contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+    }
 }).then(editor => {
-    ckeditorInstance = editor;
+    window.editor = editor;
     if (initialContent) {
         editor.setData(initialContent);
     }
 }).catch(error => {
     console.error(error);
-});
-
-// Initialize Quill
-quillInstance = new Quill('#quill-editor', {
-    theme: 'snow',
-    modules: {
-        toolbar: [['bold', 'italic', 'underline'], ['link', 'blockquote', 'code-block'], [{ 'list': 'ordered'}, { 'list': 'bullet' }], ['clean']]
-    }
-});
-if (initialContent) {
-    quillInstance.root.innerHTML = initialContent;
-}
-
-function switchEditor() {
-    const choice = document.getElementById('editorChoice').value;
-    const textarea = document.getElementById('content');
-    const quillContainer = document.getElementById('quill-container');
-    
-    // Get current content
-    let content = '';
-    if (currentEditor === 'ckeditor' && ckeditorInstance) {
-        content = ckeditorInstance.getData();
-    } else if (currentEditor === 'quill') {
-        content = quillInstance.root.innerHTML;
-    } else if (currentEditor === 'summernote') {
-        content = $('#content').summernote('code');
-    } else {
-        content = textarea.value;
-    }
-    
-    // Destroy current editor
-    if (currentEditor === 'ckeditor' && ckeditorInstance) {
-        ckeditorInstance.destroy();
-    } else if (currentEditor === 'summernote') {
-        $('#content').summernote('destroy');
-    }
-    
-    // Hide all editors
-    textarea.style.display = 'none';
-    quillContainer.style.display = 'none';
-    
-    // Show and initialize selected editor
-    if (choice === 'ckeditor') {
-        textarea.style.display = 'block';
-        textarea.value = content;
-        ClassicEditor.create(textarea, {
-            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'blockQuote', 'insertTable', 'undo', 'redo']
-        }).then(editor => {
-            ckeditorInstance = editor;
-            editor.setData(content);
-        });
-    } else if (choice === 'quill') {
-        quillContainer.style.display = 'block';
-        quillInstance.root.innerHTML = content;
-        textarea.value = content;
-        quillInstance.on('text-change', function() {
-            textarea.value = quillInstance.root.innerHTML;
-        });
-    } else if (choice === 'summernote') {
-        textarea.style.display = 'block';
-        textarea.value = content;
-        $('#content').summernote({
-            height: 700,
-            toolbar: [['style', ['bold', 'italic', 'underline']], ['font', ['strikethrough']], ['para', ['ul', 'ol', 'paragraph']], ['insert', ['link', 'picture']]]
-        });
-        $('#content').summernote('code', content);
-    } else {
-        textarea.style.display = 'block';
-        textarea.value = content;
-    }
-    
-    currentEditor = choice;
-}
-
-// Form submission handler
-document.querySelector('form').addEventListener('submit', function(e) {
-    if (currentEditor === 'ckeditor' && ckeditorInstance) {
-        document.getElementById('content').value = ckeditorInstance.getData();
-    } else if (currentEditor === 'quill') {
-        document.getElementById('content').value = quillInstance.root.innerHTML;
-    } else if (currentEditor === 'summernote') {
-        document.getElementById('content').value = $('#content').summernote('code');
-    }
-    
-    // Ensure content is not empty
-    const content = document.getElementById('content').value;
-    if (!content || content.trim() === '' || content === '<p><br></p>') {
-        e.preventDefault();
-        alert('Content is required');
-        return false;
-    }
 });
 </script>
 @endsection
