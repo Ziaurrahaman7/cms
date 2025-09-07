@@ -142,14 +142,16 @@
 let ckeditorInstance;
 let quillInstance;
 let currentEditor = 'ckeditor';
-const initialContent = `{{ old('content', $post->content) }}`;
+const initialContent = {!! json_encode(old('content', $post->content)) !!};
 
 // Initialize CKEditor
 ClassicEditor.create(document.querySelector('#content'), {
     toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'blockQuote', 'insertTable', 'undo', 'redo']
 }).then(editor => {
     ckeditorInstance = editor;
-    editor.setData(initialContent);
+    if (initialContent) {
+        editor.setData(initialContent);
+    }
 }).catch(error => {
     console.error(error);
 });
@@ -161,7 +163,9 @@ quillInstance = new Quill('#quill-editor', {
         toolbar: [['bold', 'italic', 'underline'], ['link', 'blockquote', 'code-block'], [{ 'list': 'ordered'}, { 'list': 'bullet' }], ['clean']]
     }
 });
-quillInstance.root.innerHTML = initialContent;
+if (initialContent) {
+    quillInstance.root.innerHTML = initialContent;
+}
 
 function switchEditor() {
     const choice = document.getElementById('editorChoice').value;
