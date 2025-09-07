@@ -511,70 +511,39 @@
     <div class="row gy-4">
       <div class="col-lg-12">
         <div class="accordion accordion-flush" id="faqlist" data-aos="fade-up" data-aos-delay="100">
+          @php
+            $faqs = App\Models\Faq::active()->ordered()->get();
+          @endphp
+          
+          @forelse($faqs as $faq)
           <div class="accordion-item">
             <h3 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-1">
+              <button class="accordion-button {{ $loop->first ? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-{{ $faq->id }}">
                 <span class="num"><i class="bi bi-arrow-right-circle-fill"></i></span>
-                What is web domain and hosting?
+                {{ $faq->question }}
               </button>
             </h3>
-            <div id="faq-content-1" class="accordion-collapse collapse show" data-bs-parent="#faqlist">
+            <div id="faq-content-{{ $faq->id }}" class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}" data-bs-parent="#faqlist">
               <div class="accordion-body">
-                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-                magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
-                quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut
-                labore et dolore magnam aliquam quaerat voluptatem.
+                {{ $faq->answer }}
               </div>
             </div>
           </div>
+          @empty
           <div class="accordion-item">
             <h3 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-2">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-default">
                 <span class="num"><i class="bi bi-arrow-right-circle-fill"></i></span>
-                Which server is best for websites linux or windows?
+                What services do you offer?
               </button>
             </h3>
-            <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+            <div id="faq-content-default" class="accordion-collapse collapse show" data-bs-parent="#faqlist">
               <div class="accordion-body">
-                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-                magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
-                quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut
-                labore et dolore magnam aliquam quaerat voluptatem.
+                We offer comprehensive IT solutions including web development, mobile app development, cloud services, and digital marketing to help your business grow.
               </div>
             </div>
           </div>
-          <div class="accordion-item">
-            <h3 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-3">
-                <span class="num"><i class="bi bi-arrow-right-circle-fill"></i></span>
-                Google cloud or Amazon server which one is best and fast?
-              </button>
-            </h3>
-            <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist">
-              <div class="accordion-body">
-                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-                magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
-                quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut
-                labore et dolore magnam aliquam quaerat voluptatem.
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h3 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-4">
-                <span class="num"><i class="bi bi-arrow-right-circle-fill"></i></span>
-                Why Organic SEO is important for all businesses?
-              </button>
-            </h3>
-            <div id="faq-content-4" class="accordion-collapse collapse" data-bs-parent="#faqlist">
-              <div class="accordion-body">
-                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-                magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
-                quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut
-                labore et dolore magnam aliquam quaerat voluptatem.
-              </div>
-            </div>
-          </div>
+          @endforelse
         </div>
       </div>
     </div>

@@ -45,6 +45,17 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{team}', [App\Http\Controllers\AdminTeamController::class, 'destroy'])->name('destroy');
         Route::post('/bulk-delete', [App\Http\Controllers\AdminTeamController::class, 'bulkDelete'])->name('bulk-delete');
     });
+    
+    // Admin FAQ Management
+    Route::prefix('admin/faqs')->name('admin.faqs.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminFaqController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminFaqController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminFaqController::class, 'store'])->name('store');
+        Route::get('/{faq}/edit', [App\Http\Controllers\AdminFaqController::class, 'edit'])->name('edit');
+        Route::put('/{faq}', [App\Http\Controllers\AdminFaqController::class, 'update'])->name('update');
+        Route::delete('/{faq}', [App\Http\Controllers\AdminFaqController::class, 'destroy'])->name('destroy');
+        Route::post('/bulk-delete', [App\Http\Controllers\AdminFaqController::class, 'bulkDelete'])->name('bulk-delete');
+    });
 });
 
 require __DIR__.'/auth.php';
