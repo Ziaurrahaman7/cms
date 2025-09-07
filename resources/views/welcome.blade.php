@@ -310,6 +310,39 @@
     </div>
     <div class="slides-3 swiper" data-aos="fade-up" data-aos-delay="100">
       <div class="swiper-wrapper">
+        @php
+          $testimonials = App\Models\Testimonial::active()->ordered()->get();
+        @endphp
+        
+        @forelse($testimonials as $testimonial)
+        <div class="swiper-slide">
+          <div class="testimonial-wrap">
+            <div class="testimonial-item">
+              <div class="d-flex align-items-center info-box">
+                @if($testimonial->image && file_exists(public_path('storage/testimonials/' . $testimonial->image)))
+                  <img src="{{ asset('storage/testimonials/' . $testimonial->image) }}" class="testimonial-img flex-shrink-0" alt="{{ $testimonial->name }}">
+                @else
+                  <img src="{{ asset('assets/images/testimonials/testimonial-' . (($loop->index % 4) + 1) . '.jpg') }}" class="testimonial-img flex-shrink-0" alt="{{ $testimonial->name }}">
+                @endif
+                <div>
+                  <h3>{{ $testimonial->name }}</h3>
+                  <h4>{{ $testimonial->position }}</h4>
+                  <div class="stars">
+                    @for($i = 1; $i <= 5; $i++)
+                      <i class="bi bi-star{{ $i <= $testimonial->rating ? '-fill' : '' }}"></i>
+                    @endfor
+                  </div>
+                </div>
+              </div>
+              <p>
+                <i class="bi bi-quote quote-icon-left"></i>
+                {{ Str::limit($testimonial->message, 150) }}
+                <i class="bi bi-quote quote-icon-right"></i>
+              </p>
+            </div>
+          </div>
+        </div>
+        @empty
         <div class="swiper-slide">
           <div class="testimonial-wrap">
             <div class="testimonial-item">
@@ -317,7 +350,7 @@
                 <img src="{{ asset('assets/images/testimonials/testimonial-1.jpg') }}" class="testimonial-img flex-shrink-0" alt="">
                 <div>
                   <h3>John Doe</h3>
-                  <h4>CFO</h4>
+                  <h4>CEO</h4>
                   <div class="stars">
                     <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                   </div>
@@ -325,79 +358,13 @@
               </div>
               <p>
                 <i class="bi bi-quote quote-icon-left"></i>
-                Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus.
-                Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam.
+                Excellent service and professional team. They delivered exactly what we needed on time and within budget.
                 <i class="bi bi-quote quote-icon-right"></i>
               </p>
             </div>
           </div>
         </div>
-        <div class="swiper-slide">
-          <div class="testimonial-wrap">
-            <div class="testimonial-item">
-              <div class="d-flex align-items-center info-box">
-                <img src="{{ asset('assets/images/testimonials/testimonial-2.jpg') }}" class="testimonial-img flex-shrink-0" alt="">
-                <div>
-                  <h3>Afa Rose</h3>
-                  <h4>Web Designer</h4>
-                  <div class="stars">
-                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                  </div>
-                </div>
-              </div>
-              <p>
-                <i class="bi bi-quote quote-icon-left"></i>
-                Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus.
-                Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam.
-                <i class="bi bi-quote quote-icon-right"></i>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="testimonial-wrap">
-            <div class="testimonial-item">
-              <div class="d-flex align-items-center info-box">
-                <img src="{{ asset('assets/images/testimonials/testimonial-3.jpg') }}" class="testimonial-img flex-shrink-0" alt="">
-                <div>
-                  <h3>Keena Lara</h3>
-                  <h4>Store Owner</h4>
-                  <div class="stars">
-                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                  </div>
-                </div>
-              </div>
-              <p>
-                <i class="bi bi-quote quote-icon-left"></i>
-                Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus.
-                Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam.
-                <i class="bi bi-quote quote-icon-right"></i>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="testimonial-wrap">
-            <div class="testimonial-item">
-              <div class="d-flex align-items-center info-box">
-                <img src="{{ asset('assets/images/testimonials/testimonial-4.jpg') }}" class="testimonial-img flex-shrink-0" alt="">
-                <div>
-                  <h3>Fizzi Brandon</h3>
-                  <h4>Freelancer</h4>
-                  <div class="stars">
-                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                  </div>
-                </div>
-              </div>
-              <p>
-                <i class="bi bi-quote quote-icon-left"></i>
-                Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus.
-                Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam.
-                <i class="bi bi-quote quote-icon-right"></i>
-              </p>
-            </div>
-          </div>
-        </div>
+        @endforelse
       </div>
       <div class="swiper-pagination"></div>
     </div>

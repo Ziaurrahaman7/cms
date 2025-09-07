@@ -56,6 +56,17 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{faq}', [App\Http\Controllers\AdminFaqController::class, 'destroy'])->name('destroy');
         Route::post('/bulk-delete', [App\Http\Controllers\AdminFaqController::class, 'bulkDelete'])->name('bulk-delete');
     });
+    
+    // Admin Testimonial Management
+    Route::prefix('admin/testimonials')->name('admin.testimonials.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminTestimonialController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminTestimonialController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminTestimonialController::class, 'store'])->name('store');
+        Route::get('/{testimonial}/edit', [App\Http\Controllers\AdminTestimonialController::class, 'edit'])->name('edit');
+        Route::put('/{testimonial}', [App\Http\Controllers\AdminTestimonialController::class, 'update'])->name('update');
+        Route::delete('/{testimonial}', [App\Http\Controllers\AdminTestimonialController::class, 'destroy'])->name('destroy');
+        Route::post('/bulk-delete', [App\Http\Controllers\AdminTestimonialController::class, 'bulkDelete'])->name('bulk-delete');
+    });
 });
 
 require __DIR__.'/auth.php';

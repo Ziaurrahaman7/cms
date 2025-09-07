@@ -70,6 +70,14 @@
                     <span class="ml-auto bg-purple-500 text-xs px-2 py-1 rounded-full">{{ \App\Models\Faq::count() }}</span>
                 </a>
                 
+                <a href="{{ route('admin.testimonials.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                    </svg>
+                    Testimonials
+                    <span class="ml-auto bg-pink-500 text-xs px-2 py-1 rounded-full">{{ \App\Models\Testimonial::count() }}</span>
+                </a>
+                
                 <div class="px-4 py-2 mt-6">
                     <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Settings</p>
                 </div>
@@ -220,6 +228,13 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                 </svg>
                                 <span class="text-purple-700 font-medium">Add FAQ</span>
+                            </a>
+                            
+                            <a href="{{ route('admin.testimonials.create') }}" class="flex items-center p-3 bg-pink-50 hover:bg-pink-100 rounded-lg transition-colors">
+                                <svg class="w-5 h-5 text-pink-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                </svg>
+                                <span class="text-pink-700 font-medium">Add Testimonial</span>
                             </a>
                             
                             <a href="/" target="_blank" class="flex items-center p-3 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors">
