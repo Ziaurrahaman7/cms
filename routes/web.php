@@ -67,6 +67,28 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{testimonial}', [App\Http\Controllers\AdminTestimonialController::class, 'destroy'])->name('destroy');
         Route::post('/bulk-delete', [App\Http\Controllers\AdminTestimonialController::class, 'bulkDelete'])->name('bulk-delete');
     });
+    
+    // Admin Portfolio Management
+    Route::prefix('admin/portfolios')->name('admin.portfolios.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminPortfolioController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminPortfolioController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminPortfolioController::class, 'store'])->name('store');
+        Route::get('/{portfolio}/edit', [App\Http\Controllers\AdminPortfolioController::class, 'edit'])->name('edit');
+        Route::put('/{portfolio}', [App\Http\Controllers\AdminPortfolioController::class, 'update'])->name('update');
+        Route::delete('/{portfolio}', [App\Http\Controllers\AdminPortfolioController::class, 'destroy'])->name('destroy');
+        Route::post('/bulk-delete', [App\Http\Controllers\AdminPortfolioController::class, 'bulkDelete'])->name('bulk-delete');
+    });
+    
+    // Admin Portfolio Category Management
+    Route::prefix('admin/portfolio-categories')->name('admin.portfolio-categories.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminPortfolioCategoryController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminPortfolioCategoryController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminPortfolioCategoryController::class, 'store'])->name('store');
+        Route::get('/{portfolioCategory}/edit', [App\Http\Controllers\AdminPortfolioCategoryController::class, 'edit'])->name('edit');
+        Route::put('/{portfolioCategory}', [App\Http\Controllers\AdminPortfolioCategoryController::class, 'update'])->name('update');
+        Route::delete('/{portfolioCategory}', [App\Http\Controllers\AdminPortfolioCategoryController::class, 'destroy'])->name('destroy');
+        Route::post('/bulk-delete', [App\Http\Controllers\AdminPortfolioCategoryController::class, 'bulkDelete'])->name('bulk-delete');
+    });
 });
 
 require __DIR__.'/auth.php';

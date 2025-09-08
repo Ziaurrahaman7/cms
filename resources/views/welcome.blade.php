@@ -180,36 +180,48 @@
         </ul>
       </div>
       <div class="row gy-4 portfolio-container">
+        @php
+          $portfolios = App\Models\Portfolio::active()->ordered()->get();
+        @endphp
+        
+        @forelse($portfolios as $portfolio)
+        <div class="col-xl-4 col-md-6 portfolio-item filter-{{ $portfolio->category }}">
+          <div class="portfolio-wrap position-relative overflow-hidden">
+            @if($portfolio->image && file_exists(public_path('storage/portfolios/' . $portfolio->image)))
+              <a href="{{ asset('storage/portfolios/' . $portfolio->image) }}" class="glightbox" data-gallery="portfolio-gallery" data-glightbox="title: {{ $portfolio->title }}; description: {{ $portfolio->description }}">
+                <img src="{{ asset('storage/portfolios/' . $portfolio->image) }}" class="img-fluid" alt="{{ $portfolio->title }}" style="transition: transform 0.3s ease;">
+              </a>
+            @else
+              <a href="{{ asset('assets/images/portfolio/product-' . (($loop->index % 6) + 1) . '.jpg') }}" class="glightbox" data-gallery="portfolio-gallery" data-glightbox="title: {{ $portfolio->title }}; description: {{ $portfolio->description }}">
+                <img src="{{ asset('assets/images/portfolio/product-' . (($loop->index % 6) + 1) . '.jpg') }}" class="img-fluid" alt="{{ $portfolio->title }}" style="transition: transform 0.3s ease;">
+              </a>
+            @endif
+            <div class="portfolio-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease; pointer-events: none;">
+              <div class="text-center text-white">
+                <h5 class="mb-2">{{ $portfolio->title }}</h5>
+                <p class="mb-3">{{ Str::limit($portfolio->description, 50) }}</p>
+                @if($portfolio->project_url)
+                  <a href="{{ $portfolio->project_url }}" target="_blank" class="btn btn-outline-light btn-sm" style="pointer-events: all;"><i class="bi bi-link-45deg"></i> Visit</a>
+                @endif
+              </div>
+            </div>
+          </div>
+        </div>
+        @empty
         <div class="col-xl-4 col-md-6 portfolio-item filter-app">
-          <div class="portfolio-wrap">
-            <a href="{{ asset('assets/images/portfolio/product-1.jpg') }}" data-gallery="portfolio-gallery-app" class="glightbox"><img src="{{ asset('assets/images/portfolio/product-1.jpg') }}" class="img-fluid" alt=""></a>
+          <div class="portfolio-wrap position-relative overflow-hidden">
+            <a href="{{ asset('assets/images/portfolio/product-1.jpg') }}" class="glightbox" data-gallery="portfolio-gallery" data-glightbox="title: Sample Project; description: Professional web development">
+              <img src="{{ asset('assets/images/portfolio/product-1.jpg') }}" class="img-fluid" alt="Sample Project" style="transition: transform 0.3s ease;">
+            </a>
+            <div class="portfolio-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease; pointer-events: none;">
+              <div class="text-center text-white">
+                <h5 class="mb-2">Sample Project</h5>
+                <p class="mb-3">Professional web development</p>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-xl-4 col-md-6 portfolio-item filter-product">
-          <div class="portfolio-wrap">
-            <a href="{{ asset('assets/images/portfolio/product-2.jpg') }}" data-gallery="portfolio-gallery-app" class="glightbox"><img src="{{ asset('assets/images/portfolio/product-2.jpg') }}" class="img-fluid" alt=""></a>
-          </div>
-        </div>
-        <div class="col-xl-4 col-md-6 portfolio-item filter-branding">
-          <div class="portfolio-wrap">
-            <a href="{{ asset('assets/images/portfolio/product-3.jpg') }}" data-gallery="portfolio-gallery-app" class="glightbox"><img src="{{ asset('assets/images/portfolio/product-3.jpg') }}" class="img-fluid" alt=""></a>
-          </div>
-        </div>
-        <div class="col-xl-4 col-md-6 portfolio-item filter-books">
-          <div class="portfolio-wrap">
-            <a href="{{ asset('assets/images/portfolio/product-4.jpg') }}" data-gallery="portfolio-gallery-app" class="glightbox"><img src="{{ asset('assets/images/portfolio/product-4.jpg') }}" class="img-fluid" alt=""></a>
-          </div>
-        </div>
-        <div class="col-xl-4 col-md-6 portfolio-item filter-app">
-          <div class="portfolio-wrap">
-            <a href="{{ asset('assets/images/portfolio/product-5.jpg') }}" data-gallery="portfolio-gallery-app" class="glightbox"><img src="{{ asset('assets/images/portfolio/product-5.jpg') }}" class="img-fluid" alt=""></a>
-          </div>
-        </div>
-        <div class="col-xl-4 col-md-6 portfolio-item filter-branding">
-          <div class="portfolio-wrap">
-            <a href="{{ asset('assets/images/portfolio/product-6.jpg') }}" data-gallery="portfolio-gallery-app" class="glightbox"><img src="{{ asset('assets/images/portfolio/product-6.jpg') }}" class="img-fluid" alt=""></a>
-          </div>
-        </div>
+        @endforelse
       </div>
     </div>
   </div>

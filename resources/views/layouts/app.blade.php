@@ -28,6 +28,15 @@
 
   <!-- Main CSS File -->
   <link href="{{ asset('assets/stylesheets/styles.css') }}" id="theme-style" rel="stylesheet">
+  
+  <style>
+    .portfolio-wrap:hover img {
+      transform: scale(1.1);
+    }
+    .portfolio-wrap:hover .portfolio-overlay {
+      opacity: 1 !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -56,5 +65,17 @@
   <script src="{{ asset('assets/javascripts/particles.min.js') }}"></script>
   <script src="{{ asset('assets/javascripts/script.js') }}"></script>
   <script src="{{ asset('assets/javascripts/main.js') }}"></script>
+  
+  <script>
+    // Initialize GLightbox for portfolio
+    document.addEventListener('DOMContentLoaded', function() {
+      const lightbox = GLightbox({
+        selector: '.glightbox',
+        touchNavigation: true,
+        loop: true,
+        autoplayVideos: true
+      });
+    });
+  </script>
 </body>
 </html>

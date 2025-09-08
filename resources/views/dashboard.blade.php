@@ -78,6 +78,22 @@
                     <span class="ml-auto bg-pink-500 text-xs px-2 py-1 rounded-full">{{ \App\Models\Testimonial::count() }}</span>
                 </a>
                 
+                <a href="{{ route('admin.portfolios.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                    </svg>
+                    Portfolio
+                    <span class="ml-auto bg-indigo-500 text-xs px-2 py-1 rounded-full">{{ \App\Models\Portfolio::count() }}</span>
+                </a>
+                
+                <a href="{{ route('admin.portfolio-categories.index') }}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a1.994 1.994 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                    </svg>
+                    Portfolio Categories
+                    <span class="ml-auto bg-cyan-500 text-xs px-2 py-1 rounded-full">{{ \App\Models\PortfolioCategory::count() }}</span>
+                </a>
+                
                 <div class="px-4 py-2 mt-6">
                     <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Settings</p>
                 </div>
@@ -235,6 +251,20 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                 </svg>
                                 <span class="text-pink-700 font-medium">Add Testimonial</span>
+                            </a>
+                            
+                            <a href="{{ route('admin.portfolios.create') }}" class="flex items-center p-3 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors">
+                                <svg class="w-5 h-5 text-indigo-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                </svg>
+                                <span class="text-indigo-700 font-medium">Add Portfolio</span>
+                            </a>
+                            
+                            <a href="{{ route('admin.portfolio-categories.create') }}" class="flex items-center p-3 bg-cyan-50 hover:bg-cyan-100 rounded-lg transition-colors">
+                                <svg class="w-5 h-5 text-cyan-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a1.994 1.994 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                                </svg>
+                                <span class="text-cyan-700 font-medium">Add Portfolio Category</span>
                             </a>
                             
                             <a href="/" target="_blank" class="flex items-center p-3 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors">
