@@ -173,10 +173,12 @@
       <div>
         <ul class="portfolio-flters">
           <li data-filter="*" class="filter-active">All</li>
-          <li data-filter=".filter-app">App Design</li>
-          <li data-filter=".filter-product">App Development</li>
-          <li data-filter=".filter-branding">Branding</li>
-          <li data-filter=".filter-books">IT Solutions</li>
+          @php
+            $portfolioCategories = App\Models\PortfolioCategory::active()->ordered()->get();
+          @endphp
+          @foreach($portfolioCategories as $category)
+            <li data-filter=".filter-{{ $category->slug }}">{{ $category->name }}</li>
+          @endforeach
         </ul>
       </div>
       <div class="row gy-4 portfolio-container">

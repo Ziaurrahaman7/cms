@@ -34,10 +34,9 @@
                         <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('category') border-red-500 @enderror" 
                                 id="category" name="category" required>
                             <option value="">Select Category</option>
-                            <option value="app" {{ old('category') == 'app' ? 'selected' : '' }}>App Design</option>
-                            <option value="product" {{ old('category') == 'product' ? 'selected' : '' }}>App Development</option>
-                            <option value="branding" {{ old('category') == 'branding' ? 'selected' : '' }}>Branding</option>
-                            <option value="books" {{ old('category') == 'books' ? 'selected' : '' }}>IT Solutions</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->slug }}" {{ old('category') == $category->slug ? 'selected' : '' }}>{{ $category->name }}</option>
+                            @endforeach
                         </select>
                         @error('category')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>

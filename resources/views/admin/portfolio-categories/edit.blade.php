@@ -1,12 +1,7 @@
-@extends('layouts.app')
+@extends('dashboard')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-3">
-            @include('partials.sidebar')
-        </div>
-        <div class="col-md-9">
+<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2>Edit Portfolio Category</h2>
                 <a href="{{ route('admin.portfolio-categories.index') }}" class="btn btn-secondary">Back to Categories</a>
@@ -62,7 +57,5 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
 </div>
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Portfolio;
+use App\Models\PortfolioCategory;
 use Illuminate\Http\Request;
 
 class AdminPortfolioController extends Controller
@@ -34,12 +35,14 @@ class AdminPortfolioController extends Controller
         }
         
         $portfolios = $query->paginate(10);
-        return view('admin.portfolios.index', compact('portfolios'));
+        $categories = PortfolioCategory::active()->ordered()->get();
+        return view('admin.portfolios.index', compact('portfolios', 'categories'));
     }
 
     public function create()
     {
-        return view('admin.portfolios.create');
+        $categories = PortfolioCategory::active()->ordered()->get();
+        return view('admin.portfolios.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -71,7 +74,8 @@ class AdminPortfolioController extends Controller
 
     public function edit(Portfolio $portfolio)
     {
-        return view('admin.portfolios.edit', compact('portfolio'));
+        $categories = PortfolioCategory::active()->ordered()->get();
+        return view('admin.portfolios.edit', compact('portfolio', 'categories'));
     }
 
     public function update(Request $request, Portfolio $portfolio)

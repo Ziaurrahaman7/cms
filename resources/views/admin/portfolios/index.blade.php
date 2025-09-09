@@ -15,6 +15,7 @@
         <div class="flex gap-3">
             <button onclick="selectAll()" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">Select All</button>
             <button onclick="deleteSelected()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">Delete Selected</button>
+            <a href="{{ route('admin.portfolio-categories.create') }}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">Add Category</a>
             <a href="{{ route('admin.portfolios.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">Add Portfolio</a>
         </div>
     </div>
@@ -30,10 +31,9 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
                 <select name="category" class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option value="">All Categories</option>
-                    <option value="app" {{ request('category') == 'app' ? 'selected' : '' }}>App Design</option>
-                    <option value="product" {{ request('category') == 'product' ? 'selected' : '' }}>App Development</option>
-                    <option value="branding" {{ request('category') == 'branding' ? 'selected' : '' }}>Branding</option>
-                    <option value="books" {{ request('category') == 'books' ? 'selected' : '' }}>IT Solutions</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->slug }}" {{ request('category') == $category->slug ? 'selected' : '' }}>{{ $category->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div>
