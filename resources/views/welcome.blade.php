@@ -233,9 +233,48 @@
     <div class="container">
       <div class="section-header">
         <h2>Pricing Plans</h2>
-        <p>Lorem ipsum dolor sit amet</p>
+        <p>Choose the perfect plan for your needs</p>
       </div>
       <div class="row">
+        @php
+          $pricingPlans = App\Models\PricingPlan::active()->ordered()->get();
+        @endphp
+        
+        @forelse($pricingPlans as $plan)
+        <div class="col-lg-4">
+          <div class="card text-center {{ $plan->is_popular ? 'popular' : '' }}">
+            @if($plan->is_popular)
+              <div class="popular-badge">Most Popular</div>
+            @endif
+            <div class="title">
+              <h2>{{ $plan->name }}</h2>
+              @if($plan->description)
+                <p class="plan-desc">{{ $plan->description }}</p>
+              @endif
+            </div>
+            <div class="price">
+              <h4>
+                @if($plan->currency === 'BDT')
+                  <sup>৳</sup>{{ number_format($plan->price, 0) }}
+                @elseif($plan->currency === 'EUR')
+                  <sup>€</sup>{{ number_format($plan->price, 2) }}
+                @else
+                  <sup>$</sup>{{ number_format($plan->price, 2) }}
+                @endif
+              </h4>
+              <span class="period">per {{ $plan->period }}</span>
+            </div>
+            <div class="option">
+              <ul>
+                @foreach($plan->features as $feature)
+                  <li><i class="bi bi-check-circle" aria-hidden="true"></i> {{ $feature }}</li>
+                @endforeach
+              </ul>
+            </div>
+            <a href="#contact" class="{{ $plan->is_popular ? 'btn-popular' : '' }}">Order Now</a>
+          </div>
+        </div>
+        @empty
         <div class="col-lg-4">
           <div class="card text-center">
             <div class="title">
@@ -246,22 +285,17 @@
             </div>
             <div class="option">
               <ul>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Unlimited GB Space</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> 30 Domain Names</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Free SSL</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Daily Backup</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Free Templates</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Free Email</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> 10 Databases</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Unlimited Email Address</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Live Support</li>
+                <li><i class="bi bi-check-circle" aria-hidden="true"></i> 5 GB Storage</li>
+                <li><i class="bi bi-check-circle" aria-hidden="true"></i> 10 Email Accounts</li>
+                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Basic Support</li>
               </ul>
             </div>
             <a href="#">Order Now</a>
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="card text-center">
+          <div class="card text-center popular">
+            <div class="popular-badge">Most Popular</div>
             <div class="title">
               <h2>Standard</h2>
             </div>
@@ -270,18 +304,12 @@
             </div>
             <div class="option">
               <ul>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Unlimited GB Space</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> 30 Domain Names</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Free SSL</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Daily Backup</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Free Templates</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Free Email</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> 10 Databases</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Unlimited Email Address</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Live Support</li>
+                <li><i class="bi bi-check-circle" aria-hidden="true"></i> 50 GB Storage</li>
+                <li><i class="bi bi-check-circle" aria-hidden="true"></i> 50 Email Accounts</li>
+                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Priority Support</li>
               </ul>
             </div>
-            <a href="#">Order Now</a>
+            <a href="#" class="btn-popular">Order Now</a>
           </div>
         </div>
         <div class="col-lg-4">
@@ -294,20 +322,15 @@
             </div>
             <div class="option">
               <ul>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Unlimited GB Space</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> 30 Domain Names</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Free SSL</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Daily Backup</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Free Templates</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Free Email</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> 10 Databases</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Unlimited Email Address</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Live Support</li>
+                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Unlimited Storage</li>
+                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Unlimited Email</li>
+                <li><i class="bi bi-check-circle" aria-hidden="true"></i> 24/7 Support</li>
               </ul>
             </div>
             <a href="#">Order Now</a>
           </div>
         </div>
+        @endforelse
       </div>
     </div>
   </div>

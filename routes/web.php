@@ -89,6 +89,17 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{portfolioCategory}', [App\Http\Controllers\AdminPortfolioCategoryController::class, 'destroy'])->name('destroy');
         Route::post('/bulk-delete', [App\Http\Controllers\AdminPortfolioCategoryController::class, 'bulkDelete'])->name('bulk-delete');
     });
+    
+    // Admin Pricing Plan Management
+    Route::prefix('admin/pricing-plans')->name('admin.pricing-plans.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminPricingPlanController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminPricingPlanController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminPricingPlanController::class, 'store'])->name('store');
+        Route::get('/{pricingPlan}/edit', [App\Http\Controllers\AdminPricingPlanController::class, 'edit'])->name('edit');
+        Route::put('/{pricingPlan}', [App\Http\Controllers\AdminPricingPlanController::class, 'update'])->name('update');
+        Route::delete('/{pricingPlan}', [App\Http\Controllers\AdminPricingPlanController::class, 'destroy'])->name('destroy');
+        Route::post('/bulk-delete', [App\Http\Controllers\AdminPricingPlanController::class, 'bulkDelete'])->name('bulk-delete');
+    });
 });
 
 require __DIR__.'/auth.php';
