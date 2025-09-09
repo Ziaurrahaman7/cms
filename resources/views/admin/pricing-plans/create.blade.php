@@ -160,10 +160,13 @@
 document.getElementById('add-feature').addEventListener('click', function() {
     const container = document.getElementById('features-container');
     const newFeature = document.createElement('div');
-    newFeature.className = 'input-group mb-2 feature-item';
+    newFeature.className = 'flex gap-2 feature-item';
     newFeature.innerHTML = `
-        <input type="text" class="form-control" name="features[]" placeholder="Enter feature" required>
-        <button type="button" class="btn btn-outline-danger remove-feature">Remove</button>
+        <input type="text" name="features[]" placeholder="Enter feature" required
+            class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        <button type="button" class="px-3 py-2 bg-red-100 text-red-700 rounded-md hover:bg-red-200 transition-colors remove-feature">
+            Remove
+        </button>
     `;
     container.appendChild(newFeature);
 });
