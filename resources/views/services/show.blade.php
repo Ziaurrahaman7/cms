@@ -136,37 +136,76 @@
 <!-- Contact Section -->
 <section id="contact" class="py-5" style="background: #f8f9fa;">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
+        <div class="row">
+            <div class="col-lg-6">
                 <h2 class="mb-4">Ready to Get Started?</h2>
                 <p class="lead mb-4">Contact us today to discuss how our {{ $service->title }} can help your business grow.</p>
-                <div class="row g-4">
-                    <div class="col-md-4">
-                        <div class="contact-item text-center">
-                            <div class="contact-icon mb-3">
-                                <i class="bi bi-telephone-fill" style="font-size: 2rem; color: #667eea;"></i>
+                
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                        <div class="contact-item">
+                            <div class="d-flex align-items-center">
+                                <div class="contact-icon me-3">
+                                    <i class="bi bi-telephone-fill" style="font-size: 1.5rem; color: #667eea;"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">Call Us</h6>
+                                    <p class="text-muted mb-0">+1 (234) 567-890</p>
+                                </div>
                             </div>
-                            <h5>Call Us</h5>
-                            <p class="text-muted">+1 (234) 567-890</p>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="contact-item text-center">
-                            <div class="contact-icon mb-3">
-                                <i class="bi bi-envelope-fill" style="font-size: 2rem; color: #667eea;"></i>
+                    <div class="col-md-6">
+                        <div class="contact-item">
+                            <div class="d-flex align-items-center">
+                                <div class="contact-icon me-3">
+                                    <i class="bi bi-envelope-fill" style="font-size: 1.5rem; color: #667eea;"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">Email Us</h6>
+                                    <p class="text-muted mb-0">info@example.com</p>
+                                </div>
                             </div>
-                            <h5>Email Us</h5>
-                            <p class="text-muted">info@example.com</p>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="contact-item text-center">
-                            <div class="contact-icon mb-3">
-                                <i class="bi bi-chat-dots-fill" style="font-size: 2rem; color: #667eea;"></i>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-body p-4">
+                        <h5 class="card-title mb-4">Get a Free Quote</h5>
+                        <form action="#" method="POST">
+                            @csrf
+                            <input type="hidden" name="service" value="{{ $service->title }}">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="name" class="form-label">Name *</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email *</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="company" class="form-label">Company</label>
+                                    <input type="text" class="form-control" id="company" name="company">
+                                </div>
+                                <div class="col-12">
+                                    <label for="message" class="form-label">Message *</label>
+                                    <textarea class="form-control" id="message" name="message" rows="4" placeholder="Tell us about your project requirements..." required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill" style="background: linear-gradient(45deg, #667eea, #764ba2); border: none;">
+                                        Send Message
+                                    </button>
+                                </div>
                             </div>
-                            <h5>Live Chat</h5>
-                            <p class="text-muted">Available 24/7</p>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
