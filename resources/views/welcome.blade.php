@@ -709,9 +709,13 @@
 <div id="contact" class="contact-section section">
   <div class="section-header">
     <h2>Contact Us</h2>
-    <p>Lorem ipsum dolor sit amet</p>
+    <p>Get in touch with us for any inquiries or project discussions</p>
   </div>
   <div class="container">
+    @if(session('success'))
+      <div class="alert alert-success mb-4">{{ session('success') }}</div>
+    @endif
+    
     <div class="row">
       <div class="col-lg-4 col-md-12" data-aos="fade-right">
         <div class="contact-information-box-3">
@@ -720,8 +724,7 @@
               <div class="single-contact-info-box">
                 <div class="contact-info">
                   <h6>Address:</h6>
-                  <p>11 West Town</p>
-                  <p>PBo 12345, United States</p>
+                  <p>{{ App\Models\SiteSetting::get('contact_address', '11 West Town, PBo 12345, United States') }}</p>
                 </div>
               </div>
             </div>
@@ -729,8 +732,10 @@
               <div class="single-contact-info-box">
                 <div class="contact-info">
                   <h6>Phone:</h6>
-                  <p>+1 1234 56 789</p>
-                  <p>+1 1234 56 780</p>
+                  <p>{{ App\Models\SiteSetting::get('contact_phone', '+1 (234) 567-890') }}</p>
+                  @if(App\Models\SiteSetting::get('contact_whatsapp'))
+                    <p>WhatsApp: {{ App\Models\SiteSetting::get('contact_whatsapp') }}</p>
+                  @endif
                 </div>
               </div>
             </div>
@@ -738,8 +743,7 @@
               <div class="single-contact-info-box">
                 <div class="contact-info">
                   <h6>Email:</h6>
-                  <p>info@example.com</p>
-                  <p>email@example.com</p>
+                  <p>{{ App\Models\SiteSetting::get('contact_email', 'info@example.com') }}</p>
                 </div>
               </div>
             </div>
@@ -749,40 +753,60 @@
       <div class="col-lg-8 col-md-12" data-aos="fade-left">
         <div class="contact-form-box contact-form contact-form-3">
           <div class="form-container-box">
-            <form class="contact-form form" id="ajax-contact" method="post" action="#">
+            <form class="contact-form form" method="POST" action="{{ route('contact.store') }}">
+              @csrf
               <div class="controls">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group form-input-box">
-                      <input type="text" class="form-control" id="name" name="name" placeholder="Name*" required="required" data-error="Name is required.">
-                      <div class="help-block with-errors"></div>
+                      <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Name*" value="{{ old('name') }}" required>
+                      @error('name')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group form-input-box">
-                      <input type="email" class="form-control" id="email" name="email" placeholder="Email*" required="required" data-error="Valid email is required.">
-                      <div class="help-block with-errors"></div>
+                      <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Email*" value="{{ old('email') }}" required>
+                      @error('email')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group form-input-box">
+                      <input type="tel" class="form-control" name="phone" placeholder="Phone" value="{{ old('phone') }}">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group form-input-box">
+                      <select class="form-control" name="service">
+                        <option value="">Select Service</option>
+                        @php
+                          $services = App\Models\Service::active()->ordered()->get();
+                        @endphp
+                        @foreach($services as $service)
+                          <option value="{{ $service->title }}" {{ old('service') === $service->title ? 'selected' : '' }}>{{ $service->title }}</option>
+                        @endforeach
+                        <option value="Others" {{ old('service') === 'Others' ? 'selected' : '' }}>Others</option>
+                      </select>
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="form-group form-input-box">
-                      <input type="text" class="form-control" name="subject" placeholder="Subject" required="required">
+                      <input type="text" class="form-control" name="company" placeholder="Company" value="{{ old('company') }}">
                     </div>
                   </div>
                   <div class="col-12">
                     <div class="form-group form-input-box">
-                      <textarea class="form-control" id="message" name="message" rows="7" placeholder="Write Your Message*" required="required" data-error="Please, leave us a message."></textarea>
-                      <div class="help-block with-errors"></div>
+                      <textarea class="form-control @error('message') is-invalid @enderror" name="message" rows="7" placeholder="Write Your Message*" required>{{ old('message') }}</textarea>
+                      @error('message')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
                     </div>
                   </div>
                   <div class="col-md-12">
                     <button type="submit" data-text="Send Message">Send Message</button>
-                  </div>
-                  <div class="messages">
-                    <div class="alert alert alert-success alert-dismissable alert-dismissable hidden" id="msgSubmit">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> 
-                      Thank You! your message has been sent. 
-                    </div>
                   </div>
                 </div>
               </div>

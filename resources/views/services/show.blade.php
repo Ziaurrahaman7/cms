@@ -175,29 +175,43 @@
                 <div class="card border-0 shadow-sm rounded-4">
                     <div class="card-body p-4">
                         <h5 class="card-title mb-4">Get a Free Quote</h5>
-                        <form action="#" method="POST">
+                        <form action="{{ route('contact.store') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="service" value="{{ $service->title }}">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label for="name" class="form-label">Name *</label>
-                                    <input type="text" class="form-control" id="name" name="name" required>
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="email" class="form-label">Email *</label>
-                                    <input type="email" class="form-control" id="email" name="email" required>
+                                    <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="phone" class="form-label">Phone</label>
-                                    <input type="tel" class="form-control" id="phone" name="phone">
+                                    <input type="tel" class="form-control" id="phone" name="phone" value="{{ old('phone') }}">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="company" class="form-label">Company</label>
-                                    <input type="text" class="form-control" id="company" name="company">
+                                    <input type="text" class="form-control" id="company" name="company" value="{{ old('company') }}">
+                                </div>
+                                <div class="col-12">
+                                    <label for="service" class="form-label">Service Interested In</label>
+                                    <select class="form-control" id="service" name="service">
+                                        <option value="">Select a service</option>
+                                        @php
+                                            $services = App\Models\Service::active()->ordered()->get();
+                                        @endphp
+                                        @foreach($services as $serviceOption)
+                                            <option value="{{ $serviceOption->title }}" {{ old('service', $service->title ?? '') === $serviceOption->title ? 'selected' : '' }}>
+                                                {{ $serviceOption->title }}
+                                            </option>
+                                        @endforeach
+                                        <option value="Others" {{ old('service') === 'Others' ? 'selected' : '' }}>Others</option>
+                                    </select>
                                 </div>
                                 <div class="col-12">
                                     <label for="message" class="form-label">Message *</label>
-                                    <textarea class="form-control" id="message" name="message" rows="4" placeholder="Tell us about your project requirements..." required></textarea>
+                                    <textarea class="form-control" id="message" name="message" rows="4" placeholder="Tell us about your project requirements..." required>{{ old('message') }}</textarea>
                                 </div>
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill" style="background: linear-gradient(45deg, #667eea, #764ba2); border: none;">

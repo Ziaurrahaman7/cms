@@ -8,14 +8,12 @@
                 <h2 class="text-2xl font-bold text-gray-800">Site Settings</h2>
                 <p class="text-gray-600 mt-1">Manage your website configuration and content</p>
             </div>
-            @if($settings->isEmpty())
-                <form action="{{ route('admin.site-settings.seed') }}" method="POST" class="inline">
-                    @csrf
-                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors">
-                        Create Default Settings
-                    </button>
-                </form>
-            @endif
+            <form action="{{ route('admin.site-settings.seed') }}" method="POST" class="inline">
+                @csrf
+                <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors">
+                    {{ $settings->isEmpty() ? 'Create Default Settings' : 'Update Settings' }}
+                </button>
+            </form>
         </div>
     </div>
     
@@ -148,6 +146,46 @@
                                 <textarea name="settings[{{ $setting->key }}]" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{{ $setting->value }}</textarea>
                             @else
                                 <input type="text" name="settings[{{ $setting->key }}]" value="{{ $setting->value }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+            
+            <!-- Email Settings -->
+            @if(isset($settings['email']))
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Email Configuration</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    @foreach($settings['email'] as $setting)
+                        <div class="{{ in_array($setting->key, ['mail_from_address', 'mail_from_name']) ? 'md:col-span-2' : '' }}">
+                            <label for="{{ $setting->key }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ ucwords(str_replace('_', ' ', str_replace('mail_', '', $setting->key))) }}
+                            </label>
+                            @if($setting->key === 'mail_password')
+                                <input type="password" name="settings[{{ $setting->key }}]" value="{{ $setting->value }}" placeholder="Enter email password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @elseif($setting->key === 'mail_mailer')
+                                <select name="settings[{{ $setting->key }}]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="smtp" {{ $setting->value === 'smtp' ? 'selected' : '' }}>SMTP</option>
+                                    <option value="log" {{ $setting->value === 'log' ? 'selected' : '' }}>Log (Testing)</option>
+                                    <option value="sendmail" {{ $setting->value === 'sendmail' ? 'selected' : '' }}>Sendmail</option>
+                                </select>
+                            @elseif($setting->key === 'mail_encryption')
+                                <select name="settings[{{ $setting->key }}]" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="tls" {{ $setting->value === 'tls' ? 'selected' : '' }}>TLS</option>
+                                    <option value="ssl" {{ $setting->value === 'ssl' ? 'selected' : '' }}>SSL</option>
+                                    <option value="" {{ $setting->value === '' ? 'selected' : '' }}>None</option>
+                                </select>
+                            @else
+                                <input type="{{ $setting->type === 'email' ? 'email' : 'text' }}" name="settings[{{ $setting->key }}]" value="{{ $setting->value }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @endif
+                            @if($setting->key === 'mail_username')
+                                <p class="mt-1 text-sm text-gray-500">Your email address for SMTP authentication</p>
+                            @elseif($setting->key === 'mail_password')
+                                <p class="mt-1 text-sm text-gray-500">App password for Gmail or email password</p>
+                            @elseif($setting->key === 'mail_from_address')
+                                <p class="mt-1 text-sm text-gray-500">Email address that appears as sender</p>
                             @endif
                         </div>
                     @endforeach

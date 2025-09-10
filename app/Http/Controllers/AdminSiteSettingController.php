@@ -81,6 +81,16 @@ class AdminSiteSettingController extends Controller
             // Footer Settings
             ['key' => 'footer_copyright', 'value' => '© 2024 Technoit. All rights reserved.', 'type' => 'text', 'group' => 'footer'],
             ['key' => 'footer_description', 'value' => 'Professional IT solutions and business services to help your company grow and succeed in the digital world.', 'type' => 'textarea', 'group' => 'footer'],
+            
+            // Email Settings
+            ['key' => 'mail_mailer', 'value' => 'smtp', 'type' => 'text', 'group' => 'email'],
+            ['key' => 'mail_host', 'value' => 'smtp.gmail.com', 'type' => 'text', 'group' => 'email'],
+            ['key' => 'mail_port', 'value' => '587', 'type' => 'text', 'group' => 'email'],
+            ['key' => 'mail_username', 'value' => '', 'type' => 'email', 'group' => 'email'],
+            ['key' => 'mail_password', 'value' => '', 'type' => 'text', 'group' => 'email'],
+            ['key' => 'mail_encryption', 'value' => 'tls', 'type' => 'text', 'group' => 'email'],
+            ['key' => 'mail_from_address', 'value' => '', 'type' => 'email', 'group' => 'email'],
+            ['key' => 'mail_from_name', 'value' => 'Technoit', 'type' => 'text', 'group' => 'email'],
         ];
 
         foreach ($defaultSettings as $setting) {

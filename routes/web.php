@@ -18,6 +18,9 @@ Route::get('/blog/{post}', [App\Http\Controllers\PostController::class, 'show'])
 // Public service routes
 Route::get('/services/{slug}', [App\Http\Controllers\ServiceController::class, 'show'])->name('services.show');
 
+// Contact form
+Route::post('/contact', [App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
+
 Route::middleware('auth')->group(function () {
     
     Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -136,6 +139,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/{feature}/edit', [App\Http\Controllers\AdminFeatureController::class, 'edit'])->name('edit');
         Route::put('/{feature}', [App\Http\Controllers\AdminFeatureController::class, 'update'])->name('update');
         Route::delete('/{feature}', [App\Http\Controllers\AdminFeatureController::class, 'destroy'])->name('destroy');
+    });
+    
+    // Admin Contact Management
+    Route::prefix('admin/contacts')->name('admin.contacts.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminContactController::class, 'index'])->name('index');
+        Route::get('/{contact}', [App\Http\Controllers\AdminContactController::class, 'show'])->name('show');
+        Route::patch('/{contact}/status', [App\Http\Controllers\AdminContactController::class, 'updateStatus'])->name('update-status');
+        Route::delete('/{contact}', [App\Http\Controllers\AdminContactController::class, 'destroy'])->name('destroy');
     });
 });
 
