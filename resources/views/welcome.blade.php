@@ -30,60 +30,89 @@
 
 <main id="main">
   <!-- Start Service Section -->
-  <div id="services" class="section">
-    <div class="top-icon-box position-relative">
-      <div class="container position-relative">
-        <div class="section-header">
-          <h2>Services We Offer</h2>
-          <p>Lorem ipsum dolor sit amet</p>
-        </div>
-        <div class="row gy-4">
-          <div class="col-xl-4 col-md-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><img src="{{ asset('assets/images/icons/service-design.svg') }}" alt="icon"></div>
-              <h4 class="title"><a href="#" class="stretched-link">Application Design</a></h4>
-              <p>Ronsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+  <div id="services" class="section py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container">
+      <div class="section-header text-center mb-5">
+        <h2 class="text-white mb-3">Services We Offer</h2>
+        <p class="text-white-50">Professional IT solutions tailored to your business needs</p>
+      </div>
+      
+      <div class="row g-4">
+        @php
+          $services = App\Models\Service::active()->ordered()->get();
+        @endphp
+        
+        @forelse($services as $service)
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
+          <div class="service-card h-100 bg-white rounded-4 shadow-lg overflow-hidden" style="transition: all 0.3s ease; border: none;">
+            <div class="service-image position-relative" style="height: 200px; overflow: hidden;">
+              @if($service->image && file_exists(public_path('storage/services/' . $service->image)))
+                <img src="{{ asset('storage/services/' . $service->image) }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $service->title }}">
+              @else
+                <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);">
+                  @if($service->icon)
+                    <i class="{{ $service->icon }} text-white" style="font-size: 3rem;"></i>
+                  @else
+                    <svg class="text-white" width="60" height="60" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                    </svg>
+                  @endif
+                </div>
+              @endif
+              <div class="service-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease;">
+                <span class="text-white fw-bold">Learn More</span>
+              </div>
             </div>
-          </div>
-          <div class="col-xl-4 col-md-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><img src="{{ asset('assets/images/icons/service-hosting.svg') }}" alt="icon"></div>
-              <h4 class="title"><a href="#" class="stretched-link">Web Hosting</a></h4>
-              <p>Ronsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-          </div>
-          <div class="col-xl-4 col-md-4" data-aos="fade-up" data-aos-delay="500">
-            <div class="icon-box">
-              <div class="icon"><img src="{{ asset('assets/images/icons/service-social.svg') }}" alt="icon"></div>
-              <h4 class="title"><a href="#" class="stretched-link">Social Media</a></h4>
-              <p>Ronsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-          </div>
-          <div class="col-xl-4 col-md-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><img src="{{ asset('assets/images/icons/service-seo.svg') }}" alt="icon"></div>
-              <h4 class="title"><a href="#" class="stretched-link">SEO Optimization</a></h4>
-              <p>Ronsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-          </div>
-          <div class="col-xl-4 col-md-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><img src="{{ asset('assets/images/icons/service-cloud.svg') }}" alt="icon"></div>
-              <h4 class="title"><a href="#" class="stretched-link">Cloud Server</a></h4>
-              <p>Ronsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-          </div>
-          <div class="col-xl-4 col-md-4" data-aos="fade-up" data-aos-delay="500">
-            <div class="icon-box">
-              <div class="icon"><img src="{{ asset('assets/images/icons/service-secure.svg') }}" alt="icon"></div>
-              <h4 class="title"><a href="#" class="stretched-link">Data Security</a></h4>
-              <p>Ronsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            
+            <div class="card-body p-4">
+              <h4 class="card-title mb-3 fw-bold" style="color: #2c3e50;">{{ $service->title }}</h4>
+              <p class="card-text text-muted mb-4">{{ $service->description }}</p>
+              <div class="d-flex align-items-center justify-content-between">
+                <a href="{{ route('services.show', $service->slug) }}" class="btn btn-primary btn-sm px-4 py-2 rounded-pill" style="background: linear-gradient(45deg, #667eea, #764ba2); border: none;">
+                  Learn More
+                </a>
+                <div class="service-number text-muted fw-bold" style="font-size: 2rem; opacity: 0.1;">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</div>
+              </div>
             </div>
           </div>
         </div>
+        @empty
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="service-card h-100 bg-white rounded-4 shadow-lg overflow-hidden">
+            <div class="service-image position-relative" style="height: 200px; background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);">
+              <div class="w-100 h-100 d-flex align-items-center justify-content-center">
+                <svg class="text-white" width="60" height="60" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="card-body p-4">
+              <h4 class="card-title mb-3 fw-bold">Web Development</h4>
+              <p class="card-text text-muted mb-4">Professional web development services using modern technologies and best practices.</p>
+              <div class="d-flex align-items-center justify-content-between">
+                <a href="#contact" class="btn btn-primary btn-sm px-4 py-2 rounded-pill">Get Started</a>
+                <div class="service-number text-muted fw-bold" style="font-size: 2rem; opacity: 0.1;">01</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        @endforelse
       </div>
     </div>
   </div>
+  
+  <style>
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+    }
+    .service-card:hover .service-image img {
+      transform: scale(1.1);
+    }
+    .service-card:hover .service-overlay {
+      opacity: 1;
+    }
+  </style>
 
   <!-- Featured -->
   <section>

@@ -15,6 +15,9 @@ Route::get('/dashboard', function () {
 Route::get('/blog', [App\Http\Controllers\PostController::class, 'index'])->name('posts.index');
 Route::get('/blog/{post}', [App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
 
+// Public service routes
+Route::get('/services/{slug}', [App\Http\Controllers\ServiceController::class, 'show'])->name('services.show');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -99,6 +102,17 @@ Route::middleware('auth')->group(function () {
         Route::put('/{pricingPlan}', [App\Http\Controllers\AdminPricingPlanController::class, 'update'])->name('update');
         Route::delete('/{pricingPlan}', [App\Http\Controllers\AdminPricingPlanController::class, 'destroy'])->name('destroy');
         Route::post('/bulk-delete', [App\Http\Controllers\AdminPricingPlanController::class, 'bulkDelete'])->name('bulk-delete');
+    });
+    
+    // Admin Service Management
+    Route::prefix('admin/services')->name('admin.services.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminServiceController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminServiceController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminServiceController::class, 'store'])->name('store');
+        Route::get('/{service}/edit', [App\Http\Controllers\AdminServiceController::class, 'edit'])->name('edit');
+        Route::put('/{service}', [App\Http\Controllers\AdminServiceController::class, 'update'])->name('update');
+        Route::delete('/{service}', [App\Http\Controllers\AdminServiceController::class, 'destroy'])->name('destroy');
+        Route::post('/bulk-delete', [App\Http\Controllers\AdminServiceController::class, 'bulkDelete'])->name('bulk-delete');
     });
 });
 
