@@ -37,6 +37,59 @@
     .portfolio-wrap:hover .portfolio-overlay {
       opacity: 1 !important;
     }
+    
+    /* WhatsApp Float Button */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 90px;
+      right: 20px;
+      background-color: #25d366;
+      color: white;
+      border-radius: 50px;
+      text-align: center;
+      font-size: 30px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .whatsapp-float:hover {
+      background-color: #128c7e;
+      transform: scale(1.1);
+      color: white;
+      text-decoration: none;
+    }
+    
+    .whatsapp-float i {
+      margin-top: 2px;
+    }
+    
+    /* Animation */
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    .whatsapp-float {
+      animation: pulse 2s infinite;
+    }
+    
+    .whatsapp-float:hover {
+      animation: none;
+    }
   </style>
 </head>
 
@@ -50,6 +103,16 @@
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center">
     <i class="bi bi-arrow-up-short"></i>
   </a>
+
+  <!-- Fixed WhatsApp Button -->
+  @php
+    $whatsappNumber = App\Models\SiteSetting::get('contact_whatsapp');
+  @endphp
+  @if($whatsappNumber)
+  <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $whatsappNumber) }}" target="_blank" class="whatsapp-float" title="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  @endif
 
   <div id="preloader"></div>
 
