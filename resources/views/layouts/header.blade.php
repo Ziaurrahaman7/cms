@@ -8,17 +8,11 @@
         <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a></li>
         <li><a href="#services" class="">Services</a></li>
         <li><a href="#portfolio" class="">Portfolio</a></li>
+        <li><a href="#pricing" class="">Pricing</a></li>
         <li><a href="#testimonials" class="">Testimonials</a></li>
         <li><a href="#team" class="">Team</a></li>
-        <li class="dropdown"><a href="#"><span>Menu</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-          <ul>
-            <li><a href="#featured">About</a></li>
-            <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#faq">FAQs</a></li>
-            <li><a href="{{ route('posts.index') }}">Blogs</a></li>
-          </ul>
-        </li>
-        <li><a href="{{ route('posts.index') }}">News</a></li>
+        <li><a href="#faq" class="">FAQs</a></li>
+        <li><a href="{{ route('posts.index') }}" class="{{ request()->routeIs('posts.*') ? 'active' : '' }}">Blog</a></li>
       </ul>
     </nav>
     <a href="#contact" class="btn-get-started hide-on-mobile">Get Quotes</a>

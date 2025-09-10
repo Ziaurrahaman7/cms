@@ -5,14 +5,16 @@
 
 @section('content')
 <!--  Hero Section  -->
-<section id="hero" class="hero sticked-header-offset">
+<section id="hero" class="hero sticked-header-offset" style="@php $heroBg = App\Models\SiteSetting::get('hero_bg_image'); @endphp @if($heroBg && file_exists(public_path('storage/' . $heroBg))) background-image: url('{{ asset('storage/' . $heroBg) }}'); background-size: cover; background-position: center; background-attachment: fixed; @endif">
+  @if(!$heroBg || !file_exists(public_path('storage/' . $heroBg)))
   <div id="particles-js"></div>
   <div id="repulse-circle-div"></div>
+  @endif
   <div class="container position-relative">
     <div class="row gy-5 aos-init aos-animate">
       <div class="col-lg-7 offset-lg-5 dark-bg order-lg-1 d-flex flex-column justify-content-start text-left caption">
-        <h2 data-aos="fade-up">Delivering Superior Services <span>IT Solutions</span><span class="circle" data-aos="fade-right" data-aos-delay="800">.</span></h2>
-        <p data-aos="fade-up" data-aos-delay="400">You can easily change any design to your own. It is also highly customizable SEO friendly template.</p>
+        <h2 data-aos="fade-up">{{ App\Models\SiteSetting::get('hero_title', 'Delivering Superior Services IT Solutions') }}<span class="circle" data-aos="fade-right" data-aos-delay="800">.</span></h2>
+        <p data-aos="fade-up" data-aos-delay="400">{{ App\Models\SiteSetting::get('hero_subtitle', 'You can easily change any design to your own. It is also highly customizable SEO friendly template.') }}</p>
         <div class="social" data-aos="fade-up" data-aos-delay="600">
           <a href="#"><i class="bi bi-twitter-x"></i></a>
           <a href="#"><i class="bi bi-facebook"></i></a>
@@ -20,7 +22,7 @@
           <a href="#"><i class="bi bi-instagram"></i></a>
         </div>
         <div class="d-flex justify-content-start">
-          <a href="#contact" class="btn-get-started mr-20" data-aos="fade-up" data-aos-delay="800">Get Quotes</a>
+          <a href="{{ App\Models\SiteSetting::get('hero_button_link', '#contact') }}" class="btn-get-started mr-20" data-aos="fade-up" data-aos-delay="800">{{ App\Models\SiteSetting::get('hero_button_text', 'Get Quotes') }}</a>
           <a href="#services" class="btn-get-started" data-aos="fade-up" data-aos-delay="1000">Get Started</a>
         </div>
       </div>
@@ -119,38 +121,44 @@
     <div class="container" id="featured">
         <div class="section-header" data-aos="fade-up" data-aos-delay="100">
           <h2>Why Choose Us</h2>
-          <p>Lorem ipsum dolor sit amet</p>
+          <p>Discover what makes us the perfect choice for your business</p>
         </div>
     <div class="row">
+      @php
+        $leftFeatures = App\Models\Feature::active()->position('left')->ordered()->get();
+        $rightFeatures = App\Models\Feature::active()->position('right')->ordered()->get();
+      @endphp
+      
       <div class="col-md-4 left">
+        @forelse($leftFeatures as $feature)
+        <div class="list-wrap" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
+          <div class="description">
+            <h4>{{ $feature->title }}</h4>
+            <p>{{ $feature->description }}</p>
+          </div>
+          <div class="icon">
+            @if($feature->icon)
+              <div class="icon-wrapper" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; margin: 0 auto;">
+                <i class="{{ $feature->icon }}" style="font-size: 1.8rem; color: white;"></i>
+              </div>
+            @else
+              <img src="{{ asset('assets/images/icons/icon-' . ($loop->index + 1) . '.svg') }}" alt="icon">
+            @endif
+          </div>
+        </div>
+        @empty
         <div class="list-wrap" data-aos="fade-up" data-aos-delay="100">
           <div class="description">
             <h4>Experience</h4>
-            <p>Ronsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-            <div class="icon">
-              <img src="{{ asset('assets/images/icons/icon-1.svg') }}" alt="icon">
-            </div>
-        </div>
-        <div class="list-wrap" data-aos="fade-up" data-aos-delay="400">
-          <div class="description">
-            <h4>Products</h4>
-            <p>Ronsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-            <div class="icon">
-              <img src="{{ asset('assets/images/icons/icon-2.svg') }}" alt="icon">
-            </div>
-      </div>
-        <div class="list-wrap" data-aos="fade-up" data-aos-delay="500">
-          <div class="description">
-            <h4>Approach</h4>
-            <p>Ronsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p>Years of expertise in delivering quality IT solutions and services.</p>
           </div>
           <div class="icon">
-            <img src="{{ asset('assets/images/icons/icon-3.svg') }}" alt="icon">
+            <img src="{{ asset('assets/images/icons/icon-1.svg') }}" alt="icon">
           </div>
         </div>
+        @endforelse
       </div>
+      
       <div class="col-md-4 p-4 p-sm-5 center">
         <div class="list-center-wrap" data-aos="fade-up" data-aos-delay="100">
           <div class="center-icon">
@@ -158,34 +166,35 @@
           </div>
         </div>
       </div>
+      
       <div class="col-md-4 right">
+        @forelse($rightFeatures as $feature)
+        <div class="list-wrap" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
+          <div class="icon">
+            @if($feature->icon)
+              <div class="icon-wrapper" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; margin: 0 auto;">
+                <i class="{{ $feature->icon }}" style="font-size: 1.8rem; color: white;"></i>
+              </div>
+            @else
+              <img src="{{ asset('assets/images/icons/icon-' . ($loop->index + 4) . '.svg') }}" alt="icon">
+            @endif
+          </div>
+          <div class="description">
+            <h4>{{ $feature->title }}</h4>
+            <p>{{ $feature->description }}</p>
+          </div>
+        </div>
+        @empty
         <div class="list-wrap" data-aos="fade-up" data-aos-delay="100">
           <div class="icon">
             <img src="{{ asset('assets/images/icons/icon-4.svg') }}" alt="icon">
           </div>
           <div class="description">
-            <h4>Pricing</h4>
-            <p>Ronsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-      </div>
-        <div class="list-wrap" data-aos="fade-up" data-aos-delay="200">
-          <div class="icon">
-            <img src="{{ asset('assets/images/icons/icon-5.svg') }}" alt="icon">
-          </div>
-          <div class="description">
-            <h4>Delivery</h4>
-            <p>Ronsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <h4>Quality</h4>
+            <p>Committed to delivering high-quality solutions that exceed expectations.</p>
           </div>
         </div>
-        <div class="list-wrap" data-aos="fade-up" data-aos-delay="500">
-          <div class="icon">
-            <img src="{{ asset('assets/images/icons/icon-6.svg') }}" alt="icon">
-          </div>
-          <div class="description">
-            <h4>Support</h4>
-            <p>Ronsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div>
+        @endforelse
       </div>
     </div>
   </div>
@@ -469,20 +478,55 @@
 <!--  Clients Section  -->
 <div id="clients" class="clients section">
   <div class="container" data-aos="zoom-out">
+    <div class="section-header text-center mb-5">
+      <h2>Our Trusted Clients</h2>
+      <p>We're proud to work with amazing companies</p>
+    </div>
     <div class="clients-slider swiper">
       <div class="swiper-wrapper align-items-center">
+        @php
+          $clients = App\Models\Client::active()->ordered()->get();
+        @endphp
+        
+        @forelse($clients as $client)
+        <div class="swiper-slide">
+          @if($client->website_url)
+            <a href="{{ $client->website_url }}" target="_blank" class="client-link" title="{{ $client->name }}">
+          @endif
+          
+          @if($client->logo && file_exists(public_path('storage/clients/' . $client->logo)))
+            <img src="{{ asset('storage/clients/' . $client->logo) }}" class="img-fluid client-logo" alt="{{ $client->name }}" style="max-height: 80px; filter: grayscale(100%); transition: all 0.3s ease;">
+          @else
+            <div class="client-placeholder d-flex align-items-center justify-content-center" style="height: 80px; background: #f8f9fa; border-radius: 8px;">
+              <span class="fw-bold text-muted">{{ $client->name }}</span>
+            </div>
+          @endif
+          
+          @if($client->website_url)
+            </a>
+          @endif
+        </div>
+        @empty
         <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-1.png') }}" class="img-fluid" alt=""></div>
         <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-2.png') }}" class="img-fluid" alt=""></div>
         <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-3.png') }}" class="img-fluid" alt=""></div>
         <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-4.png') }}" class="img-fluid" alt=""></div>
-        <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-5.png') }}" class="img-fluid" alt=""></div>
-        <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-6.png') }}" class="img-fluid" alt=""></div>
-        <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-7.png') }}" class="img-fluid" alt=""></div>
-        <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-8.png') }}" class="img-fluid" alt=""></div>
+        @endforelse
       </div>
     </div>
   </div>
 </div>
+
+<style>
+.client-logo:hover {
+  filter: grayscale(0%) !important;
+  transform: scale(1.05);
+}
+.client-link {
+  display: block;
+  text-decoration: none;
+}
+</style>
 
 <!--  Our Team Section  -->
 <section id="team" class="team sections-bg">

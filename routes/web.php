@@ -19,13 +19,8 @@ Route::get('/blog/{post}', [App\Http\Controllers\PostController::class, 'show'])
 Route::get('/services/{slug}', [App\Http\Controllers\ServiceController::class, 'show'])->name('services.show');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/admin/content', [App\Http\Controllers\AdminController::class, 'content'])->name('admin.content');
-    Route::post('/admin/content', [App\Http\Controllers\AdminController::class, 'updateContent'])->name('admin.content.update');
     
     // Admin Posts Management
     Route::prefix('admin/posts')->name('admin.posts.')->group(function () {
@@ -113,6 +108,34 @@ Route::middleware('auth')->group(function () {
         Route::put('/{service}', [App\Http\Controllers\AdminServiceController::class, 'update'])->name('update');
         Route::delete('/{service}', [App\Http\Controllers\AdminServiceController::class, 'destroy'])->name('destroy');
         Route::post('/bulk-delete', [App\Http\Controllers\AdminServiceController::class, 'bulkDelete'])->name('bulk-delete');
+    });
+    
+    // Admin Client Management
+    Route::prefix('admin/clients')->name('admin.clients.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminClientController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminClientController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminClientController::class, 'store'])->name('store');
+        Route::get('/{client}/edit', [App\Http\Controllers\AdminClientController::class, 'edit'])->name('edit');
+        Route::put('/{client}', [App\Http\Controllers\AdminClientController::class, 'update'])->name('update');
+        Route::delete('/{client}', [App\Http\Controllers\AdminClientController::class, 'destroy'])->name('destroy');
+        Route::post('/bulk-delete', [App\Http\Controllers\AdminClientController::class, 'bulkDelete'])->name('bulk-delete');
+    });
+    
+    // Admin Site Settings
+    Route::prefix('admin/site-settings')->name('admin.site-settings.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminSiteSettingController::class, 'index'])->name('index');
+        Route::post('/update', [App\Http\Controllers\AdminSiteSettingController::class, 'update'])->name('update');
+        Route::post('/seed', [App\Http\Controllers\AdminSiteSettingController::class, 'seed'])->name('seed');
+    });
+    
+    // Admin Feature Management
+    Route::prefix('admin/features')->name('admin.features.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminFeatureController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminFeatureController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminFeatureController::class, 'store'])->name('store');
+        Route::get('/{feature}/edit', [App\Http\Controllers\AdminFeatureController::class, 'edit'])->name('edit');
+        Route::put('/{feature}', [App\Http\Controllers\AdminFeatureController::class, 'update'])->name('update');
+        Route::delete('/{feature}', [App\Http\Controllers\AdminFeatureController::class, 'destroy'])->name('destroy');
     });
 });
 
