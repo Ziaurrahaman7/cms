@@ -205,7 +205,7 @@
   <div class="container" data-aos="fade-up">
     <div class="section-header">
       <h2>Our Portfolio</h2>
-      <p>Lorem ipsum dolor sit amet</p>
+      <p>Showcasing our best work and successful projects</p>
     </div>
     <div class="portfolio-isotope" data-portfolio-filter="*" data-portfolio-layout="masonry" data-portfolio-sort="original-order" data-aos="fade-up" data-aos-delay="100">
       <div>
@@ -381,7 +381,7 @@
   <div class="container" data-aos="fade-up">
     <div class="section-header">
       <h2>Testimonials</h2>
-      <p>Lorem ipsum dolor sit amet</p>
+      <p>What our clients say about our services</p>
     </div>
     <div class="slides-3 swiper" data-aos="fade-up" data-aos-delay="100">
       <div class="swiper-wrapper">
@@ -533,7 +533,7 @@
   <div class="container aos-init aos-animate" data-aos="fade-up">
     <div class="section-header">
       <h2>Team</h2>
-      <p>Lorem ipsum dolor sit amet</p>
+      <p>Meet our talented and experienced professionals</p>
     </div>
     <div class="row gy-4">
       @php
@@ -583,7 +583,7 @@
   <div class="container" data-aos="fade-up">
     <div class="section-header">
       <h2>FAQ's</h2>
-      <p>Lorem ipsum dolor sit amet</p>
+      <p>Frequently asked questions and answers</p>
     </div>
     <div class="row gy-4">
       <div class="col-lg-12">
