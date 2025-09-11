@@ -107,15 +107,13 @@
     <i class="bi bi-arrow-up-short"></i>
   </a>
 
-  <!-- Fixed WhatsApp Button -->
+  <!-- Fixed WhatsApp Button - All Pages -->
   @php
-    $whatsappNumber = App\Models\SiteSetting::get('contact_whatsapp');
+    $whatsappNumber = App\Models\SiteSetting::get('contact_whatsapp', '+8801234567890');
   @endphp
-  @if($whatsappNumber)
   <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $whatsappNumber) }}" target="_blank" class="whatsapp-float" title="Chat on WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
-  @endif
 
   <div id="preloader"></div>
 

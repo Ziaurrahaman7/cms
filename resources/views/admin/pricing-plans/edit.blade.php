@@ -1,143 +1,161 @@
 @extends('dashboard')
 
 @section('content')
-<div class="card">
-    <div class="card-header">
-        <div class="d-flex justify-content-between align-items-center">
+<div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <div class="flex justify-between items-center">
             <div>
-                <h2 class="mb-1">Edit Pricing Plan</h2>
-                <p class="text-muted mb-0">Update pricing plan details</p>
+                <h1 class="text-2xl font-bold text-gray-900">Edit Pricing Plan</h1>
+                <p class="text-gray-600 mt-1">Update pricing plan details</p>
             </div>
-            <a href="{{ route('admin.pricing-plans.index') }}" class="btn btn-secondary">
-                <i class="bi bi-arrow-left me-2"></i>Back to Plans
+            <a href="{{ route('admin.pricing-plans.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Back to Plans
             </a>
         </div>
     </div>
-    
-    <div class="card-body">
-                    <form action="{{ route('admin.pricing-plans.update', $pricingPlan) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Plan Name *</label>
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $pricingPlan->name) }}" required>
-                                    @error('name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label for="price" class="form-label">Price *</label>
-                                    <input type="number" step="0.01" class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price', $pricingPlan->price) }}" required>
-                                    @error('price')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label for="currency" class="form-label">Currency *</label>
-                                    <select class="form-select @error('currency') is-invalid @enderror" id="currency" name="currency" required>
-                                        <option value="USD" {{ old('currency', $pricingPlan->currency) === 'USD' ? 'selected' : '' }}>USD ($)</option>
-                                        <option value="BDT" {{ old('currency', $pricingPlan->currency) === 'BDT' ? 'selected' : '' }}>BDT (৳)</option>
-                                        <option value="EUR" {{ old('currency', $pricingPlan->currency) === 'EUR' ? 'selected' : '' }}>EUR (€)</option>
-                                    </select>
-                                    @error('currency')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="period" class="form-label">Period *</label>
-                                    <select class="form-select @error('period') is-invalid @enderror" id="period" name="period" required>
-                                        <option value="month" {{ old('period', $pricingPlan->period) === 'month' ? 'selected' : '' }}>Monthly</option>
-                                        <option value="year" {{ old('period', $pricingPlan->period) === 'year' ? 'selected' : '' }}>Yearly</option>
-                                        <option value="one-time" {{ old('period', $pricingPlan->period) === 'one-time' ? 'selected' : '' }}>One Time</option>
-                                    </select>
-                                    @error('period')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="sort_order" class="form-label">Sort Order</label>
-                                    <input type="number" class="form-control @error('sort_order') is-invalid @enderror" id="sort_order" name="sort_order" value="{{ old('sort_order', $pricingPlan->sort_order) }}" min="0">
-                                    @error('sort_order')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
+    <!-- Form -->
+    <div class="bg-white rounded-lg shadow-sm">
+        <div class="p-6">
+            <form action="{{ route('admin.pricing-plans.update', $pricingPlan) }}" method="POST" class="space-y-6">
+                @csrf
+                @method('PUT')
+                
+                <!-- Basic Information -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="md:col-span-2">
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Plan Name *</label>
+                        <input type="text" id="name" name="name" value="{{ old('name', $pricingPlan->name) }}" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('name') border-red-500 @enderror">
+                        @error('name')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="sort_order" class="block text-sm font-medium text-gray-700 mb-2">Sort Order</label>
+                        <input type="number" id="sort_order" name="sort_order" value="{{ old('sort_order', $pricingPlan->sort_order) }}" min="0"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
 
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3">{{ old('description', $pricingPlan->description) }}</textarea>
-                            @error('description')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                <!-- Price Information -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label for="price" class="block text-sm font-medium text-gray-700 mb-2">Price *</label>
+                        <input type="number" step="0.01" id="price" name="price" value="{{ old('price', $pricingPlan->price) }}" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('price') border-red-500 @enderror">
+                        @error('price')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="currency" class="block text-sm font-medium text-gray-700 mb-2">Currency *</label>
+                        <select id="currency" name="currency" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('currency') border-red-500 @enderror">
+                            <option value="USD" {{ old('currency', $pricingPlan->currency) === 'USD' ? 'selected' : '' }}>USD ($)</option>
+                            <option value="BDT" {{ old('currency', $pricingPlan->currency) === 'BDT' ? 'selected' : '' }}>BDT (৳)</option>
+                            <option value="EUR" {{ old('currency', $pricingPlan->currency) === 'EUR' ? 'selected' : '' }}>EUR (€)</option>
+                        </select>
+                        @error('currency')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="period" class="block text-sm font-medium text-gray-700 mb-2">Period *</label>
+                        <select id="period" name="period" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('period') border-red-500 @enderror">
+                            <option value="month" {{ old('period', $pricingPlan->period) === 'month' ? 'selected' : '' }}>Monthly</option>
+                            <option value="year" {{ old('period', $pricingPlan->period) === 'year' ? 'selected' : '' }}>Yearly</option>
+                            <option value="one-time" {{ old('period', $pricingPlan->period) === 'one-time' ? 'selected' : '' }}>One Time</option>
+                        </select>
+                        @error('period')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Features *</label>
-                            <div id="features-container">
-                                @php
-                                    $features = old('features', $pricingPlan->features ?? []);
-                                @endphp
-                                @foreach($features as $index => $feature)
-                                    <div class="input-group mb-2 feature-item">
-                                        <input type="text" class="form-control" name="features[]" value="{{ $feature }}" placeholder="Enter feature" required>
-                                        <button type="button" class="btn btn-outline-danger remove-feature">Remove</button>
-                                    </div>
-                                @endforeach
-                                @if(empty($features))
-                                    <div class="input-group mb-2 feature-item">
-                                        <input type="text" class="form-control" name="features[]" placeholder="Enter feature" required>
-                                        <button type="button" class="btn btn-outline-danger remove-feature">Remove</button>
-                                    </div>
-                                @endif
-                            </div>
-                            <button type="button" class="btn btn-outline-primary btn-sm" id="add-feature">Add Feature</button>
-                            @error('features')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
+                <!-- Description -->
+                <div>
+                    <label for="description" class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                    <textarea id="description" name="description" rows="3" placeholder="Brief description of the plan..."
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('description') border-red-500 @enderror">{{ old('description', $pricingPlan->description) }}</textarea>
+                    @error('description')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="is_popular" name="is_popular" {{ old('is_popular', $pricingPlan->is_popular) ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="is_popular">
-                                            Mark as Popular
-                                        </label>
-                                    </div>
-                                </div>
+                <!-- Features -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Features *</label>
+                    <div id="features-container" class="space-y-2">
+                        @php
+                            $features = old('features', $pricingPlan->features ?? []);
+                        @endphp
+                        @foreach($features as $index => $feature)
+                            <div class="flex gap-2 feature-item">
+                                <input type="text" name="features[]" value="{{ $feature }}" placeholder="Enter feature" required
+                                    class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <button type="button" class="px-3 py-2 bg-red-100 text-red-700 rounded-md hover:bg-red-200 transition-colors remove-feature">
+                                    Remove
+                                </button>
                             </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="is_active" name="is_active" {{ old('is_active', $pricingPlan->is_active) ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="is_active">
-                                            Active
-                                        </label>
-                                    </div>
-                                </div>
+                        @endforeach
+                        @if(empty($features))
+                            <div class="flex gap-2 feature-item">
+                                <input type="text" name="features[]" placeholder="Enter feature" required
+                                    class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <button type="button" class="px-3 py-2 bg-red-100 text-red-700 rounded-md hover:bg-red-200 transition-colors remove-feature">
+                                    Remove
+                                </button>
                             </div>
-                        </div>
+                        @endif
+                    </div>
+                    <button type="button" id="add-feature" class="mt-3 inline-flex items-center px-3 py-2 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200 transition-colors">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        Add Feature
+                    </button>
+                    @error('features')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
 
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-primary">Update Plan</button>
-                <a href="{{ route('admin.pricing-plans.index') }}" class="btn btn-secondary">Cancel</a>
-            </div>
-        </form>
+                <!-- Settings -->
+                <div class="border-t border-gray-200 pt-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="is_popular" name="is_popular" {{ old('is_popular', $pricingPlan->is_popular) ? 'checked' : '' }}
+                                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                            <label for="is_popular" class="ml-2 block text-sm text-gray-900">
+                                Mark as Popular
+                            </label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="is_active" name="is_active" {{ old('is_active', $pricingPlan->is_active) ? 'checked' : '' }}
+                                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                            <label for="is_active" class="ml-2 block text-sm text-gray-900">
+                                Active Plan
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Buttons -->
+                <div class="flex justify-end gap-3 pt-6 border-t border-gray-200">
+                    <a href="{{ route('admin.pricing-plans.index') }}" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors">
+                        Cancel
+                    </a>
+                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                        Update Plan
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

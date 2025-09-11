@@ -226,4 +226,13 @@
         </div>
     </div>
 </section>
+
+<style>
+.breadcrumb-item+.breadcrumb-item::before {
+    float: left;
+    padding-right: var(--bs-breadcrumb-item-padding-x);
+    color: var(--bs-breadcrumb-divider-color);
+    content: ">" !important;
+}
+</style>
 @endsection

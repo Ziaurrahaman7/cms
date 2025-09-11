@@ -85,12 +85,16 @@ class AdminServiceController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
+            'content' => 'nullable|string',
+            'meta_title' => 'nullable|string|max:60',
+            'meta_description' => 'nullable|string|max:160',
+            'meta_keywords' => 'nullable|string',
             'icon' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'sort_order' => 'nullable|integer|min:0',
         ]);
 
-        $data = $request->except(['image']);
+        $data = $request->except(['image', 'faqs']);
         $data['is_active'] = $request->has('is_active');
 
         if ($request->hasFile('image')) {
@@ -105,6 +109,25 @@ class AdminServiceController extends Controller
         }
 
         $service->update($data);
+
+        // Handle FAQs
+        if ($request->has('faqs')) {
+            // Delete existing FAQs
+            $service->faqs()->delete();
+            
+            // Create new FAQs
+            foreach ($request->faqs as $index => $faqData) {
+                if (!empty($faqData['question']) && !empty($faqData['answer'])) {
+                    ServiceFaq::create([
+                        'service_id' => $service->id,
+                        'question' => $faqData['question'],
+                        'answer' => $faqData['answer'],
+                        'is_active' => isset($faqData['is_active']),
+                        'sort_order' => $index
+                    ]);
+                }
+            }
+        }
 
         return redirect()->route('admin.services.index')->with('success', 'Service updated successfully!');
     }
