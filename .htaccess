@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Handle storage files
+    RewriteRule ^storage/(.*)$ public/storage/$1 [L]
+    
+    # Handle assets (CSS, JS, images, fonts)
+    RewriteRule ^assets/(.*)$ public/assets/$1 [L]
+    RewriteRule ^css/(.*)$ public/css/$1 [L]
+    RewriteRule ^js/(.*)$ public/js/$1 [L]
+    RewriteRule ^images/(.*)$ public/images/$1 [L]
+    RewriteRule ^fonts/(.*)$ public/fonts/$1 [L]
+    RewriteRule ^build/(.*)$ public/build/$1 [L]
+    
+    # Handle Laravel routes through index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
