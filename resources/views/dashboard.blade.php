@@ -21,13 +21,13 @@
 <body class="bg-gray-50">
     <div class="flex h-screen">
         <!-- Sidebar -->
-        <div class="w-64 bg-primary text-white shadow-lg">
-            <div class="p-6 border-b border-gray-700">
+        <div class="w-64 bg-primary text-white shadow-lg flex flex-col h-screen">
+            <div class="p-6 border-b border-gray-700 flex-shrink-0">
                 <h2 class="text-2xl font-bold text-center">TechnoIT</h2>
                 <p class="text-gray-300 text-sm text-center mt-1">Admin Panel</p>
             </div>
             
-            <nav class="mt-6">
+            <nav class="mt-6 flex-1 overflow-y-auto">
                 <div class="px-4 py-2">
                     <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Main</p>
                 </div>
@@ -151,23 +151,7 @@
                 </a>
             </nav>
             
-            <div class="absolute bottom-0 w-64 p-4 border-t border-gray-700">
-                <div class="flex items-center">
-                    <div class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center">
-                        <span class="text-white font-semibold">{{ substr(Auth::user()->name, 0, 1) }}</span>
-                    </div>
-                    <div class="ml-3">
-                        <p class="text-sm font-medium">{{ Auth::user()->name }}</p>
-                        <p class="text-xs text-gray-400">{{ Auth::user()->email }}</p>
-                    </div>
-                </div>
-                <form method="POST" action="{{ route('logout') }}" class="mt-3">
-                    @csrf
-                    <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg text-sm transition-colors">
-                        Logout
-                    </button>
-                </form>
-            </div>
+
         </div>
         
         <!-- Main Content -->
@@ -184,12 +168,18 @@
                             <p class="text-sm text-gray-500">{{ now()->format('l, F j, Y') }}</p>
                             <p class="text-xs text-gray-400">{{ now()->format('g:i A') }}</p>
                         </div>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg text-sm transition-colors">
+                                Logout
+                            </button>
+                        </form>
                     </div>
                 </div>
             </header>
             
             <!-- Dashboard Content -->
-            <main class="p-6 overflow-y-auto h-full">
+            <main class="p-6 overflow-y-auto" style="height: calc(100vh - 80px);">
                 @yield('content')
                 @if(!View::hasSection('content'))
                 <!-- Stats Cards -->
