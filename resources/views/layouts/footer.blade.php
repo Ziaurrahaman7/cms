@@ -6,19 +6,33 @@
                   <div class="footer-widget">
                       <div class="footer-logo">
                           <a href="{{ route('home') }}" class="logo d-flex align-items-center">
-                            <img src="{{ asset('assets/images/logo.png') }}" alt="logo">
+                            @php
+                              $siteLogo = App\Models\SiteSetting::get('site_logo');
+                            @endphp
+                            @if($siteLogo && file_exists(public_path('storage/' . $siteLogo)))
+                              <img src="{{ asset('storage/' . $siteLogo) }}" alt="{{ App\Models\SiteSetting::get('site_name', 'Technoit') }}">
+                            @else
+                              <img src="{{ asset('assets/images/logo.png') }}" alt="{{ App\Models\SiteSetting::get('site_name', 'Technoit') }}">
+                            @endif
                           </a>
                       </div>
                       <div class="footer-text">
-                          <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor incididuntut consec tetur adipisicing
-                          elit,Lorem ipsum dolor sit amet.</p>
+                          <p>{{ App\Models\SiteSetting::get('footer_description', 'Professional IT solutions and business services to help your company grow and succeed in the digital world.') }}</p>
                       </div>
                       <div class="footer-social-icon">
                           <span>Follow us</span>
-                          <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-                          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                          @if(App\Models\SiteSetting::get('social_twitter'))
+                            <a href="{{ App\Models\SiteSetting::get('social_twitter') }}" class="twitter"><i class="bi bi-twitter-x"></i></a>
+                          @endif
+                          @if(App\Models\SiteSetting::get('social_facebook'))
+                            <a href="{{ App\Models\SiteSetting::get('social_facebook') }}" class="facebook"><i class="bi bi-facebook"></i></a>
+                          @endif
+                          @if(App\Models\SiteSetting::get('social_instagram'))
+                            <a href="{{ App\Models\SiteSetting::get('social_instagram') }}" class="instagram"><i class="bi bi-instagram"></i></a>
+                          @endif
+                          @if(App\Models\SiteSetting::get('social_linkedin'))
+                            <a href="{{ App\Models\SiteSetting::get('social_linkedin') }}" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                          @endif
                       </div>
                   </div>
               </div>
@@ -29,12 +43,22 @@
                           <h3>Services</h3>
                       </div>
                         <ul class="list">
-                            <li><a href="#services">Web Design</a></li>
-                            <li><a href="#services">App Development</a></li>
-                            <li><a href="#services">Cloud Services</a></li>
-                            <li><a href="#services">Domain and Hosting</a></li>
-                            <li><a href="#services">SEO Optimization</a></li>
-                            <li><a href="#services">Social Media</a></li>
+                            @php
+                              $footerServices = App\Models\Service::active()->ordered()->take(6)->get();
+                            @endphp
+                            @forelse($footerServices as $service)
+                              <li><a href="{{ route('services.show', $service->slug) }}">{{ $service->title }}</a></li>
+                            @empty
+                              <li><a href="#services">Web Design</a></li>
+                              <li><a href="#services">App Development</a></li>
+                              <li><a href="#services">Cloud Services</a></li>
+                              <li><a href="#services">Domain and Hosting</a></li>
+                              <li><a href="#services">SEO Optimization</a></li>
+                              <li><a href="#services">Social Media</a></li>
+                            @endforelse
+                            @if(App\Models\Service::active()->count() > 6)
+                              <li><a href="#services">More...</a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -59,9 +83,9 @@
                           <h3>Contacts</h3>
                       </div>
                         <div class="footer-text">
-                            <p><i class="bi bi-geo-alt-fill mr-15"></i> 101 West Town , PBO 12345, United States</p>
-                            <p><i class="bi bi-telephone-inbound-fill mr-15"></i> +1 1234 56 789</p>
-                            <p><i class="bi bi-envelope-fill mr-15"></i> contact@example.com</p>
+                            <p><i class="bi bi-geo-alt-fill mr-15"></i> {{ App\Models\SiteSetting::get('contact_address', '101 West Town, PBO 12345, United States') }}</p>
+                            <p><i class="bi bi-telephone-inbound-fill mr-15"></i> {{ App\Models\SiteSetting::get('contact_phone', '+1 1234 56 789') }}</p>
+                            <p><i class="bi bi-envelope-fill mr-15"></i> {{ App\Models\SiteSetting::get('contact_email', 'contact@example.com') }}</p>
                         </div>
                   </div>
                   <div class="footer-widget">
@@ -83,7 +107,7 @@
           <div class="row">
               <div class="col-xl-6 col-lg-6 text-left text-lg-left">
                   <div class="copyright-text">
-                      <p>Technoit © 2023 - Designed by <a href="https://www.templatemonster.com/authors/zrthemes/">Zr Themes</a></p>
+                      <p>{{ App\Models\SiteSetting::get('footer_copyright', '© 2024 Technoit. All rights reserved.') }}</p>
                   </div>
               </div>
           </div>

@@ -1,8 +1,5 @@
 @extends('layouts.app')
 
-@section('title', 'Technoit - IT Solutions & Business Services')
-@section('description', 'Professional IT Solutions and Business Services for your company')
-
 @section('content')
 <!--  Hero Section  -->
 <section id="hero" class="hero sticked-header-offset" style="@php $heroBg = App\Models\SiteSetting::get('hero_bg_image'); @endphp @if($heroBg && file_exists(public_path('storage/' . $heroBg))) background-image: url('{{ asset('storage/' . $heroBg) }}'); background-size: cover; background-position: center; background-attachment: fixed; @endif">
@@ -16,10 +13,21 @@
         <h2 data-aos="fade-up">{{ App\Models\SiteSetting::get('hero_title', 'Delivering Superior Services IT Solutions') }}<span class="circle" data-aos="fade-right" data-aos-delay="800">.</span></h2>
         <p data-aos="fade-up" data-aos-delay="400">{{ App\Models\SiteSetting::get('hero_subtitle', 'You can easily change any design to your own. It is also highly customizable SEO friendly template.') }}</p>
         <div class="social" data-aos="fade-up" data-aos-delay="600">
-          <a href="#"><i class="bi bi-twitter-x"></i></a>
-          <a href="#"><i class="bi bi-facebook"></i></a>
-          <a href="#"><i class="bi bi-linkedin"></i></a>
-          <a href="#"><i class="bi bi-instagram"></i></a>
+          @if(App\Models\SiteSetting::get('social_twitter'))
+            <a href="{{ App\Models\SiteSetting::get('social_twitter') }}" target="_blank"><i class="bi bi-twitter-x"></i></a>
+          @endif
+          @if(App\Models\SiteSetting::get('social_facebook'))
+            <a href="{{ App\Models\SiteSetting::get('social_facebook') }}" target="_blank"><i class="bi bi-facebook"></i></a>
+          @endif
+          @if(App\Models\SiteSetting::get('social_linkedin'))
+            <a href="{{ App\Models\SiteSetting::get('social_linkedin') }}" target="_blank"><i class="bi bi-linkedin"></i></a>
+          @endif
+          @if(App\Models\SiteSetting::get('social_instagram'))
+            <a href="{{ App\Models\SiteSetting::get('social_instagram') }}" target="_blank"><i class="bi bi-instagram"></i></a>
+          @endif
+          @if(App\Models\SiteSetting::get('social_youtube'))
+            <a href="{{ App\Models\SiteSetting::get('social_youtube') }}" target="_blank"><i class="bi bi-youtube"></i></a>
+          @endif
         </div>
         <div class="d-flex justify-content-start">
           <a href="{{ App\Models\SiteSetting::get('hero_button_link', '#contact') }}" class="btn-get-started mr-20" data-aos="fade-up" data-aos-delay="800">{{ App\Models\SiteSetting::get('hero_button_text', 'Get Quotes') }}</a>
@@ -724,7 +732,7 @@
               <div class="single-contact-info-box">
                 <div class="contact-info">
                   <h6>Address:</h6>
-                  <p>{{ App\Models\SiteSetting::get('contact_address', '11 West Town, PBo 12345, United States') }}</p>
+                  <p>{!! nl2br(e(App\Models\SiteSetting::get('contact_address', '11 West Town, PBo 12345, United States'))) !!}</p>
                 </div>
               </div>
             </div>
@@ -732,9 +740,9 @@
               <div class="single-contact-info-box">
                 <div class="contact-info">
                   <h6>Phone:</h6>
-                  <p>{{ App\Models\SiteSetting::get('contact_phone', '+1 (234) 567-890') }}</p>
+                  <p><a href="tel:{{ App\Models\SiteSetting::get('contact_phone', '+1 (234) 567-890') }}">{{ App\Models\SiteSetting::get('contact_phone', '+1 (234) 567-890') }}</a></p>
                   @if(App\Models\SiteSetting::get('contact_whatsapp'))
-                    <p>WhatsApp: {{ App\Models\SiteSetting::get('contact_whatsapp') }}</p>
+                    <p>WhatsApp: <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', App\Models\SiteSetting::get('contact_whatsapp')) }}" target="_blank">{{ App\Models\SiteSetting::get('contact_whatsapp') }}</a></p>
                   @endif
                 </div>
               </div>
@@ -743,7 +751,7 @@
               <div class="single-contact-info-box">
                 <div class="contact-info">
                   <h6>Email:</h6>
-                  <p>{{ App\Models\SiteSetting::get('contact_email', 'info@example.com') }}</p>
+                  <p><a href="mailto:{{ App\Models\SiteSetting::get('contact_email', 'info@example.com') }}">{{ App\Models\SiteSetting::get('contact_email', 'info@example.com') }}</a></p>
                 </div>
               </div>
             </div>

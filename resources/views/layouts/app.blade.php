@@ -3,13 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>@yield('title', 'Technoit - IT Solutions & Business Services')</title>
-  <meta name="description" content="@yield('description', 'Technoit - IT Solutions & Business Services Multipurpose Responsive Website Template')">
+  <title>@yield('title', App\Models\SiteSetting::get('meta_title', 'Technoit - IT Solutions & Business Services'))</title>
+  <meta name="description" content="@yield('description', App\Models\SiteSetting::get('meta_description', 'Professional IT Solutions and Business Services for your company'))">
+  <meta name="keywords" content="{{ App\Models\SiteSetting::get('meta_keywords', 'IT solutions, web development, business services') }}">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
   <!-- Favicons -->
-  <link href="{{ asset('assets/images/favicon.png') }}" rel="icon">
-  <link href="{{ asset('assets/images/apple-touch-icon.png') }}" rel="apple-touch-icon">
+  @php
+    $siteFavicon = App\Models\SiteSetting::get('site_favicon');
+  @endphp
+  @if($siteFavicon && file_exists(public_path('storage/' . $siteFavicon)))
+    <link href="{{ asset('storage/' . $siteFavicon) }}" rel="icon">
+    <link href="{{ asset('storage/' . $siteFavicon) }}" rel="apple-touch-icon">
+  @else
+    <link href="{{ asset('assets/images/favicon.png') }}" rel="icon">
+    <link href="{{ asset('assets/images/apple-touch-icon.png') }}" rel="apple-touch-icon">
+  @endif
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">

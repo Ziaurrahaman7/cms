@@ -136,6 +136,23 @@
 <!-- Contact Section -->
 <section id="contact" class="py-5" style="background: #f8f9fa;">
     <div class="container">
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show mb-4" role="alert" style="position: relative; z-index: 10;">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <strong>Thank you!</strong> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <script>
+            // Auto hide after 5 seconds
+            setTimeout(function() {
+                var alert = document.querySelector('.alert-success');
+                if(alert) {
+                    var bsAlert = new bootstrap.Alert(alert);
+                    bsAlert.close();
+                }
+            }, 5000);
+        </script>
+        @endif
         <div class="row">
             <div class="col-lg-6">
                 <h2 class="mb-4">Ready to Get Started?</h2>
@@ -150,7 +167,7 @@
                                 </div>
                                 <div>
                                     <h6 class="mb-1">Call Us</h6>
-                                    <p class="text-muted mb-0">+1 (234) 567-890</p>
+                                    <p class="text-muted mb-0">{{ App\Models\SiteSetting::get('contact_phone', '+1 (234) 567-890') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -163,7 +180,7 @@
                                 </div>
                                 <div>
                                     <h6 class="mb-1">Email Us</h6>
-                                    <p class="text-muted mb-0">info@example.com</p>
+                                    <p class="text-muted mb-0">{{ App\Models\SiteSetting::get('contact_email', 'info@example.com') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -202,7 +219,7 @@
                                             $services = App\Models\Service::active()->ordered()->get();
                                         @endphp
                                         @foreach($services as $serviceOption)
-                                            <option value="{{ $serviceOption->title }}" {{ old('service', $service->title ?? '') === $serviceOption->title ? 'selected' : '' }}>
+                                            <option value="{{ $serviceOption->title }}" {{ old('service', $service->title) === $serviceOption->title ? 'selected' : '' }}>
                                                 {{ $serviceOption->title }}
                                             </option>
                                         @endforeach
@@ -233,6 +250,16 @@
     padding-right: var(--bs-breadcrumb-item-padding-x);
     color: var(--bs-breadcrumb-divider-color);
     content: ">" !important;
+}
+
+/* Fix form input z-index issue */
+.card .form-control,
+.card .btn,
+.card input,
+.card textarea,
+.card select {
+    position: relative;
+    z-index: 2;
 }
 </style>
 @endsection

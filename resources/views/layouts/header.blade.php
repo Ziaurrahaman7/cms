@@ -1,17 +1,24 @@
 <header id="header" class="header d-flex align-items-center sticked stikcy-menu">
   <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
     <a href="{{ route('home') }}" class="logo d-flex align-items-center">
-      <img src="{{ asset('assets/images/logo.png') }}" alt="logo">
+      @php
+        $siteLogo = App\Models\SiteSetting::get('site_logo');
+      @endphp
+      @if($siteLogo && file_exists(public_path('storage/' . $siteLogo)))
+        <img src="{{ asset('storage/' . $siteLogo) }}" alt="{{ App\Models\SiteSetting::get('site_name', 'Technoit') }}">
+      @else
+        <img src="{{ asset('assets/images/logo.png') }}" alt="{{ App\Models\SiteSetting::get('site_name', 'Technoit') }}">
+      @endif
     </a>
     <nav id="navbar" class="navbar">
       <ul>
         <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a></li>
-        <li><a href="#services" class="">Services</a></li>
-        <li><a href="#portfolio" class="">Portfolio</a></li>
-        <li><a href="#pricing" class="">Pricing</a></li>
-        <li><a href="#testimonials" class="">Testimonials</a></li>
-        <li><a href="#team" class="">Team</a></li>
-        <li><a href="#faq" class="">FAQs</a></li>
+        <li><a href="{{ route('home') }}#services" class="">Services</a></li>
+        <li><a href="{{ route('home') }}#portfolio" class="">Portfolio</a></li>
+        <li><a href="{{ route('home') }}#pricing" class="">Pricing</a></li>
+        <li><a href="{{ route('home') }}#testimonials" class="">Testimonials</a></li>
+        <li><a href="{{ route('home') }}#team" class="">Team</a></li>
+        <li><a href="{{ route('home') }}#faq" class="">FAQs</a></li>
         <li><a href="{{ route('posts.index') }}" class="{{ request()->routeIs('posts.*') ? 'active' : '' }}">Blog</a></li>
       </ul>
     </nav>

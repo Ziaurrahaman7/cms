@@ -19,6 +19,9 @@ class AdminSiteSettingController extends Controller
         $request->validate([
             'settings' => 'required|array',
         ]);
+        
+        // Debug: Check what's being sent
+        \Log::info('Settings update request:', $request->all());
 
         foreach ($request->settings as $key => $value) {
             $setting = SiteSetting::where('key', $key)->first();
@@ -38,8 +41,20 @@ class AdminSiteSettingController extends Controller
                 }
                 
                 $setting->update(['value' => $value]);
+                
+                // Clear cache for this setting
+                \Illuminate\Support\Facades\Cache::forget("setting_{$key}");
+                
+                \Log::info("Updated setting: {$key} = {$value}");
+            } else {
+                \Log::warning("Setting not found: {$key}");
             }
         }
+        
+        // Clear all settings cache
+        \Illuminate\Support\Facades\Cache::flush();
+        
+        \Log::info('Settings updated successfully');
 
         return redirect()->route('admin.site-settings.index')->with('success', 'Settings updated successfully!');
     }
@@ -99,6 +114,9 @@ class AdminSiteSettingController extends Controller
                 $setting
             );
         }
+        
+        // Clear all cache
+        \Illuminate\Support\Facades\Cache::flush();
 
         return redirect()->route('admin.site-settings.index')->with('success', 'Default settings created successfully!');
     }
