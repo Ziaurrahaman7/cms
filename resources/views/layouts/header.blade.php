@@ -13,13 +13,12 @@
     <nav id="navbar" class="navbar">
       <ul>
         <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a></li>
-        <li><a href="{{ route('home') }}#services" class="">Services</a></li>
-        <li><a href="{{ route('home') }}#portfolio" class="">Portfolio</a></li>
-        <li><a href="{{ route('home') }}#pricing" class="">Pricing</a></li>
-        <li><a href="{{ route('home') }}#testimonials" class="">Testimonials</a></li>
-        <li><a href="{{ route('home') }}#team" class="">Team</a></li>
-        <li><a href="{{ route('home') }}#faq" class="">FAQs</a></li>
+        <li><a href="{{ route('about.index') }}" class="{{ request()->routeIs('about.*') ? 'active' : '' }}">About</a></li>
+        <li><a href="{{ route('services.index') }}" class="{{ request()->routeIs('services.*') ? 'active' : '' }}">Services</a></li>
+        <li><a href="{{ route('clients.index') }}" class="{{ request()->routeIs('clients.*') ? 'active' : '' }}">Clients</a></li>
+        <li><a href="{{ route('case-study.index') }}" class="{{ request()->routeIs('case-study.*') ? 'active' : '' }}">Case Study</a></li>
         <li><a href="{{ route('posts.index') }}" class="{{ request()->routeIs('posts.*') ? 'active' : '' }}">Blog</a></li>
+        <li><a href="{{ route('contact.index') }}" class="{{ request()->routeIs('contact.*') ? 'active' : '' }}">Contact</a></li>
       </ul>
     </nav>
     <a href="#contact" class="btn-get-started hide-on-mobile">Get Quotes</a>

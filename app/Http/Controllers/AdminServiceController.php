@@ -34,7 +34,8 @@ class AdminServiceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:255|unique:services,title',
+            'slug' => 'required|string|max:255|unique:services,slug|regex:/^[a-z0-9-]+$/',
             'description' => 'required|string',
             'content' => 'nullable|string',
             'meta_title' => 'nullable|string|max:60',
@@ -43,6 +44,10 @@ class AdminServiceController extends Controller
             'icon' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'sort_order' => 'nullable|integer|min:0',
+        ], [
+            'title.unique' => 'A service with this title already exists. Please choose a different title.',
+            'slug.unique' => 'A service with this slug already exists. Please choose a different slug.',
+            'slug.regex' => 'Slug can only contain lowercase letters, numbers, and hyphens.',
         ]);
 
         $data = $request->except(['image']);
@@ -83,7 +88,8 @@ class AdminServiceController extends Controller
     public function update(Request $request, Service $service)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:255|unique:services,title,' . $service->id,
+            'slug' => 'required|string|max:255|unique:services,slug,' . $service->id . '|regex:/^[a-z0-9-]+$/',
             'description' => 'required|string',
             'content' => 'nullable|string',
             'meta_title' => 'nullable|string|max:60',
@@ -92,6 +98,10 @@ class AdminServiceController extends Controller
             'icon' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'sort_order' => 'nullable|integer|min:0',
+        ], [
+            'title.unique' => 'A service with this title already exists. Please choose a different title.',
+            'slug.unique' => 'A service with this slug already exists. Please choose a different slug.',
+            'slug.regex' => 'Slug can only contain lowercase letters, numbers, and hyphens.',
         ]);
 
         $data = $request->except(['image', 'faqs']);

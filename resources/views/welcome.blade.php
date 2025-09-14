@@ -9,7 +9,7 @@
   @endif
   <div class="container position-relative">
     <div class="row gy-5 aos-init aos-animate">
-      <div class="col-lg-7 offset-lg-5 dark-bg order-lg-1 d-flex flex-column justify-content-start text-left caption">
+      <div class="text-left col-lg-7 offset-lg-5 dark-bg order-lg-1 d-flex flex-column justify-content-start caption">
         <h2 data-aos="fade-up">{{ App\Models\SiteSetting::get('hero_title', 'Delivering Superior Services IT Solutions') }}<span class="circle" data-aos="fade-right" data-aos-delay="800">.</span></h2>
         <p data-aos="fade-up" data-aos-delay="400">{{ App\Models\SiteSetting::get('hero_subtitle', 'You can easily change any design to your own. It is also highly customizable SEO friendly template.') }}</p>
         <div class="social" data-aos="fade-up" data-aos-delay="600">
@@ -30,7 +30,7 @@
           @endif
         </div>
         <div class="d-flex justify-content-start">
-          <a href="{{ App\Models\SiteSetting::get('hero_button_link', '#contact') }}" class="btn-get-started mr-20" data-aos="fade-up" data-aos-delay="800">{{ App\Models\SiteSetting::get('hero_button_text', 'Get Quotes') }}</a>
+          <a href="{{ App\Models\SiteSetting::get('hero_button_link', '#contact') }}" class="mr-20 btn-get-started" data-aos="fade-up" data-aos-delay="800">{{ App\Models\SiteSetting::get('hero_button_text', 'Get Quotes') }}</a>
           <a href="#services" class="btn-get-started" data-aos="fade-up" data-aos-delay="1000">Get Started</a>
         </div>
       </div>
@@ -40,10 +40,10 @@
 
 <main id="main">
   <!-- Start Service Section -->
-  <div id="services" class="section py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+  <div id="services" class="py-5 section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
     <div class="container">
-      <div class="section-header text-center mb-5">
-        <h2 class="text-white mb-3">Services We Offer</h2>
+      <div class="mb-5 text-center section-header">
+        <h2 class="mb-3 text-white">Services We Offer</h2>
         <p class="text-white-50">Professional IT solutions tailored to your business needs</p>
       </div>
       
@@ -54,7 +54,7 @@
         
         @forelse($services as $service)
         <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
-          <div class="service-card h-100 bg-white rounded-4 shadow-lg overflow-hidden" style="transition: all 0.3s ease; border: none;">
+          <div class="overflow-hidden bg-white shadow-lg service-card h-100 rounded-4" style="transition: all 0.3s ease; border: none;">
             <div class="service-image position-relative" style="height: 200px; overflow: hidden;">
               @if($service->image && file_exists(public_path('storage/services/' . $service->image)))
                 <img src="{{ asset('storage/services/' . $service->image) }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $service->title }}">
@@ -69,16 +69,16 @@
                   @endif
                 </div>
               @endif
-              <div class="service-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease;">
+              <div class="top-0 service-overlay position-absolute start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease;">
                 <span class="text-white fw-bold">Learn More</span>
               </div>
             </div>
             
-            <div class="card-body p-4">
-              <h4 class="card-title mb-3 fw-bold" style="color: #2c3e50;">{{ $service->title }}</h4>
-              <p class="card-text text-muted mb-4">{{ $service->description }}</p>
+            <div class="p-4 card-body">
+              <h4 class="mb-3 card-title fw-bold" style="color: #2c3e50;">{{ $service->title }}</h4>
+              <p class="mb-4 card-text text-muted">{{ $service->description }}</p>
               <div class="d-flex align-items-center justify-content-between">
-                <a href="{{ route('services.show', $service->slug) }}" class="btn btn-primary btn-sm px-4 py-2 rounded-pill" style="background: linear-gradient(45deg, #667eea, #764ba2); border: none;">
+                <a href="{{ route('services.show', $service->slug) }}" class="px-4 py-2 btn btn-primary btn-sm rounded-pill" style="background: linear-gradient(45deg, #667eea, #764ba2); border: none;">
                   Learn More
                 </a>
                 <div class="service-number text-muted fw-bold" style="font-size: 2rem; opacity: 0.1;">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</div>
@@ -88,7 +88,7 @@
         </div>
         @empty
         <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-          <div class="service-card h-100 bg-white rounded-4 shadow-lg overflow-hidden">
+          <div class="overflow-hidden bg-white shadow-lg service-card h-100 rounded-4">
             <div class="service-image position-relative" style="height: 200px; background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);">
               <div class="w-100 h-100 d-flex align-items-center justify-content-center">
                 <svg class="text-white" width="60" height="60" fill="currentColor" viewBox="0 0 24 24">
@@ -96,11 +96,11 @@
                 </svg>
               </div>
             </div>
-            <div class="card-body p-4">
-              <h4 class="card-title mb-3 fw-bold">Web Development</h4>
-              <p class="card-text text-muted mb-4">Professional web development services using modern technologies and best practices.</p>
+            <div class="p-4 card-body">
+              <h4 class="mb-3 card-title fw-bold">Web Development</h4>
+              <p class="mb-4 card-text text-muted">Professional web development services using modern technologies and best practices.</p>
               <div class="d-flex align-items-center justify-content-between">
-                <a href="#contact" class="btn btn-primary btn-sm px-4 py-2 rounded-pill">Get Started</a>
+                <a href="{{ route('contact.index') }}" class="px-4 py-2 btn btn-primary btn-sm rounded-pill">Get Started</a>
                 <div class="service-number text-muted fw-bold" style="font-size: 2rem; opacity: 0.1;">01</div>
               </div>
             </div>
@@ -167,7 +167,7 @@
         @endforelse
       </div>
       
-      <div class="col-md-4 p-4 p-sm-5 center">
+      <div class="p-4 col-md-4 p-sm-5 center">
         <div class="list-center-wrap" data-aos="fade-up" data-aos-delay="100">
           <div class="center-icon">
             <img src="{{ asset('assets/images/features.jpg') }}" alt="icon">
@@ -234,7 +234,7 @@
         
         @forelse($portfolios as $portfolio)
         <div class="col-xl-4 col-md-6 portfolio-item filter-{{ $portfolio->category }}">
-          <div class="portfolio-wrap position-relative overflow-hidden">
+          <div class="overflow-hidden portfolio-wrap position-relative">
             @if($portfolio->image && file_exists(public_path('storage/portfolios/' . $portfolio->image)))
               <a href="{{ asset('storage/portfolios/' . $portfolio->image) }}" class="glightbox" data-gallery="portfolio-gallery" data-glightbox="title: {{ $portfolio->title }}; description: {{ $portfolio->description }}">
                 <img src="{{ asset('storage/portfolios/' . $portfolio->image) }}" class="img-fluid" alt="{{ $portfolio->title }}" style="transition: transform 0.3s ease;">
@@ -244,7 +244,7 @@
                 <img src="{{ asset('assets/images/portfolio/product-' . (($loop->index % 6) + 1) . '.jpg') }}" class="img-fluid" alt="{{ $portfolio->title }}" style="transition: transform 0.3s ease;">
               </a>
             @endif
-            <div class="portfolio-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease; pointer-events: none;">
+            <div class="top-0 portfolio-overlay position-absolute start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease; pointer-events: none;">
               <div class="text-center text-white">
                 <h5 class="mb-2">{{ $portfolio->title }}</h5>
                 <p class="mb-3">{{ Str::limit($portfolio->description, 50) }}</p>
@@ -257,11 +257,11 @@
         </div>
         @empty
         <div class="col-xl-4 col-md-6 portfolio-item filter-app">
-          <div class="portfolio-wrap position-relative overflow-hidden">
+          <div class="overflow-hidden portfolio-wrap position-relative">
             <a href="{{ asset('assets/images/portfolio/product-1.jpg') }}" class="glightbox" data-gallery="portfolio-gallery" data-glightbox="title: Sample Project; description: Professional web development">
               <img src="{{ asset('assets/images/portfolio/product-1.jpg') }}" class="img-fluid" alt="Sample Project" style="transition: transform 0.3s ease;">
             </a>
-            <div class="portfolio-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease; pointer-events: none;">
+            <div class="top-0 portfolio-overlay position-absolute start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease; pointer-events: none;">
               <div class="text-center text-white">
                 <h5 class="mb-2">Sample Project</h5>
                 <p class="mb-3">Professional web development</p>
@@ -319,12 +319,12 @@
                 @endforeach
               </ul>
             </div>
-            <a href="#contact" class="{{ $plan->is_popular ? 'btn-popular' : '' }}">Order Now</a>
+            <a href="{{ route('contact.index') }}" class="{{ $plan->is_popular ? 'btn-popular' : '' }}">Order Now</a>
           </div>
         </div>
         @empty
         <div class="col-lg-4">
-          <div class="card text-center">
+          <div class="text-center card">
             <div class="title">
               <h2>Basic</h2>
             </div>
@@ -342,7 +342,7 @@
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="card text-center popular">
+          <div class="text-center card popular">
             <div class="popular-badge">Most Popular</div>
             <div class="title">
               <h2>Standard</h2>
@@ -361,7 +361,7 @@
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="card text-center">
+          <div class="text-center card">
             <div class="title">
               <h2>Premium</h2>
             </div>
@@ -403,9 +403,9 @@
             <div class="testimonial-item">
               <div class="d-flex align-items-center info-box">
                 @if($testimonial->image && file_exists(public_path('storage/testimonials/' . $testimonial->image)))
-                  <img src="{{ asset('storage/testimonials/' . $testimonial->image) }}" class="testimonial-img flex-shrink-0" alt="{{ $testimonial->name }}">
+                  <img src="{{ asset('storage/testimonials/' . $testimonial->image) }}" class="flex-shrink-0 testimonial-img" alt="{{ $testimonial->name }}">
                 @else
-                  <img src="{{ asset('assets/images/testimonials/testimonial-' . (($loop->index % 4) + 1) . '.jpg') }}" class="testimonial-img flex-shrink-0" alt="{{ $testimonial->name }}">
+                  <img src="{{ asset('assets/images/testimonials/testimonial-' . (($loop->index % 4) + 1) . '.jpg') }}" class="flex-shrink-0 testimonial-img" alt="{{ $testimonial->name }}">
                 @endif
                 <div>
                   <h3>{{ $testimonial->name }}</h3>
@@ -430,7 +430,7 @@
           <div class="testimonial-wrap">
             <div class="testimonial-item">
               <div class="d-flex align-items-center info-box">
-                <img src="{{ asset('assets/images/testimonials/testimonial-1.jpg') }}" class="testimonial-img flex-shrink-0" alt="">
+                <img src="{{ asset('assets/images/testimonials/testimonial-1.jpg') }}" class="flex-shrink-0 testimonial-img" alt="">
                 <div>
                   <h3>John Doe</h3>
                   <h4>CEO</h4>
@@ -453,6 +453,106 @@
     </div>
   </div>
 </section>
+
+<!-- Promotions Section -->
+<section id="promotions" class="py-5" style="background: #f8f9fa;">
+  <div class="container">
+    <div class="mb-5 text-center section-header">
+      <h2 class="mb-3">Special Promotions</h2>
+      <p class="text-muted">Limited time offers and exclusive deals for our valued clients</p>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="overflow-hidden bg-white shadow-lg promotion-card rounded-4 h-100 position-relative">
+          <div class="top-0 px-3 py-1 text-white promotion-badge position-absolute end-0 bg-danger rounded-bottom-start">
+            <small class="fw-bold">50% OFF</small>
+          </div>
+          <div class="p-4 card-body">
+            <div class="mb-3 promotion-icon">
+              <div class="icon-wrapper" style="width: 60px; height: 60px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <i class="text-white bi bi-code-slash" style="font-size: 1.5rem;"></i>
+              </div>
+            </div>
+            <h4 class="mb-3 fw-bold">Web Development Package</h4>
+            <p class="mb-3 text-muted">Complete website development with modern design and responsive layout</p>
+            <div class="mb-3 price-section">
+              <span class="text-decoration-line-through text-muted">$2000</span>
+              <span class="fw-bold text-primary fs-4 ms-2">$1000</span>
+            </div>
+            <ul class="mb-4 list-unstyled">
+              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Responsive Design</li>
+              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>SEO Optimized</li>
+              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>1 Year Support</li>
+            </ul>
+            <a href="{{ route('contact.index') }}" class="btn btn-primary w-100 rounded-pill">Claim Offer</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="overflow-hidden bg-white shadow-lg promotion-card rounded-4 h-100 position-relative">
+          <div class="top-0 px-3 py-1 text-white promotion-badge position-absolute end-0 bg-success rounded-bottom-start">
+            <small class="fw-bold">30% OFF</small>
+          </div>
+          <div class="p-4 card-body">
+            <div class="mb-3 promotion-icon">
+              <div class="icon-wrapper" style="width: 60px; height: 60px; background: linear-gradient(45deg, #4ecdc4, #44a08d); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <i class="text-white bi bi-phone" style="font-size: 1.5rem;"></i>
+              </div>
+            </div>
+            <h4 class="mb-3 fw-bold">Mobile App Development</h4>
+            <p class="mb-3 text-muted">Cross-platform mobile application with native performance</p>
+            <div class="mb-3 price-section">
+              <span class="text-decoration-line-through text-muted">$5000</span>
+              <span class="fw-bold text-success fs-4 ms-2">$3500</span>
+            </div>
+            <ul class="mb-4 list-unstyled">
+              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>iOS & Android</li>
+              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>API Integration</li>
+              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>App Store Upload</li>
+            </ul>
+            <a href="{{ route('contact.index') }}" class="btn btn-success w-100 rounded-pill">Get Started</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="overflow-hidden bg-white shadow-lg promotion-card rounded-4 h-100 position-relative">
+          <div class="top-0 px-3 py-1 promotion-badge position-absolute end-0 bg-warning text-dark rounded-bottom-start">
+            <small class="fw-bold">FREE</small>
+          </div>
+          <div class="p-4 card-body">
+            <div class="mb-3 promotion-icon">
+              <div class="icon-wrapper" style="width: 60px; height: 60px; background: linear-gradient(45deg, #feca57, #ff9ff3); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <i class="text-white bi bi-chat-dots" style="font-size: 1.5rem;"></i>
+              </div>
+            </div>
+            <h4 class="mb-3 fw-bold">Free Consultation</h4>
+            <p class="mb-3 text-muted">Get expert advice and project estimation at no cost</p>
+            <div class="mb-3 price-section">
+              <span class="text-decoration-line-through text-muted">$200</span>
+              <span class="fw-bold text-warning fs-4 ms-2">FREE</span>
+            </div>
+            <ul class="mb-4 list-unstyled">
+              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Project Analysis</li>
+              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Cost Estimation</li>
+              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Technology Advice</li>
+            </ul>
+            <a href="{{ route('contact.index') }}" class="btn btn-warning w-100 rounded-pill text-dark">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.promotion-card:hover {
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+}
+</style>
 
 <!--  Start Counter Section  -->
 <div id="stats-counter" class="call-to-action stats-counter section">
@@ -486,7 +586,7 @@
 <!--  Clients Section  -->
 <div id="clients" class="clients section">
   <div class="container" data-aos="zoom-out">
-    <div class="section-header text-center mb-5">
+    <div class="mb-5 text-center section-header">
       <h2>Our Trusted Clients</h2>
       <p>We're proud to work with amazing companies</p>
     </div>
@@ -536,104 +636,8 @@
 }
 </style>
 
-<!--  Our Team Section  -->
-<section id="team" class="team sections-bg">
-  <div class="container aos-init aos-animate" data-aos="fade-up">
-    <div class="section-header">
-      <h2>Team</h2>
-      <p>Meet our talented and experienced professionals</p>
-    </div>
-    <div class="row gy-4">
-      @php
-        $teams = App\Models\Team::active()->ordered()->get();
-      @endphp
-      
-      @forelse($teams as $team)
-      <div class="col-xl-3 col-md-6 d-flex aos-init aos-animate" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
-        <div class="member">
-          @if($team->image && file_exists(public_path('storage/teams/' . $team->image)))
-            <img src="{{ asset('storage/teams/' . $team->image) }}" class="img-fluid" alt="{{ $team->name }}">
-          @else
-            <img src="{{ asset('assets/images/team/team-1.jpg') }}" class="img-fluid" alt="{{ $team->name }}">
-          @endif
-          <h4>{{ $team->name }}</h4>
-          <span>{{ $team->position }}</span>
-          @if($team->bio)
-            <p class="bio">{{ Str::limit($team->bio, 100) }}</p>
-          @endif
-          <div class="social">
-            @if($team->twitter)
-              <a href="{{ $team->twitter }}" target="_blank"><i class="bi bi-twitter-x"></i></a>
-            @endif
-            @if($team->facebook)
-              <a href="{{ $team->facebook }}" target="_blank"><i class="bi bi-facebook"></i></a>
-            @endif
-            @if($team->linkedin)
-              <a href="{{ $team->linkedin }}" target="_blank"><i class="bi bi-linkedin"></i></a>
-            @endif
-            @if($team->instagram)
-              <a href="{{ $team->instagram }}" target="_blank"><i class="bi bi-instagram"></i></a>
-            @endif
-          </div>
-        </div>
-      </div>
-      @empty
-      <div class="col-12 text-center">
-        <p class="text-muted">No team members found.</p>
-      </div>
-      @endforelse
-    </div>
-  </div>
-</section>
 
-<!--  Frequently Asked Questions Section  -->
-<section id="faq" class="faq">
-  <div class="container" data-aos="fade-up">
-    <div class="section-header">
-      <h2>FAQ's</h2>
-      <p>Frequently asked questions and answers</p>
-    </div>
-    <div class="row gy-4">
-      <div class="col-lg-12">
-        <div class="accordion accordion-flush" id="faqlist" data-aos="fade-up" data-aos-delay="100">
-          @php
-            $faqs = App\Models\Faq::active()->ordered()->get();
-          @endphp
-          
-          @forelse($faqs as $faq)
-          <div class="accordion-item">
-            <h3 class="accordion-header">
-              <button class="accordion-button {{ $loop->first ? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-{{ $faq->id }}">
-                <span class="num"><i class="bi bi-arrow-right-circle-fill"></i></span>
-                {{ $faq->question }}
-              </button>
-            </h3>
-            <div id="faq-content-{{ $faq->id }}" class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}" data-bs-parent="#faqlist">
-              <div class="accordion-body">
-                {{ $faq->answer }}
-              </div>
-            </div>
-          </div>
-          @empty
-          <div class="accordion-item">
-            <h3 class="accordion-header">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-default">
-                <span class="num"><i class="bi bi-arrow-right-circle-fill"></i></span>
-                What services do you offer?
-              </button>
-            </h3>
-            <div id="faq-content-default" class="accordion-collapse collapse show" data-bs-parent="#faqlist">
-              <div class="accordion-body">
-                We offer comprehensive IT solutions including web development, mobile app development, cloud services, and digital marketing to help your business grow.
-              </div>
-            </div>
-          </div>
-          @endforelse
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <!--  Call To Action Section  -->
 <section id="call-to-action" class="call-to-action">
@@ -642,7 +646,7 @@
       <div class="col-lg-12">
           <h3>Let's Discuss your Projects</h3>
           <p>We pride ourselves with our ability to perform and deliver results. Use the form below to discuss your project needs with our team, we will get back asap</p>
-          <a class="cta-btn" href="mailto:info@example.com">Contact Us</a>
+          <a class="cta-btn" href="{{ route('contact.index') }}">Contact Us</a>
       </div>
     </div>
   </div>
@@ -705,8 +709,8 @@
       </div>
       @endforelse
     </div>
-    <div class="row mt-4">
-      <div class="col-lg-12 text-center">
+    <div class="mt-4 row">
+      <div class="text-center col-lg-12">
         <a href="{{ route('posts.index') }}" class="btn-get-started">View All Posts</a>
       </div>
     </div>
@@ -721,7 +725,7 @@
   </div>
   <div class="container">
     @if(session('success'))
-      <div class="alert alert-success mb-4">{{ session('success') }}</div>
+      <div class="mb-4 alert alert-success">{{ session('success') }}</div>
     @endif
     
     <div class="row">

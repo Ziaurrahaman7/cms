@@ -34,6 +34,17 @@
                     @enderror
                 </div>
 
+                <!-- Slug -->
+                <div>
+                    <label for="slug" class="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
+                    <input type="text" id="slug" name="slug" value="{{ old('slug') }}" required placeholder="service-url-slug"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('slug') border-red-500 @enderror">
+                    <p class="mt-1 text-sm text-gray-500">URL-friendly version of the title (auto-generated from title)</p>
+                    @error('slug')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <!-- Description -->
                 <div>
                     <label for="description" class="block text-sm font-medium text-gray-700 mb-2">Short Description *</label>

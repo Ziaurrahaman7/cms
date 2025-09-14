@@ -15,6 +15,21 @@ Route::get('/dashboard', function () {
 Route::get('/blog', [App\Http\Controllers\PostController::class, 'index'])->name('posts.index');
 Route::get('/blog/{post}', [App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
 
+// About Us page
+Route::get('/about-us', [App\Http\Controllers\AboutController::class, 'index'])->name('about.index');
+
+// Case Study page
+Route::get('/case-study', [App\Http\Controllers\CaseStudyController::class, 'index'])->name('case-study.index');
+
+// Services page
+Route::get('/services', [App\Http\Controllers\ServicePageController::class, 'index'])->name('services.index');
+
+// Contact Us page
+Route::get('/contact', [App\Http\Controllers\ContactPageController::class, 'index'])->name('contact.index');
+
+// Clients page
+Route::get('/clients', [App\Http\Controllers\ClientPageController::class, 'index'])->name('clients.index');
+
 // Public service routes
 Route::get('/services/{slug}', [App\Http\Controllers\ServiceController::class, 'show'])->name('services.show');
 
