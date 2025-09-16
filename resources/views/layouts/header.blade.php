@@ -14,7 +14,19 @@
       <ul>
         <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a></li>
         <li><a href="{{ route('about.index') }}" class="{{ request()->routeIs('about.*') ? 'active' : '' }}">About</a></li>
-        <li><a href="{{ route('services.index') }}" class="{{ request()->routeIs('services.*') ? 'active' : '' }}">Services</a></li>
+        <li class="dropdown">
+          <a href="{{ route('services.index') }}" class="{{ request()->routeIs('services.*') ? 'active' : '' }}">Services <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+          <ul>
+            @php
+              $headerServices = App\Models\Service::active()->ordered()->get();
+            @endphp
+            @forelse($headerServices as $service)
+              <li><a href="{{ route('services.show', $service->slug) }}">{{ $service->title }}</a></li>
+            @empty
+              <li><a href="{{ route('services.index') }}">View All Services</a></li>
+            @endforelse
+          </ul>
+        </li>
         <li><a href="{{ route('clients.index') }}" class="{{ request()->routeIs('clients.*') ? 'active' : '' }}">Clients</a></li>
         <li><a href="{{ route('case-study.index') }}" class="{{ request()->routeIs('case-study.*') ? 'active' : '' }}">Case Study</a></li>
         <li><a href="{{ route('posts.index') }}" class="{{ request()->routeIs('posts.*') ? 'active' : '' }}">Blog</a></li>
