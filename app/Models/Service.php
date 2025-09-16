@@ -18,11 +18,23 @@ class Service extends Model
         'icon',
         'image',
         'is_active',
-        'sort_order'
+        'sort_order',
+        'key_features',
+        'we_serve',
+        'service_overview',
+        'technologies',
+        'portfolio_items',
+        'process_steps'
     ];
 
     protected $casts = [
-        'is_active' => 'boolean'
+        'is_active' => 'boolean',
+        'key_features' => 'array',
+        'we_serve' => 'array',
+        'service_overview' => 'array',
+        'technologies' => 'array',
+        'portfolio_items' => 'array',
+        'process_steps' => 'array'
     ];
 
     protected static function boot()

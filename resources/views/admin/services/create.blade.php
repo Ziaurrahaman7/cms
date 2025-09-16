@@ -1,13 +1,13 @@
 @extends('dashboard')
 
 @section('content')
-<div class="max-w-2xl mx-auto">
+<div class="max-w-4xl mx-auto">
     <!-- Header -->
     <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
         <div class="flex justify-between items-center">
             <div>
                 <h1 class="text-2xl font-bold text-gray-900">Add New Service</h1>
-                <p class="text-gray-600 mt-1">Create a new service offering</p>
+                <p class="text-gray-600 mt-1">Create a comprehensive service with all sections</p>
             </div>
             <a href="{{ route('admin.services.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -21,182 +21,224 @@
     <!-- Form -->
     <div class="bg-white rounded-lg shadow-sm">
         <div class="p-6">
-            <form action="{{ route('admin.services.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <form action="{{ route('admin.services.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 
-                <!-- Basic Information -->
-                <div>
-                    <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Service Title *</label>
-                    <input type="text" id="title" name="title" value="{{ old('title') }}" required
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('title') border-red-500 @enderror">
-                    @error('title')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
+                <!-- Tab Navigation -->
+                <div class="border-b border-gray-200 mb-6">
+                    <nav class="-mb-px flex space-x-8">
+                        <button type="button" class="tab-btn active py-2 px-1 border-b-2 border-blue-500 font-medium text-sm text-blue-600" data-tab="basic">
+                            Basic Info
+                        </button>
+                        <button type="button" class="tab-btn py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="features">
+                            Key Features
+                        </button>
+                        <button type="button" class="tab-btn py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="serve">
+                            We Serve
+                        </button>
+                        <button type="button" class="tab-btn py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="overview">
+                            Overview
+                        </button>
+                        <button type="button" class="tab-btn py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="technologies">
+                            Technologies
+                        </button>
+                        <button type="button" class="tab-btn py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="portfolio">
+                            Portfolio
+                        </button>
+                        <button type="button" class="tab-btn py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="process">
+                            Process
+                        </button>
+                    </nav>
                 </div>
-
-                <!-- Slug -->
-                <div>
-                    <label for="slug" class="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
-                    <input type="text" id="slug" name="slug" value="{{ old('slug') }}" required placeholder="service-url-slug"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('slug') border-red-500 @enderror">
-                    <p class="mt-1 text-sm text-gray-500">URL-friendly version of the title (auto-generated from title)</p>
-                    @error('slug')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Description -->
-                <div>
-                    <label for="description" class="block text-sm font-medium text-gray-700 mb-2">Short Description *</label>
-                    <textarea id="description" name="description" rows="3" required placeholder="Brief description for service card..."
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('description') border-red-500 @enderror">{{ old('description') }}</textarea>
-                    @error('description')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Content -->
-                <div>
-                    <label for="content" class="block text-sm font-medium text-gray-700 mb-2">Detailed Content</label>
-                    <textarea id="content" name="content" rows="10" placeholder="Detailed service content with images and videos..."
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">{{ old('content') }}</textarea>
-                    <p class="mt-1 text-sm text-gray-500">You can add images and videos using the rich text editor</p>
-                </div>
-
-                <!-- Image Upload -->
-                <div>
-                    <label for="image" class="block text-sm font-medium text-gray-700 mb-2">Service Image</label>
-                    <input type="file" id="image" name="image" accept="image/*"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <p class="mt-1 text-sm text-gray-500">Upload an image for your service (optional)</p>
-                    @error('image')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Icon -->
-                <div>
-                    <label for="icon" class="block text-sm font-medium text-gray-700 mb-2">Icon Class (Optional)</label>
-                    <input type="text" id="icon" name="icon" value="{{ old('icon') }}" placeholder="e.g., fas fa-laptop-code"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <p class="mt-1 text-sm text-gray-500">Font Awesome icon class (used if no image uploaded)</p>
-                </div>
-
-                <!-- Sort Order -->
-                <div>
-                    <label for="sort_order" class="block text-sm font-medium text-gray-700 mb-2">Sort Order</label>
-                    <input type="number" id="sort_order" name="sort_order" value="{{ old('sort_order', 0) }}" min="0"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                </div>
-
-                <!-- SEO Section -->
-                <div class="border-t border-gray-200 pt-6">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">SEO Settings</h3>
-                    <div class="space-y-4">
+                
+                <!-- Basic Info Tab -->
+                <div class="tab-content" id="basic">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label for="meta_title" class="block text-sm font-medium text-gray-700 mb-2">Meta Title</label>
-                            <input type="text" id="meta_title" name="meta_title" value="{{ old('meta_title') }}" maxlength="60"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                            <p class="mt-1 text-sm text-gray-500">Recommended: 50-60 characters</p>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Service Title *</label>
+                            <input type="text" name="title" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                         </div>
                         <div>
-                            <label for="meta_description" class="block text-sm font-medium text-gray-700 mb-2">Meta Description</label>
-                            <textarea id="meta_description" name="meta_description" rows="3" maxlength="160" placeholder="Brief description for search engines..."
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">{{ old('meta_description') }}</textarea>
-                            <p class="mt-1 text-sm text-gray-500">Recommended: 150-160 characters</p>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
+                            <input type="text" name="slug" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
+                            <textarea name="description" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Content</label>
+                            <textarea id="content-create" name="content" rows="6" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
                         </div>
                         <div>
-                            <label for="meta_keywords" class="block text-sm font-medium text-gray-700 mb-2">Meta Keywords</label>
-                            <input type="text" id="meta_keywords" name="meta_keywords" value="{{ old('meta_keywords') }}" placeholder="keyword1, keyword2, keyword3"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                            <p class="mt-1 text-sm text-gray-500">Separate keywords with commas</p>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Image</label>
+                            <input type="file" name="image" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Sort Order</label>
+                            <input type="number" name="sort_order" value="0" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" name="is_active" checked class="h-4 w-4 text-blue-600 rounded">
+                                <span class="ml-2 text-sm text-gray-900">Active Service</span>
+                            </label>
                         </div>
                     </div>
                 </div>
-
-                <!-- Service FAQs -->
-                <div class="border-t border-gray-200 pt-6">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">Service FAQs</h3>
-                    <div id="faqs-container" class="space-y-4">
-                        @if(old('faqs'))
-                            @foreach(old('faqs') as $index => $faq)
-                                <div class="faq-item bg-gray-50 p-4 rounded-lg">
-                                    <div class="flex justify-between items-start mb-3">
-                                        <h4 class="font-medium text-gray-900">FAQ {{ $index + 1 }}</h4>
-                                        <button type="button" class="text-red-600 hover:text-red-800 remove-faq">Remove</button>
-                                    </div>
-                                    <div class="space-y-3">
-                                        <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-1">Question</label>
-                                            <input type="text" name="faqs[{{ $index }}][question]" value="{{ $faq['question'] ?? '' }}" placeholder="Enter question"
-                                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-1">Answer</label>
-                                            <textarea name="faqs[{{ $index }}][answer]" rows="3" placeholder="Enter answer"
-                                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{{ $faq['answer'] ?? '' }}</textarea>
-                                        </div>
-                                        <div class="flex items-center">
-                                            <input type="checkbox" name="faqs[{{ $index }}][is_active]" value="1" {{ ($faq['is_active'] ?? true) ? 'checked' : '' }}
-                                                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                            <label class="ml-2 text-sm text-gray-900">Active</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @else
-                            <div class="faq-item bg-gray-50 p-4 rounded-lg">
-                                <div class="flex justify-between items-start mb-3">
-                                    <h4 class="font-medium text-gray-900">FAQ 1</h4>
-                                    <button type="button" class="text-red-600 hover:text-red-800 remove-faq">Remove</button>
-                                </div>
-                                <div class="space-y-3">
+                
+                <!-- Key Features Tab -->
+                <div class="tab-content hidden" id="features">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Key Features</h3>
+                        <div id="features-container" class="space-y-4">
+                            <div class="feature-item border border-gray-200 p-4 rounded-lg">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-1">Question</label>
-                                        <input type="text" name="faqs[0][question]" placeholder="Enter question"
-                                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Feature Title</label>
+                                        <input type="text" name="key_features[0][title]" placeholder="Advanced Technology" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-1">Answer</label>
-                                        <textarea name="faqs[0][answer]" rows="3" placeholder="Enter answer"
-                                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Feature Image</label>
+                                        <input type="file" name="key_features[0][image]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
-                                    <div class="flex items-center">
-                                        <input type="checkbox" name="faqs[0][is_active]" value="1" checked
-                                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                        <label class="ml-2 text-sm text-gray-900">Active</label>
+                                    <div class="md:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                                        <textarea name="key_features[0][description]" rows="2" placeholder="Brief description" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
                                     </div>
                                 </div>
                             </div>
-                        @endif
-                    </div>
-                    <button type="button" id="add-faq" class="mt-3 inline-flex items-center px-3 py-2 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200 transition-colors">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                        </svg>
-                        Add FAQ
-                    </button>
-                </div>
-
-                <!-- Settings -->
-                <div class="border-t border-gray-200 pt-6">
-                    <div class="flex items-center">
-                        <input type="checkbox" id="is_active" name="is_active" {{ old('is_active', true) ? 'checked' : '' }}
-                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                        <label for="is_active" class="ml-2 block text-sm text-gray-900">
-                            Active Service
-                        </label>
+                        </div>
+                        <button type="button" onclick="addFeature()" class="mt-4 px-4 py-2 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200">Add Feature</button>
                     </div>
                 </div>
-
+                
+                <!-- We Serve Tab -->
+                <div class="tab-content hidden" id="serve">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">We Serve</h3>
+                        <div id="serve-container" class="space-y-4">
+                            <div class="serve-item border border-gray-200 p-4 rounded-lg">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Industry Title</label>
+                                        <input type="text" name="we_serve[0][title]" placeholder="Enterprise" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
+                                        <input type="text" name="we_serve[0][icon]" placeholder="bi bi-building" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                                        <textarea name="we_serve[0][description]" rows="2" placeholder="How we serve this industry" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="addServe()" class="mt-4 px-4 py-2 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200">Add Industry</button>
+                    </div>
+                </div>
+                
+                <!-- Overview Tab -->
+                <div class="tab-content hidden" id="overview">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Service Overview</h3>
+                        <div id="overview-container" class="space-y-4">
+                            <div class="overview-item border border-gray-200 p-4 rounded-lg">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Overview Title</label>
+                                        <input type="text" name="service_overview[0][title]" placeholder="Fast Delivery" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
+                                        <input type="text" name="service_overview[0][icon]" placeholder="bi bi-lightning" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                                        <textarea name="service_overview[0][description]" rows="2" placeholder="Quick turnaround time" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="addOverview()" class="mt-4 px-4 py-2 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200">Add Overview Item</button>
+                    </div>
+                </div>
+                
+                <!-- Technologies Tab -->
+                <div class="tab-content hidden" id="technologies">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Technologies We Use</h3>
+                        <div id="technologies-container" class="space-y-4">
+                            <div class="technology-item border border-gray-200 p-4 rounded-lg">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Technology Name</label>
+                                        <input type="text" name="technologies[0][name]" placeholder="HTML5/CSS3" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
+                                        <input type="text" name="technologies[0][icon]" placeholder="bi bi-code-slash" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="addTechnology()" class="mt-4 px-4 py-2 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200">Add Technology</button>
+                    </div>
+                </div>
+                
+                <!-- Portfolio Tab -->
+                <div class="tab-content hidden" id="portfolio">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Portfolio Items</h3>
+                        <div id="portfolio-container" class="space-y-4">
+                            <div class="portfolio-item border border-gray-200 p-4 rounded-lg">
+                                <div class="grid grid-cols-1 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Project Image</label>
+                                        <input type="file" name="portfolio_items[0][image]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="addPortfolio()" class="mt-4 px-4 py-2 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200">Add Portfolio Item</button>
+                    </div>
+                </div>
+                
+                <!-- Process Tab -->
+                <div class="tab-content hidden" id="process">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Our Process</h3>
+                        <div id="process-container" class="space-y-4">
+                            <div class="process-item border border-gray-200 p-4 rounded-lg">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Step Number</label>
+                                        <input type="number" name="process_steps[0][step]" value="1" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Step Title</label>
+                                        <input type="text" name="process_steps[0][title]" placeholder="Planning" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
+                                        <input type="text" name="process_steps[0][icon]" placeholder="bi bi-clipboard-check" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                    </div>
+                                    <div class="md:col-span-3">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                                        <textarea name="process_steps[0][description]" rows="2" placeholder="Step description" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="addProcess()" class="mt-4 px-4 py-2 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200">Add Process Step</button>
+                    </div>
+                </div>
+                
                 <!-- Submit Buttons -->
-                <div class="flex justify-end gap-3 pt-6 border-t border-gray-200">
-                    <a href="{{ route('admin.services.index') }}" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors">
-                        Cancel
-                    </a>
-                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
-                        Create Service
-                    </button>
+                <div class="flex justify-end gap-3 mt-8 pt-6 border-t border-gray-200">
+                    <a href="{{ route('admin.services.index') }}" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200">Cancel</a>
+                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Create Service</button>
                 </div>
             </form>
         </div>
@@ -204,87 +246,218 @@
 </div>
 
 <script>
-let faqIndex = {{ old('faqs') ? count(old('faqs')) : 1 }};
+// Tab functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const targetTab = this.getAttribute('data-tab');
+            
+            // Remove active from all buttons
+            tabBtns.forEach(b => {
+                b.classList.remove('border-blue-500', 'text-blue-600');
+                b.classList.add('border-transparent', 'text-gray-500');
+            });
+            
+            // Add active to clicked button
+            this.classList.add('border-blue-500', 'text-blue-600');
+            this.classList.remove('border-transparent', 'text-gray-500');
+            
+            // Hide all contents
+            tabContents.forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            // Show target content
+            document.getElementById(targetTab).classList.remove('hidden');
+        });
+    });
+});
 
-document.getElementById('add-faq').addEventListener('click', function() {
-    const container = document.getElementById('faqs-container');
-    const newFaq = document.createElement('div');
-    newFaq.className = 'faq-item bg-gray-50 p-4 rounded-lg';
-    newFaq.innerHTML = `
-        <div class="flex justify-between items-start mb-3">
-            <h4 class="font-medium text-gray-900">FAQ ${faqIndex + 1}</h4>
-            <button type="button" class="text-red-600 hover:text-red-800 remove-faq">Remove</button>
-        </div>
-        <div class="space-y-3">
+let featureIndex = 1;
+let serveIndex = 1;
+let overviewIndex = 1;
+let technologyIndex = 1;
+let portfolioIndex = 1;
+let processIndex = 1;
+
+function addFeature() {
+    const container = document.getElementById('features-container');
+    const newItem = document.createElement('div');
+    newItem.className = 'feature-item border border-gray-200 p-4 rounded-lg';
+    newItem.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Question</label>
-                <input type="text" name="faqs[${faqIndex}][question]" placeholder="Enter question"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Feature Title</label>
+                <input type="text" name="key_features[${featureIndex}][title]" placeholder="Feature Title" class="w-full px-3 py-2 border border-gray-300 rounded-md">
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Answer</label>
-                <textarea name="faqs[${faqIndex}][answer]" rows="3" placeholder="Enter answer"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Feature Image</label>
+                <input type="file" name="key_features[${featureIndex}][image]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md">
             </div>
-            <div class="flex items-center">
-                <input type="checkbox" name="faqs[${faqIndex}][is_active]" value="1" checked
-                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                <label class="ml-2 text-sm text-gray-900">Active</label>
+            <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                <textarea name="key_features[${featureIndex}][description]" rows="2" placeholder="Brief description" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+            </div>
+            <div class="md:col-span-2">
+                <button type="button" onclick="this.closest('.feature-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>
             </div>
         </div>
     `;
-    container.appendChild(newFaq);
-    faqIndex++;
-});
+    container.appendChild(newItem);
+    featureIndex++;
+}
 
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('remove-faq')) {
-        const faqItems = document.querySelectorAll('.faq-item');
-        if (faqItems.length > 1) {
-            e.target.closest('.faq-item').remove();
-        }
-    }
-});
+function addServe() {
+    const container = document.getElementById('serve-container');
+    const newItem = document.createElement('div');
+    newItem.className = 'serve-item border border-gray-200 p-4 rounded-lg';
+    newItem.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Industry Title</label>
+                <input type="text" name="we_serve[${serveIndex}][title]" placeholder="Industry Title" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
+                <input type="text" name="we_serve[${serveIndex}][icon]" placeholder="bi bi-building" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+            <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                <textarea name="we_serve[${serveIndex}][description]" rows="2" placeholder="How we serve this industry" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+            </div>
+            <div class="md:col-span-2">
+                <button type="button" onclick="this.closest('.serve-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>
+            </div>
+        </div>
+    `;
+    container.appendChild(newItem);
+    serveIndex++;
+}
+
+function addOverview() {
+    const container = document.getElementById('overview-container');
+    const newItem = document.createElement('div');
+    newItem.className = 'overview-item border border-gray-200 p-4 rounded-lg';
+    newItem.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Overview Title</label>
+                <input type="text" name="service_overview[${overviewIndex}][title]" placeholder="Overview Title" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
+                <input type="text" name="service_overview[${overviewIndex}][icon]" placeholder="bi bi-lightning" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+            <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                <textarea name="service_overview[${overviewIndex}][description]" rows="2" placeholder="Description" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+            </div>
+            <div class="md:col-span-2">
+                <button type="button" onclick="this.closest('.overview-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>
+            </div>
+        </div>
+    `;
+    container.appendChild(newItem);
+    overviewIndex++;
+}
+
+function addTechnology() {
+    const container = document.getElementById('technologies-container');
+    const newItem = document.createElement('div');
+    newItem.className = 'technology-item border border-gray-200 p-4 rounded-lg';
+    newItem.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Technology Name</label>
+                <input type="text" name="technologies[${technologyIndex}][name]" placeholder="Technology Name" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
+                <input type="text" name="technologies[${technologyIndex}][icon]" placeholder="bi bi-code-slash" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+            <div class="md:col-span-2">
+                <button type="button" onclick="this.closest('.technology-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>
+            </div>
+        </div>
+    `;
+    container.appendChild(newItem);
+    technologyIndex++;
+}
+
+function addPortfolio() {
+    const container = document.getElementById('portfolio-container');
+    const newItem = document.createElement('div');
+    newItem.className = 'portfolio-item border border-gray-200 p-4 rounded-lg';
+    newItem.innerHTML = `
+        <div class="grid grid-cols-1 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Project Image</label>
+                <input type="file" name="portfolio_items[${portfolioIndex}][image]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+            <div>
+                <button type="button" onclick="this.closest('.portfolio-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>
+            </div>
+        </div>
+    `;
+    container.appendChild(newItem);
+    portfolioIndex++;
+}
+
+function addProcess() {
+    const container = document.getElementById('process-container');
+    const newItem = document.createElement('div');
+    newItem.className = 'process-item border border-gray-200 p-4 rounded-lg';
+    newItem.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Step Number</label>
+                <input type="number" name="process_steps[${processIndex}][step]" value="${processIndex + 1}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Step Title</label>
+                <input type="text" name="process_steps[${processIndex}][title]" placeholder="Step Title" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
+                <input type="text" name="process_steps[${processIndex}][icon]" placeholder="bi bi-clipboard-check" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+            <div class="md:col-span-3">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                <textarea name="process_steps[${processIndex}][description]" rows="2" placeholder="Step description" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+            </div>
+            <div class="md:col-span-3">
+                <button type="button" onclick="this.closest('.process-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>
+            </div>
+        </div>
+    `;
+    container.appendChild(newItem);
+    processIndex++;
+}
 </script>
 
-<!-- CKEditor Rich Text Editor -->
-<script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+<!-- Summernote CSS -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<!-- Summernote JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
 <script>
-ClassicEditor
-    .create(document.querySelector('#content'), {
-        toolbar: {
-            items: [
-                'heading', '|',
-                'bold', 'italic', 'underline', 'strikethrough', '|',
-                'fontSize', 'fontColor', 'fontBackgroundColor', '|',
-                'alignment', '|',
-                'numberedList', 'bulletedList', '|',
-                'outdent', 'indent', '|',
-                'link', 'insertImage', 'mediaEmbed', 'insertTable', '|',
-                'blockQuote', 'codeBlock', '|',
-                'undo', 'redo', '|',
-                'sourceEditing'
-            ]
-        },
-        language: 'en',
-        image: {
-            toolbar: [
-                'imageTextAlternative',
-                'imageStyle:inline',
-                'imageStyle:block',
-                'imageStyle:side'
-            ]
-        },
-        table: {
-            contentToolbar: [
-                'tableColumn',
-                'tableRow',
-                'mergeTableCells'
-            ]
-        }
-    })
-    .catch(error => {
-        console.error(error);
+$(document).ready(function() {
+    $('#content-create').summernote({
+        height: 300,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
     });
+});
 </script>
 @endsection

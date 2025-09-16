@@ -50,15 +50,23 @@ class AdminServiceController extends Controller
             'slug.regex' => 'Slug can only contain lowercase letters, numbers, and hyphens.',
         ]);
 
-        $data = $request->except(['image']);
+        $data = $request->except(['image', 'key_features', 'we_serve', 'service_overview', 'technologies', 'portfolio_items', 'process_steps']);
         $data['is_active'] = $request->has('is_active');
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->storeAs('services', $imageName, 'public');
-            $data['image'] = $imageName;
+            $data['image'] = 'services/' . $imageName;
         }
+
+        // Handle JSON fields
+        $data['key_features'] = $this->processKeyFeatures($request);
+        $data['we_serve'] = $request->we_serve ?? [];
+        $data['service_overview'] = $request->service_overview ?? [];
+        $data['technologies'] = $request->technologies ?? [];
+        $data['portfolio_items'] = $this->processPortfolioItems($request);
+        $data['process_steps'] = $request->process_steps ?? [];
 
         $service = Service::create($data);
 
@@ -104,19 +112,27 @@ class AdminServiceController extends Controller
             'slug.regex' => 'Slug can only contain lowercase letters, numbers, and hyphens.',
         ]);
 
-        $data = $request->except(['image', 'faqs']);
+        $data = $request->except(['image', 'faqs', 'key_features', 'we_serve', 'service_overview', 'technologies', 'portfolio_items', 'process_steps']);
         $data['is_active'] = $request->has('is_active');
 
         if ($request->hasFile('image')) {
-            if ($service->image && file_exists(storage_path('app/public/services/' . $service->image))) {
-                unlink(storage_path('app/public/services/' . $service->image));
+            if ($service->image && file_exists(storage_path('app/public/' . $service->image))) {
+                unlink(storage_path('app/public/' . $service->image));
             }
             
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->storeAs('services', $imageName, 'public');
-            $data['image'] = $imageName;
+            $data['image'] = 'services/' . $imageName;
         }
+
+        // Handle JSON fields
+        $data['key_features'] = $this->processKeyFeatures($request, $service->key_features ?? []);
+        $data['we_serve'] = $request->we_serve ?? [];
+        $data['service_overview'] = $request->service_overview ?? [];
+        $data['technologies'] = $request->technologies ?? [];
+        $data['portfolio_items'] = $this->processPortfolioItems($request, $service->portfolio_items ?? []);
+        $data['process_steps'] = $request->process_steps ?? [];
 
         $service->update($data);
 
@@ -144,8 +160,8 @@ class AdminServiceController extends Controller
 
     public function destroy(Service $service)
     {
-        if ($service->image && file_exists(storage_path('app/public/services/' . $service->image))) {
-            unlink(storage_path('app/public/services/' . $service->image));
+        if ($service->image && file_exists(storage_path('app/public/' . $service->image))) {
+            unlink(storage_path('app/public/' . $service->image));
         }
         
         $service->delete();
@@ -158,12 +174,65 @@ class AdminServiceController extends Controller
         
         $services = Service::whereIn('id', $ids)->get();
         foreach ($services as $service) {
-            if ($service->image && file_exists(storage_path('app/public/services/' . $service->image))) {
-                unlink(storage_path('app/public/services/' . $service->image));
+            if ($service->image && file_exists(storage_path('app/public/' . $service->image))) {
+                unlink(storage_path('app/public/' . $service->image));
             }
         }
         
         Service::whereIn('id', $ids)->delete();
         return response()->json(['success' => true, 'message' => 'Services deleted successfully!']);
+    }
+
+    private function processKeyFeatures(Request $request, $existingFeatures = [])
+    {
+        $features = [];
+        if ($request->has('key_features')) {
+            foreach ($request->key_features as $index => $feature) {
+                if (!empty($feature['title'])) {
+                    $featureData = [
+                        'title' => $feature['title'],
+                        'description' => $feature['description'] ?? '',
+                    ];
+                    
+                    if ($request->hasFile("key_features.{$index}.image")) {
+                        $image = $request->file("key_features.{$index}.image");
+                        $imageName = 'feature_' . time() . '_' . $index . '.' . $image->getClientOriginalExtension();
+                        $image->storeAs('services/features', $imageName, 'public');
+                        $featureData['image'] = 'services/features/' . $imageName;
+                    } elseif (isset($existingFeatures[$index]['image'])) {
+                        $featureData['image'] = $existingFeatures[$index]['image'];
+                    }
+                    
+                    $features[] = $featureData;
+                }
+            }
+        }
+        return $features;
+    }
+
+    private function processPortfolioItems(Request $request, $existingItems = [])
+    {
+        $items = [];
+        if ($request->has('portfolio_items')) {
+            foreach ($request->portfolio_items as $index => $item) {
+                if ($request->hasFile("portfolio_items.{$index}.image")) {
+                    $image = $request->file("portfolio_items.{$index}.image");
+                    $imageName = 'portfolio_' . time() . '_' . $index . '.' . $image->getClientOriginalExtension();
+                    $image->storeAs('services/portfolio', $imageName, 'public');
+                    $items[] = ['image' => 'services/portfolio/' . $imageName];
+                } elseif (isset($existingItems[$index]['image'])) {
+                    $items[] = ['image' => $existingItems[$index]['image']];
+                } else {
+                    // Keep existing items even if no new image uploaded
+                    if (isset($existingItems[$index])) {
+                        $items[] = $existingItems[$index];
+                    }
+                }
+            }
+        } else {
+            // If no portfolio_items in request, keep existing items
+            $items = $existingItems;
+        }
+        return $items;
     }
 }
