@@ -163,6 +163,16 @@ Route::middleware('auth')->group(function () {
         Route::patch('/{contact}/status', [App\Http\Controllers\AdminContactController::class, 'updateStatus'])->name('update-status');
         Route::delete('/{contact}', [App\Http\Controllers\AdminContactController::class, 'destroy'])->name('destroy');
     });
+    
+    // Admin Achievement Management
+    Route::prefix('admin/achievements')->name('admin.achievements.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminAchievementController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminAchievementController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminAchievementController::class, 'store'])->name('store');
+        Route::get('/{achievement}/edit', [App\Http\Controllers\AdminAchievementController::class, 'edit'])->name('edit');
+        Route::put('/{achievement}', [App\Http\Controllers\AdminAchievementController::class, 'update'])->name('update');
+        Route::delete('/{achievement}', [App\Http\Controllers\AdminAchievementController::class, 'destroy'])->name('destroy');
+    });
 });
 
 require __DIR__.'/auth.php';

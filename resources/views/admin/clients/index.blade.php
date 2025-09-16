@@ -23,6 +23,15 @@
                 <input type="text" name="search" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Search clients..." value="{{ request('search') }}">
             </div>
             <div class="min-w-48">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                <select name="category" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">All Categories</option>
+                    <option value="private" {{ request('category') === 'private' ? 'selected' : '' }}>Private Companies</option>
+                    <option value="government" {{ request('category') === 'government' ? 'selected' : '' }}>Government</option>
+                    <option value="global" {{ request('category') === 'global' ? 'selected' : '' }}>Global Clients</option>
+                </select>
+            </div>
+            <div class="min-w-48">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
                 <select name="status" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     <option value="">All Status</option>
@@ -54,9 +63,17 @@
             <div class="p-4">
                 <div class="flex items-start justify-between mb-3">
                     <input type="checkbox" class="client-checkbox mt-1" value="{{ $client->id }}">
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $client->is_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
-                        {{ $client->is_active ? 'Active' : 'Inactive' }}
-                    </span>
+                    <div class="flex gap-2">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                            @if($client->category === 'private') bg-blue-100 text-blue-800
+                            @elseif($client->category === 'government') bg-purple-100 text-purple-800
+                            @else bg-orange-100 text-orange-800 @endif">
+                            {{ ucfirst($client->category) }}
+                        </span>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $client->is_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
+                            {{ $client->is_active ? 'Active' : 'Inactive' }}
+                        </span>
+                    </div>
                 </div>
                 
                 <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ $client->name }}</h3>

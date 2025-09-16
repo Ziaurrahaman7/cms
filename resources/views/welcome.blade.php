@@ -39,11 +39,11 @@
 </section>
 
 <main id="main">
-  <!-- Start Service Section -->
+  <!-- Service Highlights Section -->
   <div id="services" class="py-5 section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
     <div class="container">
       <div class="mb-5 text-center section-header">
-        <h2 class="mb-3 text-white">Services We Offer</h2>
+        <h2 class="mb-3 text-white">Service Highlights</h2>
         <p class="text-white-50">Professional IT solutions tailored to your business needs</p>
       </div>
       
@@ -124,10 +124,145 @@
     }
   </style>
 
-  <!-- Featured -->
-  <section>
-    <div class="container" id="featured">
-        <div class="section-header" data-aos="fade-up" data-aos-delay="100">
+  <!-- Product Highlight Section -->
+  <div id="products" class="py-5 section">
+    <div class="container">
+      <div class="mb-5 text-center section-header">
+        <h2 class="mb-3">Our Products</h2>
+        <p class="text-muted">Innovative software solutions designed to transform your business</p>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="product-card bg-white rounded-4 shadow-lg overflow-hidden h-100">
+            <div class="product-image" style="height: 200px; background: linear-gradient(45deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center;">
+              <i class="bi bi-laptop text-white" style="font-size: 3rem;"></i>
+            </div>
+            <div class="card-body p-4">
+              <h4 class="mb-3 fw-bold">ERP Solution</h4>
+              <p class="text-muted mb-4">Complete enterprise resource planning system for business management</p>
+              <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm rounded-pill">Learn More</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="product-card bg-white rounded-4 shadow-lg overflow-hidden h-100">
+            <div class="product-image" style="height: 200px; background: linear-gradient(45deg, #4ecdc4, #44a08d); display: flex; align-items: center; justify-content: center;">
+              <i class="bi bi-phone text-white" style="font-size: 3rem;"></i>
+            </div>
+            <div class="card-body p-4">
+              <h4 class="mb-3 fw-bold">Mobile App Platform</h4>
+              <p class="text-muted mb-4">Cross-platform mobile application development framework</p>
+              <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm rounded-pill">Learn More</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="product-card bg-white rounded-4 shadow-lg overflow-hidden h-100">
+            <div class="product-image" style="height: 200px; background: linear-gradient(45deg, #feca57, #ff9ff3); display: flex; align-items: center; justify-content: center;">
+              <i class="bi bi-cloud text-white" style="font-size: 3rem;"></i>
+            </div>
+            <div class="card-body p-4">
+              <h4 class="mb-3 fw-bold">Cloud Management</h4>
+              <p class="text-muted mb-4">Comprehensive cloud infrastructure management solution</p>
+              <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm rounded-pill">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Industry Solutions Section -->
+  <div id="industry-solutions" class="py-5 section" style="background: #f8f9fa;">
+    <div class="container">
+      <div class="mb-5 text-center section-header">
+        <h2 class="mb-3">Industry-Specific Solutions</h2>
+        <p class="text-muted">Tailored technology solutions for different industry verticals</p>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="industry-solution-card bg-white rounded-4 p-4 h-100 shadow-sm text-center">
+            <div class="industry-icon mb-3">
+              <div class="icon-wrapper mx-auto" style="width: 70px; height: 70px; background: linear-gradient(45deg, #ff6b6b, #ee5a24); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <i class="bi bi-cart text-white" style="font-size: 1.8rem;"></i>
+              </div>
+            </div>
+            <h5 class="mb-2">Retail</h5>
+            <p class="text-muted small mb-3">POS systems, inventory management, e-commerce platforms</p>
+            <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm">Explore</a>
+          </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="industry-solution-card bg-white rounded-4 p-4 h-100 shadow-sm text-center">
+            <div class="industry-icon mb-3">
+              <div class="icon-wrapper mx-auto" style="width: 70px; height: 70px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <i class="bi bi-bank text-white" style="font-size: 1.8rem;"></i>
+              </div>
+            </div>
+            <h5 class="mb-2">Finance</h5>
+            <p class="text-muted small mb-3">Banking software, payment gateways, financial analytics</p>
+            <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm">Explore</a>
+          </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="industry-solution-card bg-white rounded-4 p-4 h-100 shadow-sm text-center">
+            <div class="industry-icon mb-3">
+              <div class="icon-wrapper mx-auto" style="width: 70px; height: 70px; background: linear-gradient(45deg, #4ecdc4, #44a08d); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <i class="bi bi-hospital text-white" style="font-size: 1.8rem;"></i>
+              </div>
+            </div>
+            <h5 class="mb-2">Healthcare</h5>
+            <p class="text-muted small mb-3">Hospital management, telemedicine, patient records</p>
+            <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm">Explore</a>
+          </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+          <div class="industry-solution-card bg-white rounded-4 p-4 h-100 shadow-sm text-center">
+            <div class="industry-icon mb-3">
+              <div class="icon-wrapper mx-auto" style="width: 70px; height: 70px; background: linear-gradient(45deg, #feca57, #ff9ff3); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <i class="bi bi-mortarboard text-white" style="font-size: 1.8rem;"></i>
+              </div>
+            </div>
+            <h5 class="mb-2">Education</h5>
+            <p class="text-muted small mb-3">LMS, student management, online learning platforms</p>
+            <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm">Explore</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Call-to-Action Buttons Section -->
+  <section id="cta-buttons" class="py-5 text-center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <h3 class="mb-4 text-white">Ready to Transform Your Business?</h3>
+          <p class="mb-4 text-white-50">Get started with our professional services today</p>
+          <div class="d-flex flex-wrap justify-content-center gap-3">
+            <a href="{{ route('contact.index') }}" class="btn btn-light btn-lg px-5 py-3 rounded-pill fw-bold">
+              <i class="bi bi-chat-dots me-2"></i>Request Quote
+            </a>
+            <a href="{{ route('contact.index') }}" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold">
+              <i class="bi bi-telephone me-2"></i>Contact Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section id="featured" class="py-5">
+    <div class="container">
+        <div class="section-header text-center" data-aos="fade-up" data-aos-delay="100">
           <h2>Why Choose Us</h2>
           <p>Discover what makes us the perfect choice for your business</p>
         </div>
@@ -275,115 +410,6 @@
   </div>
 </section>
 
-<!-- Start Pricing Section -->
-<div id="pricing" class="pricing section">
-  <div class="container-fluid">
-    <div class="container">
-      <div class="section-header">
-        <h2>Pricing Plans</h2>
-        <p>Choose the perfect plan for your needs</p>
-      </div>
-      <div class="row">
-        @php
-          $pricingPlans = App\Models\PricingPlan::active()->ordered()->get();
-        @endphp
-        
-        @forelse($pricingPlans as $plan)
-        <div class="col-lg-4">
-          <div class="card text-center {{ $plan->is_popular ? 'popular' : '' }}">
-            @if($plan->is_popular)
-              <div class="popular-badge">Most Popular</div>
-            @endif
-            <div class="title">
-              <h2>{{ $plan->name }}</h2>
-              @if($plan->description)
-                <p class="plan-desc">{{ $plan->description }}</p>
-              @endif
-            </div>
-            <div class="price">
-              <h4>
-                @if($plan->currency === 'BDT')
-                  <sup>৳</sup>{{ number_format($plan->price, 0) }}
-                @elseif($plan->currency === 'EUR')
-                  <sup>€</sup>{{ number_format($plan->price, 2) }}
-                @else
-                  <sup>$</sup>{{ number_format($plan->price, 2) }}
-                @endif
-              </h4>
-              <span class="period">per {{ $plan->period }}</span>
-            </div>
-            <div class="option">
-              <ul>
-                @foreach($plan->features as $feature)
-                  <li><i class="bi bi-check-circle" aria-hidden="true"></i> {{ $feature }}</li>
-                @endforeach
-              </ul>
-            </div>
-            <a href="{{ route('contact.index') }}" class="{{ $plan->is_popular ? 'btn-popular' : '' }}">Order Now</a>
-          </div>
-        </div>
-        @empty
-        <div class="col-lg-4">
-          <div class="text-center card">
-            <div class="title">
-              <h2>Basic</h2>
-            </div>
-            <div class="price">
-              <h4><sup>$</sup>25</h4>
-            </div>
-            <div class="option">
-              <ul>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> 5 GB Storage</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> 10 Email Accounts</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Basic Support</li>
-              </ul>
-            </div>
-            <a href="#">Order Now</a>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="text-center card popular">
-            <div class="popular-badge">Most Popular</div>
-            <div class="title">
-              <h2>Standard</h2>
-            </div>
-            <div class="price">
-              <h4><sup>$</sup>50</h4>
-            </div>
-            <div class="option">
-              <ul>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> 50 GB Storage</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> 50 Email Accounts</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Priority Support</li>
-              </ul>
-            </div>
-            <a href="#" class="btn-popular">Order Now</a>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="text-center card">
-            <div class="title">
-              <h2>Premium</h2>
-            </div>
-            <div class="price">
-              <h4><sup>$</sup>100</h4>
-            </div>
-            <div class="option">
-              <ul>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Unlimited Storage</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> Unlimited Email</li>
-                <li><i class="bi bi-check-circle" aria-hidden="true"></i> 24/7 Support</li>
-              </ul>
-            </div>
-            <a href="#">Order Now</a>
-          </div>
-        </div>
-        @endforelse
-      </div>
-    </div>
-  </div>
-</div>
-
 <!--  Testimonials Section  -->
 <section id="testimonials" class="testimonials">
   <div class="container" data-aos="fade-up">
@@ -454,106 +480,6 @@
   </div>
 </section>
 
-<!-- Promotions Section -->
-<section id="promotions" class="py-5" style="background: #f8f9fa;">
-  <div class="container">
-    <div class="mb-5 text-center section-header">
-      <h2 class="mb-3">Special Promotions</h2>
-      <p class="text-muted">Limited time offers and exclusive deals for our valued clients</p>
-    </div>
-    
-    <div class="row g-4">
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="overflow-hidden bg-white shadow-lg promotion-card rounded-4 h-100 position-relative">
-          <div class="top-0 px-3 py-1 text-white promotion-badge position-absolute end-0 bg-danger rounded-bottom-start">
-            <small class="fw-bold">50% OFF</small>
-          </div>
-          <div class="p-4 card-body">
-            <div class="mb-3 promotion-icon">
-              <div class="icon-wrapper" style="width: 60px; height: 60px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                <i class="text-white bi bi-code-slash" style="font-size: 1.5rem;"></i>
-              </div>
-            </div>
-            <h4 class="mb-3 fw-bold">Web Development Package</h4>
-            <p class="mb-3 text-muted">Complete website development with modern design and responsive layout</p>
-            <div class="mb-3 price-section">
-              <span class="text-decoration-line-through text-muted">$2000</span>
-              <span class="fw-bold text-primary fs-4 ms-2">$1000</span>
-            </div>
-            <ul class="mb-4 list-unstyled">
-              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Responsive Design</li>
-              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>SEO Optimized</li>
-              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>1 Year Support</li>
-            </ul>
-            <a href="{{ route('contact.index') }}" class="btn btn-primary w-100 rounded-pill">Claim Offer</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="overflow-hidden bg-white shadow-lg promotion-card rounded-4 h-100 position-relative">
-          <div class="top-0 px-3 py-1 text-white promotion-badge position-absolute end-0 bg-success rounded-bottom-start">
-            <small class="fw-bold">30% OFF</small>
-          </div>
-          <div class="p-4 card-body">
-            <div class="mb-3 promotion-icon">
-              <div class="icon-wrapper" style="width: 60px; height: 60px; background: linear-gradient(45deg, #4ecdc4, #44a08d); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                <i class="text-white bi bi-phone" style="font-size: 1.5rem;"></i>
-              </div>
-            </div>
-            <h4 class="mb-3 fw-bold">Mobile App Development</h4>
-            <p class="mb-3 text-muted">Cross-platform mobile application with native performance</p>
-            <div class="mb-3 price-section">
-              <span class="text-decoration-line-through text-muted">$5000</span>
-              <span class="fw-bold text-success fs-4 ms-2">$3500</span>
-            </div>
-            <ul class="mb-4 list-unstyled">
-              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>iOS & Android</li>
-              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>API Integration</li>
-              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>App Store Upload</li>
-            </ul>
-            <a href="{{ route('contact.index') }}" class="btn btn-success w-100 rounded-pill">Get Started</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-        <div class="overflow-hidden bg-white shadow-lg promotion-card rounded-4 h-100 position-relative">
-          <div class="top-0 px-3 py-1 promotion-badge position-absolute end-0 bg-warning text-dark rounded-bottom-start">
-            <small class="fw-bold">FREE</small>
-          </div>
-          <div class="p-4 card-body">
-            <div class="mb-3 promotion-icon">
-              <div class="icon-wrapper" style="width: 60px; height: 60px; background: linear-gradient(45deg, #feca57, #ff9ff3); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                <i class="text-white bi bi-chat-dots" style="font-size: 1.5rem;"></i>
-              </div>
-            </div>
-            <h4 class="mb-3 fw-bold">Free Consultation</h4>
-            <p class="mb-3 text-muted">Get expert advice and project estimation at no cost</p>
-            <div class="mb-3 price-section">
-              <span class="text-decoration-line-through text-muted">$200</span>
-              <span class="fw-bold text-warning fs-4 ms-2">FREE</span>
-            </div>
-            <ul class="mb-4 list-unstyled">
-              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Project Analysis</li>
-              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Cost Estimation</li>
-              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Technology Advice</li>
-            </ul>
-            <a href="{{ route('contact.index') }}" class="btn btn-warning w-100 rounded-pill text-dark">Book Now</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<style>
-.promotion-card:hover {
-  transform: translateY(-5px);
-  transition: all 0.3s ease;
-}
-</style>
-
 <!--  Start Counter Section  -->
 <div id="stats-counter" class="call-to-action stats-counter section">
   <div class="container" data-aos="fade-up">
@@ -583,56 +509,147 @@
   </div>
 </div>
 
-<!--  Clients Section  -->
+<!--  Clients Section (3 Categories) -->
 <div id="clients" class="clients section">
   <div class="container" data-aos="zoom-out">
     <div class="mb-5 text-center section-header">
       <h2>Our Trusted Clients</h2>
-      <p>We're proud to work with amazing companies</p>
+      <p>We're proud to work with amazing companies across different sectors</p>
     </div>
-    <div class="clients-slider swiper">
-      <div class="swiper-wrapper align-items-center">
+    
+    <!-- Client Tabs -->
+    <div class="clients-tabs">
+      <ul class="nav nav-tabs justify-content-center mb-4" id="clientTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="private-tab" data-bs-toggle="tab" data-bs-target="#private" type="button" role="tab">Private Companies</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="government-tab" data-bs-toggle="tab" data-bs-target="#government" type="button" role="tab">Government</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="global-tab" data-bs-toggle="tab" data-bs-target="#global" type="button" role="tab">Global Clients</button>
+        </li>
+      </ul>
+      
+      <div class="tab-content" id="clientTabsContent">
         @php
-          $clients = App\Models\Client::active()->ordered()->get();
+          $privateClients = App\Models\Client::where('category', 'private')->where('is_active', true)->orderBy('sort_order')->get();
+          $governmentClients = App\Models\Client::where('category', 'government')->where('is_active', true)->orderBy('sort_order')->get();
+          $globalClients = App\Models\Client::where('category', 'global')->where('is_active', true)->orderBy('sort_order')->get();
         @endphp
         
-        @forelse($clients as $client)
-        <div class="swiper-slide">
-          @if($client->website_url)
-            <a href="{{ $client->website_url }}" target="_blank" class="client-link" title="{{ $client->name }}">
-          @endif
-          
-          @if($client->logo && file_exists(public_path('storage/clients/' . $client->logo)))
-            <img src="{{ asset('storage/clients/' . $client->logo) }}" class="img-fluid client-logo" alt="{{ $client->name }}" style="max-height: 80px; filter: grayscale(100%); transition: all 0.3s ease;">
-          @else
-            <div class="client-placeholder d-flex align-items-center justify-content-center" style="height: 80px; background: #f8f9fa; border-radius: 8px;">
-              <span class="fw-bold text-muted">{{ $client->name }}</span>
+        <!-- Private Companies Tab -->
+        <div class="tab-pane fade show active" id="private" role="tabpanel">
+          <div class="clients-slider swiper">
+            <div class="swiper-wrapper align-items-center">
+              @forelse($privateClients as $client)
+                <div class="swiper-slide">
+                  @if($client->website_url)
+                    <a href="{{ $client->website_url }}" target="_blank">
+                  @endif
+                  @if($client->logo && file_exists(public_path('storage/clients/' . $client->logo)))
+                    <img src="{{ asset('storage/clients/' . $client->logo) }}" class="img-fluid client-logo" alt="{{ $client->name }}">
+                  @else
+                    <img src="{{ asset('assets/images/clients/client-1.png') }}" class="img-fluid client-logo" alt="{{ $client->name }}">
+                  @endif
+                  @if($client->website_url)
+                    </a>
+                  @endif
+                </div>
+              @empty
+                <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-1.png') }}" class="img-fluid client-logo" alt="Private Client 1"></div>
+                <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-2.png') }}" class="img-fluid client-logo" alt="Private Client 2"></div>
+              @endforelse
             </div>
-          @endif
-          
-          @if($client->website_url)
-            </a>
-          @endif
+          </div>
         </div>
-        @empty
-        <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-1.png') }}" class="img-fluid" alt=""></div>
-        <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-2.png') }}" class="img-fluid" alt=""></div>
-        <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-3.png') }}" class="img-fluid" alt=""></div>
-        <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-4.png') }}" class="img-fluid" alt=""></div>
-        @endforelse
+        
+        <!-- Government Tab -->
+        <div class="tab-pane fade" id="government" role="tabpanel">
+          <div class="clients-slider swiper">
+            <div class="swiper-wrapper align-items-center">
+              @forelse($governmentClients as $client)
+                <div class="swiper-slide">
+                  @if($client->website_url)
+                    <a href="{{ $client->website_url }}" target="_blank">
+                  @endif
+                  @if($client->logo && file_exists(public_path('storage/clients/' . $client->logo)))
+                    <img src="{{ asset('storage/clients/' . $client->logo) }}" class="img-fluid client-logo" alt="{{ $client->name }}">
+                  @else
+                    <img src="{{ asset('assets/images/clients/client-5.png') }}" class="img-fluid client-logo" alt="{{ $client->name }}">
+                  @endif
+                  @if($client->website_url)
+                    </a>
+                  @endif
+                </div>
+              @empty
+                <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-5.png') }}" class="img-fluid client-logo" alt="Government Client 1"></div>
+                <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-6.png') }}" class="img-fluid client-logo" alt="Government Client 2"></div>
+              @endforelse
+            </div>
+          </div>
+        </div>
+        
+        <!-- Global Clients Tab -->
+        <div class="tab-pane fade" id="global" role="tabpanel">
+          <div class="clients-slider swiper">
+            <div class="swiper-wrapper align-items-center">
+              @forelse($globalClients as $client)
+                <div class="swiper-slide">
+                  @if($client->website_url)
+                    <a href="{{ $client->website_url }}" target="_blank">
+                  @endif
+                  @if($client->logo && file_exists(public_path('storage/clients/' . $client->logo)))
+                    <img src="{{ asset('storage/clients/' . $client->logo) }}" class="img-fluid client-logo" alt="{{ $client->name }}">
+                  @else
+                    <img src="{{ asset('assets/images/clients/client-3.png') }}" class="img-fluid client-logo" alt="{{ $client->name }}">
+                  @endif
+                  @if($client->website_url)
+                    </a>
+                  @endif
+                </div>
+              @empty
+                <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-3.png') }}" class="img-fluid client-logo" alt="Global Client 1"></div>
+                <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-4.png') }}" class="img-fluid client-logo" alt="Global Client 2"></div>
+              @endforelse
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <style>
+.client-logo {
+  max-height: 80px;
+  filter: grayscale(100%);
+  transition: all 0.3s ease;
+}
 .client-logo:hover {
   filter: grayscale(0%) !important;
   transform: scale(1.05);
 }
-.client-link {
-  display: block;
-  text-decoration: none;
+.clients-tabs .nav-tabs {
+  border-bottom: 2px solid #e9ecef;
+}
+.clients-tabs .nav-link {
+  color: #6c757d;
+  border: none;
+  padding: 12px 24px;
+  font-weight: 500;
+  border-radius: 25px;
+  margin: 0 5px;
+  transition: all 0.3s ease;
+}
+.clients-tabs .nav-link.active {
+  background: linear-gradient(45deg, #007bff, #0056b3);
+  color: white;
+  border: none;
+}
+.clients-tabs .nav-link:hover {
+  color: #007bff;
+  background-color: #f8f9fa;
 }
 </style>
 

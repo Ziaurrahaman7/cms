@@ -57,6 +57,14 @@
                     <span class="ml-auto bg-green-500 text-xs px-2 py-1 rounded-full">{{ \App\Models\Team::count() }}</span>
                 </a>
                 
+                <a href="{{ route('admin.achievements.index') }}" class="flex items-center px-6 py-3 {{ request()->routeIs('admin.achievements.*') ? 'bg-secondary text-white border-r-4 border-blue-400' : 'text-gray-300 hover:bg-gray-700 hover:text-white transition-colors' }}">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                    </svg>
+                    Achievements
+                    <span class="ml-auto bg-yellow-500 text-xs px-2 py-1 rounded-full">{{ \App\Models\Achievement::count() }}</span>
+                </a>
+                
                 <a href="{{ route('admin.faqs.index') }}" class="flex items-center px-6 py-3 {{ request()->routeIs('admin.faqs.*') ? 'bg-secondary text-white border-r-4 border-blue-400' : 'text-gray-300 hover:bg-gray-700 hover:text-white transition-colors' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>

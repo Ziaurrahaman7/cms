@@ -20,6 +20,10 @@ class AdminClientController extends Controller
             $query->where('is_active', $request->status === 'active');
         }
 
+        if ($request->filled('category')) {
+            $query->where('category', $request->category);
+        }
+
         $clients = $query->orderBy('sort_order')->orderBy('name')->paginate(10);
 
         return view('admin.clients.index', compact('clients'));
@@ -34,6 +38,7 @@ class AdminClientController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'category' => 'required|in:private,government,global',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'website_url' => 'nullable|url',
             'description' => 'nullable|string',
@@ -64,6 +69,7 @@ class AdminClientController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'category' => 'required|in:private,government,global',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'website_url' => 'nullable|url',
             'description' => 'nullable|string',

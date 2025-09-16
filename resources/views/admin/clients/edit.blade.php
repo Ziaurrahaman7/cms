@@ -35,6 +35,21 @@
                     @enderror
                 </div>
 
+                <!-- Category -->
+                <div>
+                    <label for="category" class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
+                    <select id="category" name="category" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('category') border-red-500 @enderror">
+                        <option value="">Select Category</option>
+                        <option value="private" {{ old('category', $client->category) == 'private' ? 'selected' : '' }}>Private Companies</option>
+                        <option value="government" {{ old('category', $client->category) == 'government' ? 'selected' : '' }}>Government</option>
+                        <option value="global" {{ old('category', $client->category) == 'global' ? 'selected' : '' }}>Global Clients</option>
+                    </select>
+                    @error('category')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <!-- Website URL -->
                 <div>
                     <label for="website_url" class="block text-sm font-medium text-gray-700 mb-2">Website URL</label>
