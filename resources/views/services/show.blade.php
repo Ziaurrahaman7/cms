@@ -125,21 +125,21 @@
 <!-- CTA Section -->
 <section class="py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); position: relative; overflow: hidden;">
   <div class="container position-relative">
-    <div class="row align-items-center justify-content-center text-center">
+    <div class="text-center row align-items-center justify-content-center">
       <div class="col-lg-10">
         <div class="cta-content" data-aos="fade-up">
           <div class="mb-4">
-            <div class="d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%; backdrop-filter: blur(10px);">
-              <i class="bi bi-rocket text-white" style="font-size: 2rem;"></i>
+            <div class="mb-3 d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%; backdrop-filter: blur(10px);">
+              <i class="text-white bi bi-rocket" style="font-size: 2rem;"></i>
             </div>
           </div>
           <h2 class="mb-4 text-white" style="font-size: 3rem; font-weight: 700; line-height: 1.2;">Ready to Get Started?</h2>
-          <p class="mb-5 text-white-50 fs-5 mx-auto" style="max-width: 600px;">Transform your business with our {{ $service->title }} solutions. Contact us today for a free consultation and let's build something amazing together.</p>
+          <p class="mx-auto mb-5 text-white-50 fs-5" style="max-width: 600px;">Transform your business with our {{ $service->title }} solutions. Contact us today for a free consultation and let's build something amazing together.</p>
           <div class="cta-buttons" data-aos="fade-up" data-aos-delay="200">
-            <a href="{{ route('contact.index') }}" class="px-5 py-3 mb-3 me-3 btn btn-warning btn-lg rounded-pill fw-bold shadow-lg" style="transform: translateY(0); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+            <a href="{{ route('contact.index') }}" class="px-5 py-3 mb-3 shadow-lg me-3 btn btn-warning btn-lg rounded-pill fw-bold" style="transform: translateY(0); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
               <i class="bi bi-send me-2"></i>Get Free Quote
             </a>
-            <a href="tel:{{ App\Models\SiteSetting::get('contact_phone', '+1234567890') }}" class="px-5 py-3 mb-3 btn btn-outline-light btn-lg rounded-pill fw-bold shadow-lg" style="transform: translateY(0); transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='translateY(-3px)'; this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.background='transparent'">
+            <a href="tel:{{ App\Models\SiteSetting::get('contact_phone', '+1234567890') }}" class="px-5 py-3 mb-3 shadow-lg btn btn-outline-light btn-lg rounded-pill fw-bold" style="transform: translateY(0); transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.8);" onmouseover="this.style.transform='translateY(-3px)'; this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.background='transparent'">
               <i class="bi bi-telephone me-2"></i>Call Now
             </a>
           </div>
