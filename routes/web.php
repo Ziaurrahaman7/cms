@@ -38,6 +38,7 @@ Route::get('/products/{slug}', [App\Http\Controllers\ProductController::class, '
 
 // Partners page
 Route::get('/partners', [App\Http\Controllers\PartnerController::class, 'index'])->name('partners.index');
+Route::get('/partners/{slug}', [App\Http\Controllers\PartnerController::class, 'show'])->name('partners.show');
 
 // Contact form
 Route::post('/contact', [App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');

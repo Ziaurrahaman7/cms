@@ -25,8 +25,7 @@ class AdminPartnerController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|in:technology,business,strategic,channel',
-            'website' => 'nullable|url',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'sort_order' => 'nullable|integer',
             'active' => 'boolean'
@@ -34,7 +33,7 @@ class AdminPartnerController extends Controller
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $data['active'] = $request->has('active');
+        $data['is_active'] = $request->has('active');
 
         if ($request->hasFile('logo')) {
             $data['logo'] = $request->file('logo')->store('partners', 'public');
@@ -71,8 +70,7 @@ class AdminPartnerController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|in:technology,business,strategic,channel',
-            'website' => 'nullable|url',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'sort_order' => 'nullable|integer',
             'active' => 'boolean'
@@ -80,7 +78,7 @@ class AdminPartnerController extends Controller
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $data['active'] = $request->has('active');
+        $data['is_active'] = $request->has('active');
 
         if ($request->hasFile('logo')) {
             if ($partner->logo) {

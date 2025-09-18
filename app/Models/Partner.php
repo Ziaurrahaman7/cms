@@ -7,17 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Partner extends Model
 {
     protected $fillable = [
-        'name', 'slug', 'type', 'website', 'description', 'logo', 'sort_order', 'active', 'sections'
+        'name', 'slug', 'type', 'website', 'description', 'logo', 'sort_order', 'is_active', 'sections'
     ];
 
     protected $casts = [
-        'active' => 'boolean',
+        'is_active' => 'boolean',
         'sections' => 'array'
     ];
 
     public function scopeActive($query)
     {
-        return $query->where('active', true);
+        return $query->where('is_active', true);
     }
 
     public function scopeByType($query, $type)

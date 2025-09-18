@@ -44,10 +44,15 @@
         <li class="dropdown">
           <a href="{{ route('partners.index') }}" class="{{ request()->routeIs('partners.*') ? 'active' : '' }}">Partners <i class="bi bi-chevron-down dropdown-indicator"></i></a>
           <ul>
-            <li><a href="#">Technology Partners</a></li>
-            <li><a href="#">Business Partners</a></li>
-            <li><a href="#">Strategic Partners</a></li>
-            <li><a href="#">Channel Partners</a></li>
+            @php
+              $headerPartners = App\Models\Partner::active()->ordered()->get();
+            @endphp
+            @forelse($headerPartners as $partner)
+              <li><a href="/partners/{{ $partner->slug }}">{{ $partner->name }}</a></li>
+            @empty
+              <li><a href="{{ route('partners.index') }}">No Partners Available</a></li>
+            @endforelse
+            <li><a href="{{ route('partners.index') }}">All Partners</a></li>
           </ul>
         </li>
         <li><a href="{{ route('case-study.index') }}" class="{{ request()->routeIs('case-study.*') ? 'active' : '' }}">Case Study</a></li>

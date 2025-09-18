@@ -73,7 +73,7 @@
                         </div>
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
-                            <textarea name="description" rows="3" required class="summernote w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('description') }}</textarea>
+                            <textarea name="description" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('description') }}</textarea>
                             @error('description')
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
@@ -94,7 +94,7 @@
                         </div>
                         <div class="md:col-span-2">
                             <label class="flex items-center">
-                                <input type="checkbox" name="active" {{ old('active', true) ? 'checked' : '' }} class="h-4 w-4 text-blue-600 rounded">
+                                <input type="checkbox" name="active" value="1" {{ old('active', true) ? 'checked' : '' }} class="h-4 w-4 text-blue-600 rounded">
                                 <span class="ml-2 text-sm text-gray-900">Active Partner</span>
                             </label>
                         </div>
@@ -114,7 +114,7 @@
                 
                 <div class="flex justify-end gap-3 mt-8 pt-6 border-t border-gray-200">
                     <a href="{{ route('admin.partners.index') }}" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200">Cancel</a>
-                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Create Partner</button>
+                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="$('.summernote').each(function(){$(this).summernote('code', $(this).summernote('code'));})">Create Partner</button>
                 </div>
             </form>
         </div>
@@ -174,12 +174,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <div class="md:col-span-2">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                        <textarea name="sections[${sectionIndex}][description]" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"></textarea>
+                        <textarea name="sections[${sectionIndex}][description]" rows="3" class="summernote w-full px-3 py-2 border border-gray-300 rounded-md text-sm"></textarea>
                     </div>
                 </div>
             </div>
         `;
         container.insertAdjacentHTML('beforeend', sectionHtml);
+        // Initialize Summernote for the new textarea
+        $(container).find('.section-item:last .summernote').summernote({
+            height: 150,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
         sectionIndex++;
     });
 

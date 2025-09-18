@@ -67,14 +67,14 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Website URL</label>
-                            <input type="url" name="website_url" value="{{ old('website_url', $partner->website_url) }}" placeholder="https://example.com" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            @error('website_url')
+                            <input type="url" name="website" value="{{ old('website', $partner->website) }}" placeholder="https://example.com" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @error('website')
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
-                            <textarea name="description" rows="3" required class="summernote w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('description', $partner->description) }}</textarea>
+                            <textarea name="description" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('description', $partner->description) }}</textarea>
                             @error('description')
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                             @enderror
@@ -100,7 +100,7 @@
                         </div>
                         <div class="md:col-span-2">
                             <label class="flex items-center">
-                                <input type="checkbox" name="is_active" {{ old('is_active', $partner->is_active) ? 'checked' : '' }} class="h-4 w-4 text-blue-600 rounded">
+                                <input type="checkbox" name="active" {{ old('active', $partner->active) ? 'checked' : '' }} class="h-4 w-4 text-blue-600 rounded">
                                 <span class="ml-2 text-sm text-gray-900">Active Partner</span>
                             </label>
                         </div>
@@ -143,7 +143,7 @@
                                     </div>
                                     <div class="md:col-span-2">
                                         <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                                        <textarea name="sections[{{ $index }}][description]" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm">{{ $section['description'] ?? '' }}</textarea>
+                                        <textarea name="sections[{{ $index }}][description]" rows="3" class="summernote w-full px-3 py-2 border border-gray-300 rounded-md text-sm">{{ $section['description'] ?? '' }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -214,12 +214,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <div class="md:col-span-2">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                        <textarea name="sections[${sectionIndex}][description]" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"></textarea>
+                        <textarea name="sections[${sectionIndex}][description]" rows="3" class="summernote w-full px-3 py-2 border border-gray-300 rounded-md text-sm"></textarea>
                     </div>
                 </div>
             </div>
         `;
         container.insertAdjacentHTML('beforeend', sectionHtml);
+        // Initialize Summernote for the new textarea
+        $(container).find('.section-item:last .summernote').summernote({
+            height: 150,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
         sectionIndex++;
     });
 
