@@ -33,6 +33,9 @@ Route::get('/clients', [App\Http\Controllers\ClientPageController::class, 'index
 // Public service routes
 Route::get('/services/{slug}', [App\Http\Controllers\ServiceController::class, 'show'])->name('services.show');
 
+// Public product routes
+Route::get('/products/{slug}', [App\Http\Controllers\ProductController::class, 'show'])->name('products.show');
+
 // Contact form
 Route::post('/contact', [App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
 
@@ -172,6 +175,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/{achievement}/edit', [App\Http\Controllers\AdminAchievementController::class, 'edit'])->name('edit');
         Route::put('/{achievement}', [App\Http\Controllers\AdminAchievementController::class, 'update'])->name('update');
         Route::delete('/{achievement}', [App\Http\Controllers\AdminAchievementController::class, 'destroy'])->name('destroy');
+    });
+    
+    // Admin Product Management
+    Route::prefix('admin/products')->name('admin.products.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminProductController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminProductController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminProductController::class, 'store'])->name('store');
+        Route::get('/{product}/edit', [App\Http\Controllers\AdminProductController::class, 'edit'])->name('edit');
+        Route::put('/{product}', [App\Http\Controllers\AdminProductController::class, 'update'])->name('update');
+        Route::delete('/{product}', [App\Http\Controllers\AdminProductController::class, 'destroy'])->name('destroy');
     });
 });
 

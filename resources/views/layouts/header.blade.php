@@ -27,6 +27,19 @@
             @endforelse
           </ul>
         </li>
+        <li class="dropdown">
+          <a href="#" class="{{ request()->routeIs('products.*') ? 'active' : '' }}">Products <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+          <ul>
+            @php
+              $headerProducts = App\Models\Product::active()->ordered()->get();
+            @endphp
+            @forelse($headerProducts as $product)
+              <li><a href="{{ route('products.show', $product->slug) }}">{{ $product->title }}</a></li>
+            @empty
+              <li><a href="#">No Products Available</a></li>
+            @endforelse
+          </ul>
+        </li>
         <li><a href="{{ route('clients.index') }}" class="{{ request()->routeIs('clients.*') ? 'active' : '' }}">Clients</a></li>
         <li><a href="{{ route('case-study.index') }}" class="{{ request()->routeIs('case-study.*') ? 'active' : '' }}">Case Study</a></li>
         <li><a href="{{ route('posts.index') }}" class="{{ request()->routeIs('posts.*') ? 'active' : '' }}">Blog</a></li>
