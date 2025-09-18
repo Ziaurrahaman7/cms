@@ -43,6 +43,12 @@ Route::get('/partners/{slug}', [App\Http\Controllers\PartnerController::class, '
 // Contact form
 Route::post('/contact', [App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
 
+// Job application
+Route::post('/job-apply', [App\Http\Controllers\JobApplicationController::class, 'store'])->name('job.apply');
+
+// Careers page
+Route::get('/careers', [App\Http\Controllers\CareerController::class, 'index'])->name('careers.index');
+
 Route::middleware('auth')->group(function () {
     
     Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -209,6 +215,25 @@ Route::middleware('auth')->group(function () {
         Route::get('/{partner}/edit', [App\Http\Controllers\AdminPartnerController::class, 'edit'])->name('edit');
         Route::put('/{partner}', [App\Http\Controllers\AdminPartnerController::class, 'update'])->name('update');
         Route::delete('/{partner}', [App\Http\Controllers\AdminPartnerController::class, 'destroy'])->name('destroy');
+    });
+    
+    // Admin Job Management
+    Route::prefix('admin/jobs')->name('admin.jobs.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminJobController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminJobController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminJobController::class, 'store'])->name('store');
+        Route::get('/{job}/edit', [App\Http\Controllers\AdminJobController::class, 'edit'])->name('edit');
+        Route::put('/{job}', [App\Http\Controllers\AdminJobController::class, 'update'])->name('update');
+        Route::delete('/{job}', [App\Http\Controllers\AdminJobController::class, 'destroy'])->name('destroy');
+    });
+    
+    // Admin Job Applications Management
+    Route::prefix('admin/job-applications')->name('admin.job-applications.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminJobApplicationController::class, 'index'])->name('index');
+        Route::get('/{jobApplication}', [App\Http\Controllers\AdminJobApplicationController::class, 'show'])->name('show');
+        Route::patch('/{jobApplication}/status', [App\Http\Controllers\AdminJobApplicationController::class, 'updateStatus'])->name('update-status');
+        Route::get('/{jobApplication}/download-cv', [App\Http\Controllers\AdminJobApplicationController::class, 'downloadCv'])->name('download-cv');
+        Route::delete('/{jobApplication}', [App\Http\Controllers\AdminJobApplicationController::class, 'destroy'])->name('destroy');
     });
 });
 

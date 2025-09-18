@@ -9,7 +9,8 @@ class PartnerController extends Controller
 {
     public function index()
     {
-        return view('partners.index');
+        $partners = \App\Models\Partner::ordered()->get();
+        return view('partners.index', compact('partners'));
     }
 
     public function show($slug)
