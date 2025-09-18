@@ -61,6 +61,44 @@ class AdminPortfolioController extends Controller
         $data = $request->except(['image']);
         $data['is_active'] = $request->has('is_active');
         
+        // Handle work process with images
+        if ($request->has('work_process')) {
+            $workProcess = [];
+            foreach ($request->work_process as $index => $item) {
+                if (!empty($item['title']) || !empty($item['description'])) {
+                    if ($request->hasFile("work_process.{$index}.image")) {
+                        $image = $request->file("work_process.{$index}.image");
+                        $imageName = time() . '_wp_' . $index . '.' . $image->getClientOriginalExtension();
+                        $image->storeAs('portfolios', $imageName, 'public');
+                        $item['image'] = $imageName;
+                    }
+                    $workProcess[] = $item;
+                }
+            }
+            $data['work_process'] = !empty($workProcess) ? $workProcess : null;
+        }
+        
+        // Handle business cases with images
+        if ($request->has('business_cases')) {
+            $businessCases = [];
+            foreach ($request->business_cases as $index => $item) {
+                if (!empty($item['title']) || !empty($item['description'])) {
+                    if ($request->hasFile("business_cases.{$index}.image")) {
+                        $image = $request->file("business_cases.{$index}.image");
+                        $imageName = time() . '_bc_' . $index . '.' . $image->getClientOriginalExtension();
+                        $image->storeAs('portfolios', $imageName, 'public');
+                        $item['image'] = $imageName;
+                    }
+                    $businessCases[] = $item;
+                }
+            }
+            $data['business_cases'] = !empty($businessCases) ? $businessCases : null;
+        }
+        
+        $data['client_reviews'] = $request->has('client_reviews') ? array_filter($request->client_reviews, function($item) {
+            return !empty($item['name']) || !empty($item['message']);
+        }) : null;
+        
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
@@ -91,8 +129,50 @@ class AdminPortfolioController extends Controller
             'sort_order' => 'nullable|integer'
         ]);
 
-        $data = $request->except(['image']);
+        $data = $request->except(['image', '_token', '_method']);
         $data['is_active'] = $request->has('is_active');
+        
+        // Handle work process with images
+        if ($request->has('work_process')) {
+            $workProcess = [];
+            foreach ($request->work_process as $index => $item) {
+                if (!empty($item['title']) || !empty($item['description'])) {
+                    if ($request->hasFile("work_process.{$index}.image")) {
+                        $image = $request->file("work_process.{$index}.image");
+                        $imageName = time() . '_wp_' . $index . '.' . $image->getClientOriginalExtension();
+                        $image->storeAs('portfolios', $imageName, 'public');
+                        $item['image'] = $imageName;
+                    } elseif (isset($portfolio->work_process[$index]['image'])) {
+                        $item['image'] = $portfolio->work_process[$index]['image'];
+                    }
+                    $workProcess[] = $item;
+                }
+            }
+            $data['work_process'] = !empty($workProcess) ? $workProcess : null;
+        }
+        
+        // Handle business cases with images
+        if ($request->has('business_cases')) {
+            $businessCases = [];
+            foreach ($request->business_cases as $index => $item) {
+                if (!empty($item['title']) || !empty($item['description'])) {
+                    if ($request->hasFile("business_cases.{$index}.image")) {
+                        $image = $request->file("business_cases.{$index}.image");
+                        $imageName = time() . '_bc_' . $index . '.' . $image->getClientOriginalExtension();
+                        $image->storeAs('portfolios', $imageName, 'public');
+                        $item['image'] = $imageName;
+                    } elseif (isset($portfolio->business_cases[$index]['image'])) {
+                        $item['image'] = $portfolio->business_cases[$index]['image'];
+                    }
+                    $businessCases[] = $item;
+                }
+            }
+            $data['business_cases'] = !empty($businessCases) ? $businessCases : null;
+        }
+        
+        $data['client_reviews'] = $request->has('client_reviews') ? array_filter($request->client_reviews, function($item) {
+            return !empty($item['name']) || !empty($item['message']);
+        }) : null;
         
         if ($request->hasFile('image')) {
             if ($portfolio->image && file_exists(storage_path('app/public/portfolios/' . $portfolio->image))) {
@@ -106,6 +186,7 @@ class AdminPortfolioController extends Controller
         }
 
         $portfolio->update($data);
+        
         return redirect()->route('admin.portfolios.index')->with('success', 'Portfolio updated successfully');
     }
 

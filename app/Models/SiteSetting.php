@@ -33,4 +33,9 @@ class SiteSetting extends Model
     {
         return self::where('group', $group)->pluck('value', 'key');
     }
+
+    public static function getValue($key, $default = null)
+    {
+        return self::get($key, $default);
+    }
 }

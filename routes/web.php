@@ -20,6 +20,7 @@ Route::get('/about-us', [App\Http\Controllers\AboutController::class, 'index'])-
 
 // Case Study page
 Route::get('/case-study', [App\Http\Controllers\CaseStudyController::class, 'index'])->name('case-study.index');
+Route::get('/case-study/{portfolio}', [App\Http\Controllers\CaseStudyController::class, 'show'])->name('case-study.show');
 
 // Services page
 Route::get('/services', [App\Http\Controllers\ServicePageController::class, 'index'])->name('services.index');

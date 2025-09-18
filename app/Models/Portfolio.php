@@ -15,12 +15,18 @@ class Portfolio extends Model
         'project_url',
         'project_date',
         'is_active',
-        'sort_order'
+        'sort_order',
+        'work_process',
+        'business_cases',
+        'client_reviews'
     ];
     
     protected $casts = [
         'is_active' => 'boolean',
-        'project_date' => 'date'
+        'project_date' => 'date',
+        'work_process' => 'array',
+        'business_cases' => 'array',
+        'client_reviews' => 'array'
     ];
     
     public function scopeActive($query)

@@ -13,4 +13,9 @@ class CaseStudyController extends Controller
         
         return view('case-study.index', compact('portfolios'));
     }
+    
+    public function show(Portfolio $portfolio)
+    {
+        return view('case-study.show', compact('portfolio'));
+    }
 }

@@ -71,7 +71,7 @@
                           <li><a href="#featured">About</a></li>
                           <li><a href="#pricing">Pricing</a></li>
                           <li><a href="#team">Team</a></li>
-                          <li><a href="#portfolio">Portfolio</a></li>
+                          <li><a href="{{ route('case-study.index') }}">Portfolio</a></li>
                           <li><a href="#faq">FAQs</a></li>
                           <li><a href="{{ route('case-study.index') }}">Case Study</a></li>
                           <li><a href="{{ route('careers.index') }}">Careers</a></li>
