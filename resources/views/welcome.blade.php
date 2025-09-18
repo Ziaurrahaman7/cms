@@ -133,6 +133,38 @@
       </div>
       
       <div class="row g-4">
+        @php
+          $products = App\Models\Product::active()->ordered()->take(6)->get();
+        @endphp
+        
+        @forelse($products as $product)
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
+          <div class="product-card bg-white rounded-4 shadow-lg overflow-hidden h-100" style="transition: all 0.3s ease;">
+            <div class="product-image position-relative" style="height: 200px; overflow: hidden;">
+              @if($product->image && file_exists(public_path('storage/' . $product->image)))
+                <img src="{{ asset('storage/' . $product->image) }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $product->title }}">
+              @else
+                <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background: linear-gradient(45deg, #667eea, #764ba2);">
+                  <i class="bi bi-laptop text-white" style="font-size: 3rem;"></i>
+                </div>
+              @endif
+              <div class="product-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease;">
+                <span class="text-white fw-bold">View Details</span>
+              </div>
+            </div>
+            <div class="card-body p-4">
+              <h4 class="mb-3 fw-bold">{{ $product->title }}</h4>
+              <p class="text-muted mb-4">{{ Str::limit($product->description, 80) }}</p>
+              <div class="d-flex align-items-center justify-content-between">
+                <a href="{{ route('products.show', $product->slug) }}" class="btn btn-outline-primary btn-sm rounded-pill">
+                  Learn More
+                </a>
+                <div class="product-number text-muted fw-bold" style="font-size: 2rem; opacity: 0.1;">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        @empty
         <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
           <div class="product-card bg-white rounded-4 shadow-lg overflow-hidden h-100">
             <div class="product-image" style="height: 200px; background: linear-gradient(45deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center;">
@@ -145,35 +177,23 @@
             </div>
           </div>
         </div>
-        
-        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-          <div class="product-card bg-white rounded-4 shadow-lg overflow-hidden h-100">
-            <div class="product-image" style="height: 200px; background: linear-gradient(45deg, #4ecdc4, #44a08d); display: flex; align-items: center; justify-content: center;">
-              <i class="bi bi-phone text-white" style="font-size: 3rem;"></i>
-            </div>
-            <div class="card-body p-4">
-              <h4 class="mb-3 fw-bold">Mobile App Platform</h4>
-              <p class="text-muted mb-4">Cross-platform mobile application development framework</p>
-              <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm rounded-pill">Learn More</a>
-            </div>
-          </div>
-        </div>
-        
-        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-          <div class="product-card bg-white rounded-4 shadow-lg overflow-hidden h-100">
-            <div class="product-image" style="height: 200px; background: linear-gradient(45deg, #feca57, #ff9ff3); display: flex; align-items: center; justify-content: center;">
-              <i class="bi bi-cloud text-white" style="font-size: 3rem;"></i>
-            </div>
-            <div class="card-body p-4">
-              <h4 class="mb-3 fw-bold">Cloud Management</h4>
-              <p class="text-muted mb-4">Comprehensive cloud infrastructure management solution</p>
-              <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm rounded-pill">Learn More</a>
-            </div>
-          </div>
-        </div>
+        @endforelse
       </div>
     </div>
   </div>
+  
+  <style>
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+    }
+    .product-card:hover .product-image img {
+      transform: scale(1.1);
+    }
+    .product-card:hover .product-overlay {
+      opacity: 1;
+    }
+  </style>
 
   <!-- Industry Solutions Section -->
   <div id="industry-solutions" class="py-5 section" style="background: #f8f9fa;">
@@ -184,6 +204,34 @@
       </div>
       
       <div class="row g-4">
+        @php
+          $industries = App\Models\Industry::active()->ordered()->get();
+          $gradients = [
+            'linear-gradient(45deg, #ff6b6b, #ee5a24)',
+            'linear-gradient(45deg, #667eea, #764ba2)',
+            'linear-gradient(45deg, #4ecdc4, #44a08d)',
+            'linear-gradient(45deg, #feca57, #ff9ff3)'
+          ];
+        @endphp
+        
+        @forelse($industries as $industry)
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
+          <div class="industry-solution-card bg-white rounded-4 p-4 h-100 shadow-sm text-center">
+            <div class="industry-icon mb-3">
+              @if($industry->image && file_exists(public_path('storage/' . $industry->image)))
+                <img src="{{ asset('storage/' . $industry->image) }}" alt="{{ $industry->title }}" class="mx-auto rounded-circle" style="width: 70px; height: 70px; object-fit: cover;">
+              @else
+                <div class="icon-wrapper mx-auto" style="width: 70px; height: 70px; background: {{ $gradients[$loop->index % 4] }}; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                  <i class="{{ $industry->icon ?? 'bi bi-building' }} text-white" style="font-size: 1.8rem;"></i>
+                </div>
+              @endif
+            </div>
+            <h5 class="mb-2">{{ $industry->title }}</h5>
+            <p class="text-muted small mb-3">{{ $industry->description }}</p>
+            <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm">Explore</a>
+          </div>
+        </div>
+        @empty
         <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
           <div class="industry-solution-card bg-white rounded-4 p-4 h-100 shadow-sm text-center">
             <div class="industry-icon mb-3">
@@ -196,45 +244,7 @@
             <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm">Explore</a>
           </div>
         </div>
-        
-        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-          <div class="industry-solution-card bg-white rounded-4 p-4 h-100 shadow-sm text-center">
-            <div class="industry-icon mb-3">
-              <div class="icon-wrapper mx-auto" style="width: 70px; height: 70px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                <i class="bi bi-bank text-white" style="font-size: 1.8rem;"></i>
-              </div>
-            </div>
-            <h5 class="mb-2">Finance</h5>
-            <p class="text-muted small mb-3">Banking software, payment gateways, financial analytics</p>
-            <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm">Explore</a>
-          </div>
-        </div>
-        
-        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
-          <div class="industry-solution-card bg-white rounded-4 p-4 h-100 shadow-sm text-center">
-            <div class="industry-icon mb-3">
-              <div class="icon-wrapper mx-auto" style="width: 70px; height: 70px; background: linear-gradient(45deg, #4ecdc4, #44a08d); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                <i class="bi bi-hospital text-white" style="font-size: 1.8rem;"></i>
-              </div>
-            </div>
-            <h5 class="mb-2">Healthcare</h5>
-            <p class="text-muted small mb-3">Hospital management, telemedicine, patient records</p>
-            <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm">Explore</a>
-          </div>
-        </div>
-        
-        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
-          <div class="industry-solution-card bg-white rounded-4 p-4 h-100 shadow-sm text-center">
-            <div class="industry-icon mb-3">
-              <div class="icon-wrapper mx-auto" style="width: 70px; height: 70px; background: linear-gradient(45deg, #feca57, #ff9ff3); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                <i class="bi bi-mortarboard text-white" style="font-size: 1.8rem;"></i>
-              </div>
-            </div>
-            <h5 class="mb-2">Education</h5>
-            <p class="text-muted small mb-3">LMS, student management, online learning platforms</p>
-            <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm">Explore</a>
-          </div>
-        </div>
+        @endforelse
       </div>
     </div>
   </div>

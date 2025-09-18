@@ -36,6 +36,9 @@ Route::get('/services/{slug}', [App\Http\Controllers\ServiceController::class, '
 // Public product routes
 Route::get('/products/{slug}', [App\Http\Controllers\ProductController::class, 'show'])->name('products.show');
 
+// Partners page
+Route::get('/partners', [App\Http\Controllers\PartnerController::class, 'index'])->name('partners.index');
+
 // Contact form
 Route::post('/contact', [App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
 
@@ -185,6 +188,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/{product}/edit', [App\Http\Controllers\AdminProductController::class, 'edit'])->name('edit');
         Route::put('/{product}', [App\Http\Controllers\AdminProductController::class, 'update'])->name('update');
         Route::delete('/{product}', [App\Http\Controllers\AdminProductController::class, 'destroy'])->name('destroy');
+    });
+    
+    // Admin Industry Management
+    Route::prefix('admin/industries')->name('admin.industries.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminIndustryController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminIndustryController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminIndustryController::class, 'store'])->name('store');
+        Route::get('/{industry}/edit', [App\Http\Controllers\AdminIndustryController::class, 'edit'])->name('edit');
+        Route::put('/{industry}', [App\Http\Controllers\AdminIndustryController::class, 'update'])->name('update');
+        Route::delete('/{industry}', [App\Http\Controllers\AdminIndustryController::class, 'destroy'])->name('destroy');
     });
 });
 
