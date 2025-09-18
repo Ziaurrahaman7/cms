@@ -76,7 +76,7 @@
             
             <div class="p-4 card-body">
               <h4 class="mb-3 card-title fw-bold" style="color: #2c3e50;">{{ $service->title }}</h4>
-              <p class="mb-4 card-text text-muted">{{ $service->description }}</p>
+              <p class="mb-4 card-text text-muted">{{ Str::limit($service->description, 200) }}</p>
               <div class="d-flex align-items-center justify-content-between">
                 <a href="{{ route('services.show', $service->slug) }}" class="px-4 py-2 btn btn-primary btn-sm rounded-pill" style="background: linear-gradient(45deg, #667eea, #764ba2); border: none;">
                   Learn More
