@@ -14,7 +14,7 @@ class PartnerController extends Controller
 
     public function show($slug)
     {
-        $partner = Partner::where('slug', $slug)->where('is_active', true)->firstOrFail();
+        $partner = Partner::where('slug', $slug)->firstOrFail();
         return view('partners.show', compact('partner'));
     }
 }

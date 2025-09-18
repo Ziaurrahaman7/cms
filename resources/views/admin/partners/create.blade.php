@@ -79,7 +79,7 @@
                             @enderror
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Logo</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Image</label>
                             <input type="file" name="logo" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                             @error('logo')
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -199,6 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Remove section functionality
     document.addEventListener('click', function(e) {
         if (e.target.closest('.remove-section')) {
+            e.preventDefault();
             e.target.closest('.section-item').remove();
         }
     });

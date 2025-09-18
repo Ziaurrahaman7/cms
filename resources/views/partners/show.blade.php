@@ -5,18 +5,16 @@
 
 @section('content')
 <!-- Partner Hero Section -->
-<section class="hero sticked-header-offset py-5" style="min-height: 70vh; background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%), url('{{ asset('assets/images/hero-bg.jpg') }}') center/cover;">
-  <div class="container">
-    <div class="row align-items-center justify-content-center text-center" style="min-height: 70vh;">
-      <div class="col-lg-8">
+<section class="hero sticked-header-offset py-5 position-relative" style="min-height: 70vh; background: url('{{ asset('assets/images/hero-bg.jpg') }}') center/cover;">
+  <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);"></div>
+  <div class="container position-relative" style="z-index: 2;">
+    <div class="row align-items-center" style="min-height: 70vh;">
+      <div class="col-lg-6">
         <div class="hero-content">
-          @if($partner->logo)
-            <img src="{{ asset('storage/' . $partner->logo) }}" alt="{{ $partner->name }}" class="mb-4" style="max-height: 100px;">
-          @endif
           <h1 class="mb-4 text-white" data-aos="fade-up">{{ $partner->name }}</h1>
           <p class="mb-5 fs-5 lead text-white-50" data-aos="fade-up" data-aos-delay="200">{{ $partner->description }}</p>
           @if($partner->website)
-            <div class="gap-3 d-flex justify-content-center flex-wrap" data-aos="fade-up" data-aos-delay="400">
+            <div class="gap-3 d-flex flex-wrap" data-aos="fade-up" data-aos-delay="400">
               <a href="{{ $partner->website }}" target="_blank" class="px-5 py-3 btn btn-warning btn-lg rounded-pill fw-bold">
                 <i class="bi bi-globe me-2"></i>Visit Website
               </a>
@@ -24,6 +22,11 @@
           @endif
         </div>
       </div>
+      @if($partner->logo)
+      <div class="col-lg-6 text-center" data-aos="fade-left" data-aos-delay="300">
+        <img src="{{ asset('storage/' . $partner->logo) }}" alt="{{ $partner->name }}" class="img-fluid" style="max-height: 300px;">
+      </div>
+      @endif
     </div>
   </div>
 </section>
@@ -34,13 +37,17 @@
   <section class="py-5 {{ $index % 2 == 0 ? '' : 'bg-light' }}">
     <div class="container">
       <div class="row align-items-center {{ $index % 2 == 0 ? '' : 'flex-row-reverse' }}">
-        @if(isset($section['image']) && $section['image'])
         <div class="col-lg-6 mb-4 mb-lg-0">
-          <img src="{{ asset('storage/' . $section['image']) }}" alt="{{ $section['title'] }}" class="img-fluid rounded shadow">
+          @if(isset($section['image']) && $section['image'])
+            <img src="{{ asset('storage/' . $section['image']) }}" alt="{{ $section['title'] }}" class="img-fluid rounded shadow w-100" style="height: 400px; object-fit: cover;">
+          @else
+            <div class="bg-primary rounded d-flex align-items-center justify-content-center" style="height: 400px;">
+              <i class="bi bi-image text-white" style="font-size: 4rem;"></i>
+            </div>
+          @endif
         </div>
-        @endif
-        <div class="col-lg-{{ isset($section['image']) && $section['image'] ? '6' : '12' }}">
-          <div class="{{ isset($section['image']) && $section['image'] ? ($index % 2 == 0 ? 'ps-lg-4' : 'pe-lg-4') : 'text-center' }}">
+        <div class="col-lg-6">
+          <div class="{{ $index % 2 == 0 ? 'ps-lg-4' : 'pe-lg-4' }}">
             <h2 class="mb-4">{{ $section['title'] }}</h2>
             <div class="text-muted">{!! $section['description'] !!}</div>
           </div>
@@ -50,4 +57,70 @@
   </section>
   @endforeach
 @endif
+
+<!-- CTA Section -->
+<section class="py-5" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <h2 class="mb-3 text-white">Ready to Partner With Us?</h2>
+        <p class="mb-0 text-white-50 fs-5">Let's discuss partnership opportunities and create something amazing together.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <div class="gap-3 d-flex justify-content-lg-end justify-content-center">
+          <a href="#contact" class="px-4 py-3 btn btn-warning btn-lg rounded-pill fw-bold">
+            <i class="bi bi-handshake me-2"></i>Contact Us
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Form Section -->
+<section id="contact" class="py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="text-center mb-5">
+          <h2 class="mb-3">Get In Touch</h2>
+          <p class="text-muted">Ready to start a partnership? Send us a message and we'll get back to you soon.</p>
+        </div>
+        
+        <div class="bg-white rounded shadow p-4">
+          <form action="{{ route('contact.store') }}" method="POST">
+            @csrf
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="name" class="form-label">Name *</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="form-label">Email *</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+              </div>
+              <div class="col-md-6">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="tel" class="form-control" id="phone" name="phone">
+              </div>
+              <div class="col-md-6">
+                <label for="subject" class="form-label">Subject *</label>
+                <input type="text" class="form-control" id="subject" name="subject" value="Partnership Inquiry - {{ $partner->name }}" required>
+              </div>
+              <div class="col-12">
+                <label for="message" class="form-label">Message *</label>
+                <textarea class="form-control" id="message" name="message" rows="5" placeholder="Tell us about your partnership interest..." required></textarea>
+              </div>
+              <div class="col-12 text-center">
+                <button type="submit" class="btn btn-primary btn-lg px-5">
+                  <i class="bi bi-send me-2"></i>Send Message
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 @endsection

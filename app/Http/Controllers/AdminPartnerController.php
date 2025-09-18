@@ -89,15 +89,21 @@ class AdminPartnerController extends Controller
 
         if ($request->has('sections')) {
             $sections = [];
-            foreach ($request->sections as $section) {
+            foreach ($request->sections as $index => $section) {
                 if (!empty($section['title'])) {
                     $sectionData = [
                         'title' => $section['title'],
                         'description' => $section['description'] ?? ''
                     ];
-                    if (isset($section['image']) && $section['image']) {
-                        $sectionData['image'] = $section['image']->store('partners/sections', 'public');
+                    
+                    // Handle new image upload
+                    if ($request->hasFile("sections.{$index}.image")) {
+                        $sectionData['image'] = $request->file("sections.{$index}.image")->store('partners/sections', 'public');
+                    } elseif (isset($partner->sections[$index]['image'])) {
+                        // Keep existing image if no new upload
+                        $sectionData['image'] = $partner->sections[$index]['image'];
                     }
+                    
                     $sections[] = $sectionData;
                 }
             }

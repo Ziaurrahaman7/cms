@@ -73,6 +73,7 @@
                           <li><a href="#team">Team</a></li>
                           <li><a href="#portfolio">Portfolio</a></li>
                           <li><a href="#faq">FAQs</a></li>
+                          <li><a href="{{ route('case-study.index') }}">Case Study</a></li>
                           <li><a href="{{ route('posts.index') }}">Blogs</a></li>
                         </ul>
                     </div>

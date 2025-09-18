@@ -80,10 +80,10 @@
                             @enderror
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Logo</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Image</label>
                             @if($partner->logo)
                                 <div class="mb-2">
-                                    <img src="{{ asset('storage/' . $partner->logo) }}" alt="Current logo" class="h-16 w-16 object-cover rounded">
+                                    <img src="{{ asset('storage/' . $partner->logo) }}" alt="Current image" class="h-16 w-16 object-cover rounded">
                                 </div>
                             @endif
                             <input type="file" name="logo" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md">
@@ -239,6 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Remove section functionality
     document.addEventListener('click', function(e) {
         if (e.target.closest('.remove-section')) {
+            e.preventDefault();
             e.target.closest('.section-item').remove();
         }
     });
