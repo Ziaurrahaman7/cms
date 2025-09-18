@@ -199,6 +199,16 @@ Route::middleware('auth')->group(function () {
         Route::put('/{industry}', [App\Http\Controllers\AdminIndustryController::class, 'update'])->name('update');
         Route::delete('/{industry}', [App\Http\Controllers\AdminIndustryController::class, 'destroy'])->name('destroy');
     });
+    
+    // Admin Partner Management
+    Route::prefix('admin/partners')->name('admin.partners.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminPartnerController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminPartnerController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminPartnerController::class, 'store'])->name('store');
+        Route::get('/{partner}/edit', [App\Http\Controllers\AdminPartnerController::class, 'edit'])->name('edit');
+        Route::put('/{partner}', [App\Http\Controllers\AdminPartnerController::class, 'update'])->name('update');
+        Route::delete('/{partner}', [App\Http\Controllers\AdminPartnerController::class, 'destroy'])->name('destroy');
+    });
 });
 
 require __DIR__.'/auth.php';
