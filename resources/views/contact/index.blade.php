@@ -38,61 +38,78 @@
       <p class="text-muted">What our clients say about working with us</p>
     </div>
     
-    <div class="slides-3 swiper" data-aos="fade-up">
+    <div class="testimonial-slider swiper" data-aos="fade-up">
       <div class="swiper-wrapper">
         @forelse($testimonials as $testimonial)
         <div class="swiper-slide">
-          <div class="testimonial-wrap">
-            <div class="testimonial-item">
-              <div class="d-flex align-items-center info-box">
-                @if($testimonial->image && file_exists(public_path('storage/testimonials/' . $testimonial->image)))
-                  <img src="{{ asset('storage/testimonials/' . $testimonial->image) }}" class="testimonial-img flex-shrink-0" alt="{{ $testimonial->name }}">
-                @else
-                  <img src="{{ asset('assets/images/testimonials/testimonial-' . (($loop->index % 4) + 1) . '.jpg') }}" class="testimonial-img flex-shrink-0" alt="{{ $testimonial->name }}">
-                @endif
-                <div>
-                  <h3>{{ $testimonial->name }}</h3>
-                  <h4>{{ $testimonial->position }}</h4>
-                  <div class="stars">
-                    @for($i = 1; $i <= 5; $i++)
-                      <i class="bi bi-star{{ $i <= $testimonial->rating ? '-fill' : '' }}"></i>
-                    @endfor
-                  </div>
+          <div class="testimonial-card bg-white rounded-4 p-4 shadow-sm border h-100">
+            <div class="text-center mb-4">
+              @if($testimonial->image && file_exists(public_path('storage/testimonials/' . $testimonial->image)))
+                <img src="{{ asset('storage/testimonials/' . $testimonial->image) }}" class="rounded-circle mb-3" style="width: 80px; height: 80px; object-fit: cover;" alt="{{ $testimonial->name }}">
+              @else
+                <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background: linear-gradient(45deg, #667eea, #764ba2); color: white; font-size: 2rem; font-weight: bold;">
+                  {{ substr($testimonial->name, 0, 1) }}
                 </div>
+              @endif
+              <h5 class="mb-1">{{ $testimonial->name }}</h5>
+              <p class="text-muted small mb-2">{{ $testimonial->position }}</p>
+              <div class="stars mb-3">
+                @for($i = 1; $i <= 5; $i++)
+                  <i class="bi bi-star{{ $i <= $testimonial->rating ? '-fill' : '' }} text-warning"></i>
+                @endfor
               </div>
-              <p>
-                <i class="bi bi-quote quote-icon-left"></i>
-                {{ $testimonial->message }}
-                <i class="bi bi-quote quote-icon-right"></i>
-              </p>
             </div>
+            <p class="text-center text-muted mb-0">
+              <i class="bi bi-quote text-primary me-1"></i>
+              {{ $testimonial->message }}
+              <i class="bi bi-quote text-primary ms-1"></i>
+            </p>
           </div>
         </div>
         @empty
         <div class="swiper-slide">
-          <div class="testimonial-wrap">
-            <div class="testimonial-item">
-              <div class="d-flex align-items-center info-box">
-                <img src="{{ asset('assets/images/testimonials/testimonial-1.jpg') }}" class="testimonial-img flex-shrink-0" alt="">
-                <div>
-                  <h3>John Doe</h3>
-                  <h4>CEO</h4>
-                  <div class="stars">
-                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                  </div>
-                </div>
+          <div class="testimonial-card bg-white rounded-4 p-4 shadow-sm border h-100">
+            <div class="text-center mb-4">
+              <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background: linear-gradient(45deg, #667eea, #764ba2); color: white; font-size: 2rem; font-weight: bold;">
+                J
               </div>
-              <p>
-                <i class="bi bi-quote quote-icon-left"></i>
-                Excellent service and professional team. They delivered exactly what we needed on time and within budget.
-                <i class="bi bi-quote quote-icon-right"></i>
-              </p>
+              <h5 class="mb-1">John Doe</h5>
+              <p class="text-muted small mb-2">CEO</p>
+              <div class="stars mb-3">
+                <i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i>
+              </div>
             </div>
+            <p class="text-center text-muted mb-0">
+              <i class="bi bi-quote text-primary me-1"></i>
+              Excellent service and professional team. They delivered exactly what we needed on time and within budget.
+              <i class="bi bi-quote text-primary ms-1"></i>
+            </p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="testimonial-card bg-white rounded-4 p-4 shadow-sm border h-100">
+            <div class="text-center mb-4">
+              <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background: linear-gradient(45deg, #4ecdc4, #44a08d); color: white; font-size: 2rem; font-weight: bold;">
+                J
+              </div>
+              <h5 class="mb-1">Jane Smith</h5>
+              <p class="text-muted small mb-2">Marketing Director</p>
+              <div class="stars mb-3">
+                <i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i>
+              </div>
+            </div>
+            <p class="text-center text-muted mb-0">
+              <i class="bi bi-quote text-primary me-1"></i>
+              Outstanding work quality and great communication throughout the project. Highly recommended!
+              <i class="bi bi-quote text-primary ms-1"></i>
+            </p>
           </div>
         </div>
         @endforelse
       </div>
       <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
     </div>
   </div>
 </section>
@@ -106,66 +123,64 @@
     </div>
     
     <div class="row g-4">
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="career-box bg-white rounded-4 p-4 h-100 shadow-sm border">
-          <div class="career-icon mb-3">
-            <div class="icon-wrapper" style="width: 60px; height: 60px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-              <i class="bi bi-code-slash text-white" style="font-size: 1.5rem;"></i>
-            </div>
-          </div>
-          <h4 class="mb-3">Full Stack Developer</h4>
-          <p class="text-muted mb-3">We're looking for experienced developers to join our dynamic team and work on exciting projects.</p>
-          <div class="career-details mb-3">
-            <small class="text-muted">
-              <i class="bi bi-geo-alt me-1"></i>Remote/On-site<br>
-              <i class="bi bi-clock me-1"></i>Full-time<br>
-              <i class="bi bi-currency-dollar me-1"></i>Competitive Salary
-            </small>
-          </div>
-          <a href="mailto:careers@technoit.com" class="btn btn-outline-primary btn-sm rounded-pill">Apply Now</a>
-        </div>
-      </div>
+      @php
+        $jobs = App\Models\Job::active()->latest()->take(6)->get();
+        $gradients = [
+          'linear-gradient(45deg, #667eea, #764ba2)',
+          'linear-gradient(45deg, #4ecdc4, #44a08d)',
+          'linear-gradient(45deg, #feca57, #ff9ff3)',
+          'linear-gradient(45deg, #ff6b6b, #ee5a24)',
+          'linear-gradient(45deg, #a55eea, #26de81)',
+          'linear-gradient(45deg, #fd79a8, #fdcb6e)'
+        ];
+        $icons = ['code-slash', 'palette', 'megaphone', 'gear', 'graph-up', 'people'];
+      @endphp
       
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+      @forelse($jobs as $index => $job)
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($index + 1) * 100 }}">
         <div class="career-box bg-white rounded-4 p-4 h-100 shadow-sm border">
           <div class="career-icon mb-3">
-            <div class="icon-wrapper" style="width: 60px; height: 60px; background: linear-gradient(45deg, #4ecdc4, #44a08d); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-              <i class="bi bi-palette text-white" style="font-size: 1.5rem;"></i>
+            <div class="icon-wrapper" style="width: 60px; height: 60px; background: {{ $gradients[$index % count($gradients)] }}; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="bi bi-{{ $icons[$index % count($icons)] }} text-white" style="font-size: 1.5rem;"></i>
             </div>
           </div>
-          <h4 class="mb-3">UI/UX Designer</h4>
-          <p class="text-muted mb-3">Creative designer needed to craft beautiful and intuitive user experiences for our clients.</p>
+          <h4 class="mb-3">{{ $job->title }}</h4>
+          <p class="text-muted mb-3">{{ Str::limit($job->description, 100) }}</p>
           <div class="career-details mb-3">
             <small class="text-muted">
-              <i class="bi bi-geo-alt me-1"></i>Remote/On-site<br>
-              <i class="bi bi-clock me-1"></i>Full-time<br>
-              <i class="bi bi-currency-dollar me-1"></i>Competitive Salary
+              <i class="bi bi-geo-alt me-1"></i>{{ $job->location }}<br>
+              <i class="bi bi-clock me-1"></i>{{ $job->type }}<br>
+              @if($job->salary)
+                <i class="bi bi-currency-dollar me-1"></i>{{ $job->salary }}
+              @else
+                <i class="bi bi-currency-dollar me-1"></i>Competitive Salary
+              @endif
             </small>
           </div>
-          <a href="mailto:careers@technoit.com" class="btn btn-outline-primary btn-sm rounded-pill">Apply Now</a>
+          <a href="{{ route('careers.index') }}#job-{{ $job->id }}" class="btn btn-outline-primary btn-sm rounded-pill">Apply Now</a>
         </div>
       </div>
-      
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-        <div class="career-box bg-white rounded-4 p-4 h-100 shadow-sm border">
-          <div class="career-icon mb-3">
-            <div class="icon-wrapper" style="width: 60px; height: 60px; background: linear-gradient(45deg, #feca57, #ff9ff3); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-              <i class="bi bi-megaphone text-white" style="font-size: 1.5rem;"></i>
-            </div>
-          </div>
-          <h4 class="mb-3">Digital Marketing Specialist</h4>
-          <p class="text-muted mb-3">Help our clients grow their online presence through strategic digital marketing campaigns.</p>
-          <div class="career-details mb-3">
-            <small class="text-muted">
-              <i class="bi bi-geo-alt me-1"></i>Remote/On-site<br>
-              <i class="bi bi-clock me-1"></i>Full-time<br>
-              <i class="bi bi-currency-dollar me-1"></i>Competitive Salary
-            </small>
-          </div>
-          <a href="mailto:careers@technoit.com" class="btn btn-outline-primary btn-sm rounded-pill">Apply Now</a>
+      @empty
+      <div class="col-12 text-center">
+        <div class="py-5">
+          <i class="bi bi-briefcase" style="font-size: 4rem; color: #dee2e6;"></i>
+          <h4 class="mt-3 text-muted">No Open Positions</h4>
+          <p class="text-muted">We don't have any open positions at the moment, but feel free to send us your resume for future opportunities.</p>
+          <a href="mailto:{{ App\Models\SiteSetting::get('contact_email', 'careers@technoit.com') }}" class="btn btn-primary rounded-pill">
+            <i class="bi bi-envelope me-2"></i>Send Resume
+          </a>
         </div>
       </div>
+      @endforelse
     </div>
+    
+    @if($jobs->count() > 0)
+    <div class="text-center mt-5">
+      <a href="{{ route('careers.index') }}" class="btn btn-primary btn-lg rounded-pill">
+        <i class="bi bi-arrow-right me-2"></i>View All Positions
+      </a>
+    </div>
+    @endif
   </div>
 </section>
 
@@ -373,4 +388,32 @@
   transition: all 0.3s ease;
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const testimonialSwiper = new Swiper('.testimonial-slider', {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    loop: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    breakpoints: {
+      992: {
+        slidesPerView: 2,
+        spaceBetween: 30,
+      }
+    }
+  });
+});
+</script>
 @endsection
