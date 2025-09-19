@@ -38,6 +38,17 @@ class AdminSiteSettingController extends Controller
                     $file = $request->file("files.{$key}");
                     $path = $file->store('settings', 'public');
                     $value = $path;
+                } elseif ($setting->type === 'image' && $request->hasFile('files') && isset($request->file('files')[$key])) {
+                    // Handle array notation files[key]
+                    // Delete old file
+                    if ($setting->value && Storage::disk('public')->exists($setting->value)) {
+                        Storage::disk('public')->delete($setting->value);
+                    }
+                    
+                    // Upload new file
+                    $file = $request->file('files')[$key];
+                    $path = $file->store('settings', 'public');
+                    $value = $path;
                 }
                 
                 $setting->update(['value' => $value]);

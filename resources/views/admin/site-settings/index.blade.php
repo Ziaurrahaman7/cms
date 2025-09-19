@@ -8,18 +8,24 @@
                 <h2 class="text-2xl font-bold text-gray-800">Site Settings</h2>
                 <p class="text-gray-600 mt-1">Manage your website configuration and content</p>
             </div>
+            @if($settings->isEmpty())
             <form action="{{ route('admin.site-settings.seed') }}" method="POST" class="inline">
                 @csrf
                 <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors">
-                    {{ $settings->isEmpty() ? 'Create Default Settings' : 'Update Settings' }}
+                    Create Default Settings
                 </button>
             </form>
+            @else
+            <button onclick="document.getElementById('settings-form').scrollIntoView({behavior: 'smooth'})" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                Go to Settings Form
+            </button>
+            @endif
         </div>
     </div>
     
     @if($settings->isNotEmpty())
     <div class="p-6">
-        <form action="{{ route('admin.site-settings.update') }}" method="POST" enctype="multipart/form-data">
+        <form id="settings-form" action="{{ route('admin.site-settings.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             
             <!-- General Settings -->
@@ -34,9 +40,10 @@
                             </label>
                             
                             @if($setting->type === 'image')
-                                @if($setting->value && file_exists(public_path('storage/' . $setting->value)))
+                                @if($setting->value)
                                     <div class="mb-2">
-                                        <img src="{{ asset('storage/' . $setting->value) }}" alt="Current" class="h-16 object-contain border rounded">
+                                        <img src="{{ asset('storage/' . $setting->value) }}" alt="Current" class="h-16 object-contain border rounded" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                        <div class="text-sm text-gray-500 p-2 bg-gray-100 rounded" style="display:none;">Current: {{ $setting->value }}</div>
                                     </div>
                                 @endif
                                 <input type="file" name="files[{{ $setting->key }}]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -122,9 +129,10 @@
                                 {{ ucwords(str_replace('_', ' ', str_replace('hero_', '', $setting->key))) }}
                             </label>
                             @if($setting->type === 'image')
-                                @if($setting->value && file_exists(public_path('storage/' . $setting->value)))
+                                @if($setting->value)
                                     <div class="mb-2">
-                                        <img src="{{ asset('storage/' . $setting->value) }}" alt="Current" class="h-32 object-contain border rounded">
+                                        <img src="{{ asset('storage/' . $setting->value) }}" alt="Current" class="h-32 object-contain border rounded" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                        <div class="text-sm text-gray-500 p-2 bg-gray-100 rounded" style="display:none;">Current: {{ $setting->value }}</div>
                                     </div>
                                 @endif
                                 <input type="file" name="files[{{ $setting->key }}]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -172,9 +180,10 @@
                                 {{ ucwords(str_replace('_', ' ', str_replace('about_', '', $setting->key))) }}
                             </label>
                             @if($setting->type === 'image')
-                                @if($setting->value && file_exists(public_path('storage/' . $setting->value)))
+                                @if($setting->value)
                                     <div class="mb-2">
-                                        <img src="{{ asset('storage/' . $setting->value) }}" alt="Current" class="h-32 object-contain border rounded">
+                                        <img src="{{ asset('storage/' . $setting->value) }}" alt="Current" class="h-32 object-contain border rounded" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                        <div class="text-sm text-gray-500 p-2 bg-gray-100 rounded" style="display:none;">Current: {{ $setting->value }}</div>
                                     </div>
                                 @endif
                                 <input type="file" name="files[{{ $setting->key }}]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
