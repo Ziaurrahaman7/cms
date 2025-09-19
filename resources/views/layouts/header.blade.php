@@ -1,4 +1,16 @@
-<header id="header" class="header d-flex align-items-center sticked stikcy-menu">
+<header id="header" class="header d-flex align-items-center sticked stikcy-menu" style="background: rgba(255, 255, 255, 0.95) !important; backdrop-filter: blur(10px) !important;">
+<style>
+.header .navbar a {
+  color: #333 !important;
+}
+.header .navbar a:hover {
+  color: #007bff !important;
+}
+.header .navbar a.active {
+  color: #007bff !important;
+}
+
+</style>
   <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
     <a href="{{ route('home') }}" class="logo d-flex align-items-center">
       @php
