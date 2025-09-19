@@ -29,4 +29,9 @@ class Partner extends Model
     {
         return $query->orderBy('sort_order');
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

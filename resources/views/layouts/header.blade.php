@@ -48,7 +48,7 @@
               $headerPartners = App\Models\Partner::ordered()->get();
             @endphp
             @forelse($headerPartners as $partner)
-              <li><a href="/partners/{{ $partner->slug }}">{{ $partner->name }}</a></li>
+              <li><a href="{{ route('partners.show', $partner->slug) }}">{{ $partner->name }}</a></li>
             @empty
               <li><a href="{{ route('partners.index') }}">No Partners Available</a></li>
             @endforelse
