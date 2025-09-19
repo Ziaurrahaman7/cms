@@ -56,18 +56,10 @@
         <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
           <div class="overflow-hidden bg-white shadow-lg service-card h-100 rounded-4" style="transition: all 0.3s ease; border: none;">
             <div class="service-image position-relative" style="height: 200px; overflow: hidden;">
-              @if($service->image && file_exists(public_path('storage/services/' . $service->image)))
-                <img src="{{ asset('storage/services/' . $service->image) }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $service->title }}">
+              @if($service->image && file_exists(public_path('storage/' . $service->image)))
+                <img src="{{ asset('storage/' . $service->image) }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $service->title }}">
               @else
-                <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);">
-                  @if($service->icon)
-                    <i class="{{ $service->icon }} text-white" style="font-size: 3rem;"></i>
-                  @else
-                    <svg class="text-white" width="60" height="60" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
-                    </svg>
-                  @endif
-                </div>
+                <img src="{{ asset('assets/images/services/service-' . (($loop->index % 6) + 1) . '.jpg') }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $service->title }}">
               @endif
               <div class="top-0 service-overlay position-absolute start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease;">
                 <span class="text-white fw-bold">Learn More</span>
@@ -89,11 +81,10 @@
         @empty
         <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
           <div class="overflow-hidden bg-white shadow-lg service-card h-100 rounded-4">
-            <div class="service-image position-relative" style="height: 200px; background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);">
-              <div class="w-100 h-100 d-flex align-items-center justify-content-center">
-                <svg class="text-white" width="60" height="60" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                </svg>
+            <div class="service-image position-relative" style="height: 200px; overflow: hidden;">
+              <img src="{{ asset('assets/images/services/service-1.jpg') }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="Web Development">
+              <div class="top-0 service-overlay position-absolute start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease;">
+                <span class="text-white fw-bold">Learn More</span>
               </div>
             </div>
             <div class="p-4 card-body">
