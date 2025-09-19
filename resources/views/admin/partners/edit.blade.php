@@ -100,7 +100,7 @@
                         </div>
                         <div class="md:col-span-2">
                             <label class="flex items-center">
-                                <input type="checkbox" name="active" {{ old('active', $partner->active) ? 'checked' : '' }} class="h-4 w-4 text-blue-600 rounded">
+                                <input type="checkbox" name="active" {{ old('active', $partner->is_active) ? 'checked' : '' }} class="h-4 w-4 text-blue-600 rounded">
                                 <span class="ml-2 text-sm text-gray-900">Active Partner</span>
                             </label>
                         </div>

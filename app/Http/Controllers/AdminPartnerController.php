@@ -72,8 +72,7 @@ class AdminPartnerController extends Controller
             'type' => 'required|in:technology,business,strategic,channel',
             'description' => 'required|string',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'sort_order' => 'nullable|integer',
-            'active' => 'boolean'
+            'sort_order' => 'nullable|integer'
         ]);
 
         $data = $request->all();
