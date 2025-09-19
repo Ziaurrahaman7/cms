@@ -5,7 +5,7 @@
 
 @section('content')
 <!-- Product Hero Section -->
-<section class="hero sticked-header-offset py-5" style="min-height: 70vh; background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%), url('{{ asset('assets/images/hero-bg.jpg') }}') center/cover; position: relative;">
+<section class="sticked-header-offset" style="min-height: 70vh; padding-top:130px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%), url('{{ asset('assets/images/hero-bg.jpg') }}') center/cover; position: relative;">
   <div class="container">
     <div class="row align-items-center" style="min-height: 70vh;">
       <div class="col-lg-6">
@@ -19,12 +19,12 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-6" data-aos="fade-left">
-        <div class="hero-image text-center">
+      <div class="py-3 col-lg-6" data-aos="fade-left">
+        <div class="text-center hero-image">
           @if($product->image)
-          <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}" class="img-fluid rounded shadow-lg" style="max-height: 400px; object-fit: cover;">
+          <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}" class="rounded shadow-lg img-fluid" style="min-height: 400px; object-fit: cover;">
           @else
-          <img src="{{ asset('assets/images/portfolio/product-1.jpg') }}" alt="{{ $product->title }}" class="img-fluid rounded shadow-lg" style="max-height: 400px; object-fit: cover;">
+          <img src="{{ asset('assets/images/portfolio/product-1.jpg') }}" alt="{{ $product->title }}" class="rounded shadow-lg img-fluid" style="min-height: 400px; object-fit: cover;">
           @endif
         </div>
       </div>
@@ -39,16 +39,16 @@
       <div class="col-lg-6" data-aos="fade-right">
         <div class="about-image">
           @if($product->image)
-          <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}" class="img-fluid rounded shadow">
+          <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}" class="rounded shadow img-fluid">
           @else
-          <img src="{{ asset('assets/images/portfolio/product-1.jpg') }}" alt="{{ $product->title }}" class="img-fluid rounded shadow">
+          <img src="{{ asset('assets/images/portfolio/product-1.jpg') }}" alt="{{ $product->title }}" class="rounded shadow img-fluid">
           @endif
         </div>
       </div>
       <div class="col-lg-6" data-aos="fade-left">
         <div class="about-content">
           <h2 class="mb-4">About {{ $product->title }}</h2>
-          <p class="text-muted mb-4">{{ $product->description }}</p>
+          <p class="mb-4 text-muted">{{ $product->description }}</p>
           <p class="text-muted">{!! $product->content ?: 'Our ' . $product->title . ' solution is designed to meet the evolving needs of modern businesses. With cutting-edge technology and user-friendly interfaces, we deliver exceptional performance and reliability that you can count on.' !!}</p>
         </div>
       </div>
@@ -95,9 +95,9 @@
       <div class="col-lg-6" data-aos="fade-right">
         <div class="section-image">
           @if(isset($section['image']) && $section['image'])
-          <img src="{{ asset('storage/' . $section['image']) }}" alt="{{ $section['title'] }}" class="img-fluid rounded shadow">
+          <img src="{{ asset('storage/' . $section['image']) }}" alt="{{ $section['title'] }}" class="rounded shadow img-fluid">
           @else
-          <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 300px;">
+          <div class="rounded bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
             <i class="{{ $section['icon'] ?? 'bi bi-star' }} text-muted" style="font-size: 4rem;"></i>
           </div>
           @endif
@@ -120,9 +120,9 @@
       <div class="col-lg-6" data-aos="fade-left">
         <div class="section-image">
           @if(isset($section['image']) && $section['image'])
-          <img src="{{ asset('storage/' . $section['image']) }}" alt="{{ $section['title'] }}" class="img-fluid rounded shadow">
+          <img src="{{ asset('storage/' . $section['image']) }}" alt="{{ $section['title'] }}" class="rounded shadow img-fluid">
           @else
-          <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 300px;">
+          <div class="rounded bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
             <i class="{{ $section['icon'] ?? 'bi bi-star' }} text-muted" style="font-size: 4rem;"></i>
           </div>
           @endif
@@ -166,7 +166,7 @@
 <!-- CTA Section -->
 <section class="py-5" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);">
   <div class="container">
-    <div class="row align-items-center text-center">
+    <div class="text-center row align-items-center">
       <div class="col-lg-12">
         <h2 class="mb-3 text-white">Ready to Get Started with {{ $product['title'] }}?</h2>
         <p class="mb-4 text-white-50 fs-5">Transform your business today with our powerful solution</p>
@@ -309,7 +309,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <div class="text-center mb-5">
+        <div class="mb-5 text-center">
           <h2 class="mb-3 text-white">Get Product Demo</h2>
           <p class="text-white-50 fs-5">Let's discuss your {{ $product->title }} requirements and schedule a demo.</p>
         </div>
@@ -319,10 +319,10 @@
               @csrf
               <input type="hidden" name="subject" value="Demo Request for {{ $product->title }}">
               <div class="row">
-                <div class="col-md-6 mb-3">
+                <div class="mb-3 col-md-6">
                   <input type="text" class="form-control" name="name" placeholder="Your Name" required>
                 </div>
-                <div class="col-md-6 mb-3">
+                <div class="mb-3 col-md-6">
                   <input type="email" class="form-control" name="email" placeholder="Your Email" required>
                 </div>
               </div>

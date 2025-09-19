@@ -5,8 +5,7 @@
 
 @section('content')
 <!-- Partner Hero Section -->
-<section class="hero sticked-header-offset py-5 position-relative" style="min-height: 70vh; background: url('{{ asset('assets/images/hero-bg.jpg') }}') center/cover;">
-  <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);"></div>
+<section class="sticked-header-offset position-relative" style="min-height: 70vh; background:#1e3c72;  padding-top: 130px;">
   <div class="container position-relative" style="z-index: 2;">
     <div class="row align-items-center" style="min-height: 70vh;">
       <div class="col-lg-6">
@@ -14,7 +13,7 @@
           <h1 class="mb-4 text-white" data-aos="fade-up">{{ $partner->name }}</h1>
           <p class="mb-5 fs-5 lead text-white-50" data-aos="fade-up" data-aos-delay="200">{{ $partner->description }}</p>
           @if($partner->website)
-            <div class="gap-3 d-flex flex-wrap" data-aos="fade-up" data-aos-delay="400">
+            <div class="flex-wrap gap-3 d-flex" data-aos="fade-up" data-aos-delay="400">
               <a href="{{ $partner->website }}" target="_blank" class="px-5 py-3 btn btn-warning btn-lg rounded-pill fw-bold">
                 <i class="bi bi-globe me-2"></i>Visit Website
               </a>
@@ -23,8 +22,8 @@
         </div>
       </div>
       @if($partner->logo)
-      <div class="col-lg-6 text-center" data-aos="fade-left" data-aos-delay="300">
-        <img src="{{ asset('storage/' . $partner->logo) }}" alt="{{ $partner->name }}" class="img-fluid" style="max-height: 300px;">
+      <div class="col-lg-6 d-flex align-items-center justify-content-center" data-aos="fade-left" data-aos-delay="300">
+        <img src="{{ asset('storage/' . $partner->logo) }}" alt="{{ $partner->name }}" class="img-fluid" style="min-height: 400px; min-width: 100%;">
       </div>
       @endif
     </div>
@@ -37,12 +36,12 @@
   <section class="py-5 {{ $index % 2 == 0 ? '' : 'bg-light' }}">
     <div class="container">
       <div class="row align-items-center {{ $index % 2 == 0 ? '' : 'flex-row-reverse' }}">
-        <div class="col-lg-6 mb-4 mb-lg-0">
+        <div class="mb-4 col-lg-6 mb-lg-0">
           @if(isset($section['image']) && $section['image'])
-            <img src="{{ asset('storage/' . $section['image']) }}" alt="{{ $section['title'] }}" class="img-fluid rounded shadow w-100" style="height: 400px; object-fit: cover;">
+            <img src="{{ asset('storage/' . $section['image']) }}" alt="{{ $section['title'] }}" class="rounded shadow img-fluid w-100" style="height: 400px; object-fit: cover;">
           @else
-            <div class="bg-primary rounded d-flex align-items-center justify-content-center" style="height: 400px;">
-              <i class="bi bi-image text-white" style="font-size: 4rem;"></i>
+            <div class="rounded bg-primary d-flex align-items-center justify-content-center" style="height: 400px;">
+              <i class="text-white bi bi-image" style="font-size: 4rem;"></i>
             </div>
           @endif
         </div>
@@ -82,12 +81,12 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <div class="text-center mb-5">
+        <div class="mb-5 text-center">
           <h2 class="mb-3">Get In Touch</h2>
           <p class="text-muted">Ready to start a partnership? Send us a message and we'll get back to you soon.</p>
         </div>
         
-        <div class="bg-white rounded shadow p-4">
+        <div class="p-4 bg-white rounded shadow">
           <form action="{{ route('contact.store') }}" method="POST">
             @csrf
             <div class="row g-3">
@@ -111,8 +110,8 @@
                 <label for="message" class="form-label">Message *</label>
                 <textarea class="form-control" id="message" name="message" rows="5" placeholder="Tell us about your partnership interest..." required></textarea>
               </div>
-              <div class="col-12 text-center">
-                <button type="submit" class="btn btn-primary btn-lg px-5">
+              <div class="text-center col-12">
+                <button type="submit" class="px-5 btn btn-primary btn-lg">
                   <i class="bi bi-send me-2"></i>Send Message
                 </button>
               </div>
