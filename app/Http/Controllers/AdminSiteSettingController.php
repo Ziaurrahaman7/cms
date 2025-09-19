@@ -97,6 +97,12 @@ class AdminSiteSettingController extends Controller
             ['key' => 'footer_copyright', 'value' => '© 2024 Technoit. All rights reserved.', 'type' => 'text', 'group' => 'footer'],
             ['key' => 'footer_description', 'value' => 'Professional IT solutions and business services to help your company grow and succeed in the digital world.', 'type' => 'textarea', 'group' => 'footer'],
             
+            // About Page Settings
+            ['key' => 'about_who_we_are', 'value' => 'We are a passionate team of technology experts dedicated to delivering innovative IT solutions that drive business growth and success.', 'type' => 'textarea', 'group' => 'about'],
+            ['key' => 'about_mission', 'value' => 'To empower businesses with innovative technology solutions that drive growth, efficiency, and success in the digital age. We strive to be the trusted partner for all your IT needs.', 'type' => 'textarea', 'group' => 'about'],
+            ['key' => 'about_vision', 'value' => 'To be the leading IT solutions provider globally, recognized for our innovation, quality, and commitment to client success. We envision a future where technology seamlessly enhances every business.', 'type' => 'textarea', 'group' => 'about'],
+            ['key' => 'about_image', 'value' => '', 'type' => 'image', 'group' => 'about'],
+            
             // Email Settings
             ['key' => 'mail_mailer', 'value' => 'smtp', 'type' => 'text', 'group' => 'email'],
             ['key' => 'mail_host', 'value' => 'smtp.gmail.com', 'type' => 'text', 'group' => 'email'],

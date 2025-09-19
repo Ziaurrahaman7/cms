@@ -121,7 +121,15 @@
                             <label for="{{ $setting->key }}" class="block text-sm font-medium text-gray-700 mb-2">
                                 {{ ucwords(str_replace('_', ' ', str_replace('hero_', '', $setting->key))) }}
                             </label>
-                            @if($setting->type === 'textarea')
+                            @if($setting->type === 'image')
+                                @if($setting->value && file_exists(public_path('storage/' . $setting->value)))
+                                    <div class="mb-2">
+                                        <img src="{{ asset('storage/' . $setting->value) }}" alt="Current" class="h-32 object-contain border rounded">
+                                    </div>
+                                @endif
+                                <input type="file" name="files[{{ $setting->key }}]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <input type="hidden" name="settings[{{ $setting->key }}]" value="{{ $setting->value }}">
+                            @elseif($setting->type === 'textarea')
                                 <textarea name="settings[{{ $setting->key }}]" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{{ $setting->value }}</textarea>
                             @else
                                 <input type="text" name="settings[{{ $setting->key }}]" value="{{ $setting->value }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -146,6 +154,33 @@
                                 <textarea name="settings[{{ $setting->key }}]" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{{ $setting->value }}</textarea>
                             @else
                                 <input type="text" name="settings[{{ $setting->key }}]" value="{{ $setting->value }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+            
+            <!-- About Page Settings -->
+            @if(isset($settings['about']))
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">About Page Settings</h3>
+                <div class="space-y-4">
+                    @foreach($settings['about'] as $setting)
+                        <div>
+                            <label for="{{ $setting->key }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ ucwords(str_replace('_', ' ', str_replace('about_', '', $setting->key))) }}
+                            </label>
+                            @if($setting->type === 'image')
+                                @if($setting->value && file_exists(public_path('storage/' . $setting->value)))
+                                    <div class="mb-2">
+                                        <img src="{{ asset('storage/' . $setting->value) }}" alt="Current" class="h-32 object-contain border rounded">
+                                    </div>
+                                @endif
+                                <input type="file" name="files[{{ $setting->key }}]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <input type="hidden" name="settings[{{ $setting->key }}]" value="{{ $setting->value }}">
+                            @else
+                                <textarea name="settings[{{ $setting->key }}]" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{{ $setting->value }}</textarea>
                             @endif
                         </div>
                     @endforeach

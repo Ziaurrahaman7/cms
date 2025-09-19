@@ -37,7 +37,7 @@
       <div class="col-lg-6" data-aos="fade-right">
         <div class="about-content">
           <h2 class="mb-4">Who We Are</h2>
-          <p class="mb-4 lead">We are a passionate team of technology experts dedicated to delivering innovative IT solutions that drive business growth and success.</p>
+          <p class="mb-4 lead">{{ App\Models\SiteSetting::get('about_who_we_are', 'We are a passionate team of technology experts dedicated to delivering innovative IT solutions that drive business growth and success.') }}</p>
           <p class="mb-4">With years of experience in the industry, we have helped countless businesses transform their operations through cutting-edge technology solutions. Our commitment to excellence and customer satisfaction sets us apart in the competitive IT landscape.</p>
           
           <div class="mb-4 row g-4">
@@ -76,7 +76,14 @@
       <div class="col-lg-6" data-aos="fade-left">
         <div class="about-image">
           <div class="image-wrapper position-relative">
-            <img src="{{ asset('assets/images/graphic-tree.png') }}" alt="About Us" class="shadow-lg img-fluid rounded-4">
+            @php
+              $aboutImage = App\Models\SiteSetting::get('about_image');
+            @endphp
+            @if($aboutImage && file_exists(public_path('storage/' . $aboutImage)))
+              <img src="{{ asset('storage/' . $aboutImage) }}" alt="About Us" class="shadow-lg img-fluid rounded-4">
+            @else
+              <img src="{{ asset('assets/images/graphic-tree.png') }}" alt="About Us" class="shadow-lg img-fluid rounded-4">
+            @endif
             <div class="top-0 p-3 text-white shadow floating-badge position-absolute start-0 bg-primary rounded-4" style="transform: translate(-20px, -20px);">
               <i class="bi bi-award-fill fs-2"></i>
             </div>
@@ -97,7 +104,7 @@
             <i class="text-white bi bi-bullseye" style="font-size: 2rem;"></i>
           </div>
           <h3 class="mb-3">Our Mission</h3>
-          <p class="text-muted">To empower businesses with innovative technology solutions that drive growth, efficiency, and success in the digital age. We strive to be the trusted partner for all your IT needs.</p>
+          <p class="text-muted">{{ App\Models\SiteSetting::get('about_mission', 'To empower businesses with innovative technology solutions that drive growth, efficiency, and success in the digital age. We strive to be the trusted partner for all your IT needs.') }}</p>
         </div>
       </div>
       
@@ -107,7 +114,7 @@
             <i class="text-white bi bi-eye" style="font-size: 2rem;"></i>
           </div>
           <h3 class="mb-3">Our Vision</h3>
-          <p class="text-muted">To be the leading IT solutions provider globally, recognized for our innovation, quality, and commitment to client success. We envision a future where technology seamlessly enhances every business.</p>
+          <p class="text-muted">{{ App\Models\SiteSetting::get('about_vision', 'To be the leading IT solutions provider globally, recognized for our innovation, quality, and commitment to client success. We envision a future where technology seamlessly enhances every business.') }}</p>
         </div>
       </div>
     </div>
