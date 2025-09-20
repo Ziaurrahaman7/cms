@@ -176,6 +176,93 @@
   </div>
 </section>
 
+<!-- Client Feedback Section -->
+<section id="feedback" class="py-5">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <h2 class="mb-3">Client Feedback</h2>
+      <p class="text-muted">What our clients say about working with us</p>
+    </div>
+    
+    <div class="testimonial-slider swiper" data-aos="fade-up">
+      <div class="swiper-wrapper">
+        @php
+          $testimonials = App\Models\Testimonial::active()->latest()->get();
+        @endphp
+        @forelse($testimonials as $testimonial)
+        <div class="swiper-slide">
+          <div class="testimonial-card bg-white rounded-4 p-4 shadow-sm border h-100">
+            <div class="text-center mb-4">
+              @if($testimonial->image && file_exists(public_path('storage/testimonials/' . $testimonial->image)))
+                <img src="{{ asset('storage/testimonials/' . $testimonial->image) }}" class="rounded-circle mb-3" style="width: 80px; height: 80px; object-fit: cover;" alt="{{ $testimonial->name }}">
+              @else
+                <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background: linear-gradient(45deg, #667eea, #764ba2); color: white; font-size: 2rem; font-weight: bold;">
+                  {{ substr($testimonial->name, 0, 1) }}
+                </div>
+              @endif
+              <h5 class="mb-1">{{ $testimonial->name }}</h5>
+              <p class="text-muted small mb-2">{{ $testimonial->position }}</p>
+              <div class="stars mb-3">
+                @for($i = 1; $i <= 5; $i++)
+                  <i class="bi bi-star{{ $i <= $testimonial->rating ? '-fill' : '' }} text-warning"></i>
+                @endfor
+              </div>
+            </div>
+            <p class="text-center text-muted mb-0">
+              <i class="bi bi-quote text-primary me-1"></i>
+              {{ $testimonial->message }}
+              <i class="bi bi-quote text-primary ms-1"></i>
+            </p>
+          </div>
+        </div>
+        @empty
+        <div class="swiper-slide">
+          <div class="testimonial-card bg-white rounded-4 p-4 shadow-sm border h-100">
+            <div class="text-center mb-4">
+              <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background: linear-gradient(45deg, #667eea, #764ba2); color: white; font-size: 2rem; font-weight: bold;">
+                J
+              </div>
+              <h5 class="mb-1">John Doe</h5>
+              <p class="text-muted small mb-2">CEO</p>
+              <div class="stars mb-3">
+                <i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i>
+              </div>
+            </div>
+            <p class="text-center text-muted mb-0">
+              <i class="bi bi-quote text-primary me-1"></i>
+              Excellent service and professional team. They delivered exactly what we needed on time and within budget.
+              <i class="bi bi-quote text-primary ms-1"></i>
+            </p>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="testimonial-card bg-white rounded-4 p-4 shadow-sm border h-100">
+            <div class="text-center mb-4">
+              <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background: linear-gradient(45deg, #4ecdc4, #44a08d); color: white; font-size: 2rem; font-weight: bold;">
+                J
+              </div>
+              <h5 class="mb-1">Jane Smith</h5>
+              <p class="text-muted small mb-2">Marketing Director</p>
+              <div class="stars mb-3">
+                <i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i>
+              </div>
+            </div>
+            <p class="text-center text-muted mb-0">
+              <i class="bi bi-quote text-primary me-1"></i>
+              Outstanding work quality and great communication throughout the project. Highly recommended!
+              <i class="bi bi-quote text-primary ms-1"></i>
+            </p>
+          </div>
+        </div>
+        @endforelse
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+</section>
+
 <!-- Call to Action Section -->
 <section class="py-5" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
   <div class="container text-center">
@@ -195,6 +282,34 @@
     </div>
   </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const testimonialSwiper = new Swiper('.testimonial-slider', {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    loop: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    breakpoints: {
+      992: {
+        slidesPerView: 2,
+        spaceBetween: 30,
+      }
+    }
+  });
+});
+</script>
 
 <style>
 @keyframes float {

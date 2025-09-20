@@ -7,7 +7,25 @@
   color: #007bff !important;
 }
 .header .navbar a.active {
-  color: #007bff !important;
+  color: #007bff !important; 01713426386
+}
+
+/* Mobile menu open state - header height 100% */
+@media (max-width: 991px) {
+  body.mobile-nav-active .header.sticked {
+    height: 100vh !important;
+  }
+  
+  /* Mobile nav menu text color white */
+  body.mobile-nav-active .header .navbar a {
+    color: #fff !important;
+  }
+  body.mobile-nav-active .header .navbar a:hover {
+    color: #007bff !important;
+  }
+  body.mobile-nav-active .header .navbar a.active {
+    color: #007bff !important;
+  }
 }
 
 </style>
