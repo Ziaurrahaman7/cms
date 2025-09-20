@@ -76,11 +76,11 @@
     <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
     <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
   </div>
-  <div id="rtl-button" style="cursor: pointer;">
+  {{-- <div id="rtl-button" style="cursor: pointer;">
       <span></span>
       <span></span>
       <span></span>
       <span></span>
       <span class="rtl-label">RTL</span>
-  </div>
+  </div> --}}
 </header>

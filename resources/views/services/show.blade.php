@@ -6,7 +6,7 @@
 
 @section('content')
 <!-- Service Hero Section -->
-<section class="hero sticked-header-offset" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{{ $service->image ? asset('storage/' . $service->image) : asset('assets/images/hero-bg.jpg') }}') center/cover; min-height: 70vh; position: relative;">
+<section class="ticked-header-offset" style="padding-top:130px;background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{{ $service->image ? asset('storage/' . $service->image) : asset('assets/images/hero-bg.jpg') }}') center/cover; min-height: 70vh; position: relative;">
   <div class="container position-relative">
     <div class="row align-items-center" style="min-height: 70vh;">
       <div class="col-lg-6">
@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-6" data-aos="fade-right">
+      <div class="py-3 col-lg-6" data-aos="fade-right">
         <div class="hero-form">
           <div class="border-0 shadow-lg card" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);">
             <div class="p-3 card-body">
@@ -112,7 +112,7 @@
           </div>
           <div class="p-4">
             <h5 class="mb-3">{{ $feature['title'] }}</h5>
-            <p class="mb-0 text-muted">{{ $feature['description'] }}</p>
+            <p class="mb-0 text-muted">{{ Str::limit($feature['description'], 100) }}</p>
           </div>
         </div>
       </div>
