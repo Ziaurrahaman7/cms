@@ -12,9 +12,9 @@
       <div class="col-lg-6">
         <div class="hero-content">
           <h1 class="mb-4 text-white" data-aos="fade-up" style="font-size: 3.5rem; font-weight: 700; line-height: 1.2;">{{ $service->title }}</h1>
-          <p class="mb-4 text-white-50 fs-5 lead" data-aos="fade-up" data-aos-delay="200">{{ $service->description }}</p>
+          <p class="mb-4 text-white fs-5 lead" data-aos="fade-up" data-aos-delay="200">{{ $service->description }}</p>
           <div data-aos="fade-up" data-aos-delay="400">
-            <a href="{{ route('contact.index') }}" class="px-4 py-3 btn btn-warning btn-lg rounded-pill fw-bold">
+            <a href="{{ route('contact.index') }}" class="px-4 py-3 text-white btn btn-warning btn-lg rounded-pill fw-bold">
               <i class="bi bi-envelope me-2"></i>Contact Us
             </a>
           </div>
