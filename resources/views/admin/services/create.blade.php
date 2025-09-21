@@ -80,7 +80,7 @@
                         </div>
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Content</label>
-                            <textarea id="content-create" name="content" rows="6" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                            <textarea id="content-create" name="content" rows="6" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('content') }}</textarea>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Image</label>
@@ -88,11 +88,11 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Sort Order</label>
-                            <input type="number" name="sort_order" value="0" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <input type="number" name="sort_order" value="{{ old('sort_order', 0) }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                         </div>
                         <div class="md:col-span-2">
                             <label class="flex items-center">
-                                <input type="checkbox" name="is_active" checked class="h-4 w-4 text-blue-600 rounded">
+                                <input type="checkbox" name="is_active" {{ old('is_active', true) ? 'checked' : '' }} class="h-4 w-4 text-blue-600 rounded">
                                 <span class="ml-2 text-sm text-gray-900">Active Service</span>
                             </label>
                         </div>
@@ -108,7 +108,7 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Feature Title</label>
-                                        <input type="text" name="key_features[0][title]" placeholder="Advanced Technology" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="key_features[0][title]" value="{{ old('key_features.0.title') }}" placeholder="Advanced Technology" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Feature Image</label>
@@ -116,7 +116,7 @@
                                     </div>
                                     <div class="md:col-span-2">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                                        <textarea name="key_features[0][description]" rows="2" placeholder="Brief description" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                                        <textarea name="key_features[0][description]" rows="2" placeholder="Brief description" class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ old('key_features.0.description') }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -134,15 +134,15 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Industry Title</label>
-                                        <input type="text" name="we_serve[0][title]" placeholder="Enterprise" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="we_serve[0][title]" value="{{ old('we_serve.0.title') }}" placeholder="Enterprise" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
-                                        <input type="text" name="we_serve[0][icon]" placeholder="bi bi-building" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="we_serve[0][icon]" value="{{ old('we_serve.0.icon') }}" placeholder="bi bi-building" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div class="md:col-span-2">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                                        <textarea name="we_serve[0][description]" rows="2" placeholder="How we serve this industry" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                                        <textarea name="we_serve[0][description]" rows="2" placeholder="How we serve this industry" class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ old('we_serve.0.description') }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -160,15 +160,15 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Overview Title</label>
-                                        <input type="text" name="service_overview[0][title]" placeholder="Fast Delivery" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="service_overview[0][title]" value="{{ old('service_overview.0.title') }}" placeholder="Fast Delivery" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
-                                        <input type="text" name="service_overview[0][icon]" placeholder="bi bi-lightning" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="service_overview[0][icon]" value="{{ old('service_overview.0.icon') }}" placeholder="bi bi-lightning" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div class="md:col-span-2">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                                        <textarea name="service_overview[0][description]" rows="2" placeholder="Quick turnaround time" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                                        <textarea name="service_overview[0][description]" rows="2" placeholder="Quick turnaround time" class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ old('service_overview.0.description') }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -186,11 +186,11 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Technology Name</label>
-                                        <input type="text" name="technologies[0][name]" placeholder="HTML5/CSS3" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="technologies[0][name]" value="{{ old('technologies.0.name') }}" placeholder="HTML5/CSS3" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
-                                        <input type="text" name="technologies[0][icon]" placeholder="bi bi-code-slash" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="technologies[0][icon]" value="{{ old('technologies.0.icon') }}" placeholder="bi bi-code-slash" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                 </div>
                             </div>
@@ -226,19 +226,19 @@
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Step Number</label>
-                                        <input type="number" name="process_steps[0][step]" value="1" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="number" name="process_steps[0][step]" value="{{ old('process_steps.0.step', 1) }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Step Title</label>
-                                        <input type="text" name="process_steps[0][title]" placeholder="Planning" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="process_steps[0][title]" value="{{ old('process_steps.0.title') }}" placeholder="Planning" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
-                                        <input type="text" name="process_steps[0][icon]" placeholder="bi bi-clipboard-check" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="process_steps[0][icon]" value="{{ old('process_steps.0.icon') }}" placeholder="bi bi-clipboard-check" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div class="md:col-span-3">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                                        <textarea name="process_steps[0][description]" rows="2" placeholder="Step description" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                                        <textarea name="process_steps[0][description]" rows="2" placeholder="Step description" class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ old('process_steps.0.description') }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -254,17 +254,17 @@
                         <div class="grid grid-cols-1 gap-6">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Meta Title</label>
-                                <input type="text" name="meta_title" placeholder="Custom meta title for this service" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <input type="text" name="meta_title" value="{{ old('meta_title') }}" placeholder="Custom meta title for this service" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <p class="text-xs text-gray-500 mt-1">Leave empty to use service title + site name</p>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description</label>
-                                <textarea name="meta_description" rows="3" placeholder="Brief description for search engines (150-160 characters recommended)" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                                <textarea name="meta_description" rows="3" placeholder="Brief description for search engines (150-160 characters recommended)" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('meta_description') }}</textarea>
                                 <p class="text-xs text-gray-500 mt-1">Leave empty to use service description</p>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Meta Keywords</label>
-                                <input type="text" name="meta_keywords" placeholder="keyword1, keyword2, keyword3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <input type="text" name="meta_keywords" value="{{ old('meta_keywords') }}" placeholder="keyword1, keyword2, keyword3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <p class="text-xs text-gray-500 mt-1">Comma-separated keywords related to this service</p>
                             </div>
                         </div>
@@ -519,6 +519,34 @@ $(document).ready(function() {
             ['view', ['fullscreen', 'codeview', 'help']]
         ]
     });
+    
+    // Preserve form data on validation errors
+    const form = document.querySelector('form');
+    if (form) {
+        form.addEventListener('submit', function() {
+            const formData = new FormData(form);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            localStorage.setItem('serviceFormData', JSON.stringify(data));
+        });
+        
+        if (document.querySelector('.text-red-500')) {
+            const savedData = localStorage.getItem('serviceFormData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                Object.keys(data).forEach(key => {
+                    const input = form.querySelector(`[name="${key}"]`);
+                    if (input && !input.value) {
+                        input.value = data[key];
+                    }
+                });
+            }
+        } else {
+            localStorage.removeItem('serviceFormData');
+        }
+    }
 });
 </script>
 @endsection

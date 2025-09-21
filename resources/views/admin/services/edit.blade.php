@@ -116,7 +116,7 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Feature Title</label>
-                                        <input type="text" name="key_features[{{ $index }}][title]" value="{{ $feature['title'] ?? '' }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="key_features[{{ $index }}][title]" value="{{ old('key_features.' . $index . '.title', $feature['title'] ?? '') }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Feature Image</label>
@@ -131,7 +131,7 @@
                                     </div>
                                     <div class="md:col-span-2">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                                        <textarea name="key_features[{{ $index }}][description]" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ $feature['description'] ?? '' }}</textarea>
+                                        <textarea name="key_features[{{ $index }}][description]" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ old('key_features.' . $index . '.description', $feature['description'] ?? '') }}</textarea>
                                     </div>
                                     <div class="md:col-span-2">
                                         <button type="button" onclick="this.closest('.feature-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>
@@ -171,15 +171,15 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Industry Title</label>
-                                        <input type="text" name="we_serve[{{ $index }}][title]" value="{{ $serve['title'] ?? '' }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="we_serve[{{ $index }}][title]" value="{{ old('we_serve.' . $index . '.title', $serve['title'] ?? '') }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
-                                        <input type="text" name="we_serve[{{ $index }}][icon]" value="{{ $serve['icon'] ?? '' }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="we_serve[{{ $index }}][icon]" value="{{ old('we_serve.' . $index . '.icon', $serve['icon'] ?? '') }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div class="md:col-span-2">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                                        <textarea name="we_serve[{{ $index }}][description]" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ $serve['description'] ?? '' }}</textarea>
+                                        <textarea name="we_serve[{{ $index }}][description]" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ old('we_serve.' . $index . '.description', $serve['description'] ?? '') }}</textarea>
                                     </div>
                                     <div class="md:col-span-2">
                                         <button type="button" onclick="this.closest('.serve-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>
@@ -219,15 +219,15 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Overview Title</label>
-                                        <input type="text" name="service_overview[{{ $index }}][title]" value="{{ $overview['title'] ?? '' }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="service_overview[{{ $index }}][title]" value="{{ old('service_overview.' . $index . '.title', $overview['title'] ?? '') }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
-                                        <input type="text" name="service_overview[{{ $index }}][icon]" value="{{ $overview['icon'] ?? '' }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="service_overview[{{ $index }}][icon]" value="{{ old('service_overview.' . $index . '.icon', $overview['icon'] ?? '') }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div class="md:col-span-2">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                                        <textarea name="service_overview[{{ $index }}][description]" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ $overview['description'] ?? '' }}</textarea>
+                                        <textarea name="service_overview[{{ $index }}][description]" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ old('service_overview.' . $index . '.description', $overview['description'] ?? '') }}</textarea>
                                     </div>
                                     <div class="md:col-span-2">
                                         <button type="button" onclick="this.closest('.overview-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>
@@ -267,11 +267,11 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Technology Name</label>
-                                        <input type="text" name="technologies[{{ $index }}][name]" value="{{ $tech['name'] ?? '' }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="technologies[{{ $index }}][name]" value="{{ old('technologies.' . $index . '.name', $tech['name'] ?? '') }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
-                                        <input type="text" name="technologies[{{ $index }}][icon]" value="{{ $tech['icon'] ?? '' }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="technologies[{{ $index }}][icon]" value="{{ old('technologies.' . $index . '.icon', $tech['icon'] ?? '') }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div class="md:col-span-2">
                                         <button type="button" onclick="this.closest('.technology-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>
@@ -346,19 +346,19 @@
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Step Number</label>
-                                        <input type="number" name="process_steps[{{ $index }}][step]" value="{{ $step['step'] ?? ($index + 1) }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="number" name="process_steps[{{ $index }}][step]" value="{{ old('process_steps.' . $index . '.step', $step['step'] ?? ($index + 1)) }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Step Title</label>
-                                        <input type="text" name="process_steps[{{ $index }}][title]" value="{{ $step['title'] ?? '' }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="process_steps[{{ $index }}][title]" value="{{ old('process_steps.' . $index . '.title', $step['title'] ?? '') }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
-                                        <input type="text" name="process_steps[{{ $index }}][icon]" value="{{ $step['icon'] ?? '' }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="process_steps[{{ $index }}][icon]" value="{{ old('process_steps.' . $index . '.icon', $step['icon'] ?? '') }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div class="md:col-span-3">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                                        <textarea name="process_steps[{{ $index }}][description]" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ $step['description'] ?? '' }}</textarea>
+                                        <textarea name="process_steps[{{ $index }}][description]" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ old('process_steps.' . $index . '.description', $step['description'] ?? '') }}</textarea>
                                     </div>
                                     <div class="md:col-span-3">
                                         <button type="button" onclick="this.closest('.process-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>

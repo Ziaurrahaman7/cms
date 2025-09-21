@@ -73,7 +73,10 @@
                         </div>
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
-                            <textarea name="description" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('description') }}</textarea>
+                            <textarea name="description" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('description') border-red-500 @enderror">{{ old('description') }}</textarea>
+                            @error('description')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Content</label>
@@ -105,15 +108,15 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Feature Title</label>
-                                        <input type="text" name="features[0][title]" placeholder="Advanced Technology" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="features[0][title]" value="{{ old('features.0.title') }}" placeholder="Advanced Technology" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
-                                        <input type="text" name="features[0][icon]" placeholder="bi bi-check-circle" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="features[0][icon]" value="{{ old('features.0.icon') }}" placeholder="bi bi-check-circle" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div class="md:col-span-2">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                                        <textarea name="features[0][description]" rows="2" placeholder="Brief description" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                                        <textarea name="features[0][description]" rows="2" placeholder="Brief description" class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ old('features.0.description') }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -131,15 +134,15 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Specification Title</label>
-                                        <input type="text" name="specifications[0][title]" placeholder="Performance" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="specifications[0][title]" value="{{ old('specifications.0.title') }}" placeholder="Performance" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
-                                        <input type="text" name="specifications[0][icon]" placeholder="bi bi-cpu" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="specifications[0][icon]" value="{{ old('specifications.0.icon') }}" placeholder="bi bi-cpu" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div class="md:col-span-2">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                                        <textarea name="specifications[0][description]" rows="2" placeholder="Specification details" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                                        <textarea name="specifications[0][description]" rows="2" placeholder="Specification details" class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ old('specifications.0.description') }}</textarea>
                                     </div>
                                     <div class="md:col-span-2">
                                         <button type="button" onclick="this.closest('.specification-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>
@@ -160,11 +163,11 @@
                                 <div class="grid grid-cols-1 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Question</label>
-                                        <input type="text" name="faqs[0][question]" placeholder="What is this product?" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="faqs[0][question]" value="{{ old('faqs.0.question') }}" placeholder="What is this product?" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Answer</label>
-                                        <textarea name="faqs[0][answer]" rows="3" placeholder="Answer to the question" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                                        <textarea name="faqs[0][answer]" rows="3" placeholder="Answer to the question" class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ old('faqs.0.answer') }}</textarea>
                                     </div>
                                     <div>
                                         <button type="button" onclick="this.closest('.faq-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>
@@ -185,15 +188,15 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Reason Title</label>
-                                        <input type="text" name="why_choose[0][title]" placeholder="Advanced Technology" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="why_choose[0][title]" value="{{ old('why_choose.0.title') }}" placeholder="Advanced Technology" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
-                                        <input type="text" name="why_choose[0][icon]" placeholder="bi bi-lightning" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="why_choose[0][icon]" value="{{ old('why_choose.0.icon') }}" placeholder="bi bi-lightning" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div class="md:col-span-2">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                                        <textarea name="why_choose[0][description]" rows="2" placeholder="Why this is important" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                                        <textarea name="why_choose[0][description]" rows="2" placeholder="Why this is important" class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ old('why_choose.0.description') }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -211,11 +214,11 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Customer Name</label>
-                                        <input type="text" name="testimonials[0][name]" placeholder="John Smith" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="testimonials[0][name]" value="{{ old('testimonials.0.name') }}" placeholder="John Smith" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Company</label>
-                                        <input type="text" name="testimonials[0][company]" placeholder="Tech Solutions Inc." class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="testimonials[0][company]" value="{{ old('testimonials.0.company') }}" placeholder="Tech Solutions Inc." class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Customer Image</label>
@@ -224,16 +227,16 @@
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Rating</label>
                                         <select name="testimonials[0][rating]" class="w-full px-3 py-2 border border-gray-300 rounded-md">
-                                            <option value="5">5 Stars</option>
-                                            <option value="4">4 Stars</option>
-                                            <option value="3">3 Stars</option>
-                                            <option value="2">2 Stars</option>
-                                            <option value="1">1 Star</option>
+                                            <option value="5" {{ old('testimonials.0.rating') == '5' ? 'selected' : '' }}>5 Stars</option>
+                                            <option value="4" {{ old('testimonials.0.rating') == '4' ? 'selected' : '' }}>4 Stars</option>
+                                            <option value="3" {{ old('testimonials.0.rating') == '3' ? 'selected' : '' }}>3 Stars</option>
+                                            <option value="2" {{ old('testimonials.0.rating') == '2' ? 'selected' : '' }}>2 Stars</option>
+                                            <option value="1" {{ old('testimonials.0.rating') == '1' ? 'selected' : '' }}>1 Star</option>
                                         </select>
                                     </div>
                                     <div class="md:col-span-2">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Testimonial Text</label>
-                                        <textarea name="testimonials[0][text]" rows="3" placeholder="This product transformed our business..." class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                                        <textarea name="testimonials[0][text]" rows="3" placeholder="This product transformed our business..." class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ old('testimonials.0.text') }}</textarea>
                                     </div>
                                     <div class="md:col-span-2">
                                         <button type="button" onclick="this.closest('.testimonial-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>
@@ -254,7 +257,7 @@
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Section Name</label>
-                                        <input type="text" name="sections[0][name]" placeholder="Section 1" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="sections[0][name]" value="{{ old('sections.0.name') }}" placeholder="Section 1" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Section Image</label>
@@ -262,15 +265,15 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Section Title</label>
-                                        <input type="text" name="sections[0][title]" placeholder="Section Title" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="sections[0][title]" value="{{ old('sections.0.title') }}" placeholder="Section Title" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
-                                        <input type="text" name="sections[0][icon]" placeholder="bi bi-star" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <input type="text" name="sections[0][icon]" value="{{ old('sections.0.icon') }}" placeholder="bi bi-star" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div class="md:col-span-2">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Section Description</label>
-                                        <textarea name="sections[0][description]" rows="3" placeholder="Section description" class="summernote w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                                        <textarea name="sections[0][description]" rows="3" placeholder="Section description" class="summernote w-full px-3 py-2 border border-gray-300 rounded-md">{{ old('sections.0.description') }}</textarea>
                                     </div>
                                     <div class="md:col-span-2">
                                         <button type="button" onclick="this.closest('.section-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>
@@ -573,6 +576,34 @@ $(document).ready(function() {
             .trim('-');
         $('#slug').val(slug);
     });
+    
+    // Preserve form data on validation errors
+    const form = document.querySelector('form');
+    if (form) {
+        form.addEventListener('submit', function() {
+            const formData = new FormData(form);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            localStorage.setItem('productFormData', JSON.stringify(data));
+        });
+        
+        if (document.querySelector('.text-red-500')) {
+            const savedData = localStorage.getItem('productFormData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                Object.keys(data).forEach(key => {
+                    const input = form.querySelector(`[name="${key}"]`);
+                    if (input && !input.value) {
+                        input.value = data[key];
+                    }
+                });
+            }
+        } else {
+            localStorage.removeItem('productFormData');
+        }
+    }
 });
 </script>
 @endsection
