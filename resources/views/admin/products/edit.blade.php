@@ -49,6 +49,9 @@
                         <button type="button" class="tab-btn py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="sections">
                             General Sections
                         </button>
+                        <button type="button" class="tab-btn py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="seo">
+                            SEO
+                        </button>
                     </nav>
                 </div>
                 
@@ -425,6 +428,30 @@
                             @endforelse
                         </div>
                         <button type="button" onclick="addSection()" class="mt-4 px-4 py-2 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200">Add Section</button>
+                    </div>
+                </div>
+                
+                <!-- SEO Tab -->
+                <div class="tab-content hidden" id="seo">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">SEO Settings</h3>
+                        <div class="grid grid-cols-1 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Meta Title</label>
+                                <input type="text" name="meta_title" value="{{ old('meta_title', $product->meta_title) }}" placeholder="Custom meta title for this product" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <p class="text-xs text-gray-500 mt-1">Leave empty to use product title + site name</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description</label>
+                                <textarea name="meta_description" rows="3" placeholder="Brief description for search engines (150-160 characters recommended)" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('meta_description', $product->meta_description) }}</textarea>
+                                <p class="text-xs text-gray-500 mt-1">Leave empty to use product description</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Meta Keywords</label>
+                                <input type="text" name="meta_keywords" value="{{ old('meta_keywords', $product->meta_keywords) }}" placeholder="keyword1, keyword2, keyword3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <p class="text-xs text-gray-500 mt-1">Comma-separated keywords related to this product</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 

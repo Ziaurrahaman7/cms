@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
-@section('title', $product->title . ' - ' . App\Models\SiteSetting::get('site_name', 'Technoit'))
-@section('description', $product->description)
+@section('title', $product->meta_title ?: $product->title . ' - ' . App\Models\SiteSetting::get('site_name', 'Technoit'))
+@section('description', $product->meta_description ?: $product->description)
+@section('keywords', $product->meta_keywords ?: $product->title . ', ' . App\Models\SiteSetting::get('site_name', 'Technoit') . ', products, business solutions')
 
 @section('content')
 <!-- Product Hero Section -->
