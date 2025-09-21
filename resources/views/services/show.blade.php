@@ -2,7 +2,7 @@
 
 @section('title', $service->meta_title ?: $service->title . ' - ' . App\Models\SiteSetting::get('site_name', 'Technoit'))
 @section('description', $service->meta_description ?: $service->description)
-@section('keywords', $service->meta_keywords)
+@section('keywords', $service->meta_keywords ?: $service->title . ', ' . App\Models\SiteSetting::get('site_name', 'Technoit') . ', IT solutions, business services')
 
 @section('content')
 <!-- Service Hero Section -->

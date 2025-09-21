@@ -48,6 +48,9 @@
                         <button type="button" class="tab-btn py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="process">
                             Process
                         </button>
+                        <button type="button" class="tab-btn py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="seo">
+                            SEO
+                        </button>
                     </nav>
                 </div>
                 
@@ -56,15 +59,24 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Service Title *</label>
-                            <input type="text" name="title" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <input type="text" name="title" id="title" value="{{ old('title') }}" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('title') border-red-500 @enderror">
+                            @error('title')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
-                            <input type="text" name="slug" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <input type="text" name="slug" id="slug" value="{{ old('slug') }}" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('slug') border-red-500 @enderror">
+                            @error('slug')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
-                            <textarea name="description" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                            <textarea name="description" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('description') border-red-500 @enderror">{{ old('description') }}</textarea>
+                            @error('description')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Content</label>
@@ -235,6 +247,30 @@
                     </div>
                 </div>
                 
+                <!-- SEO Tab -->
+                <div class="tab-content hidden" id="seo">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">SEO Settings</h3>
+                        <div class="grid grid-cols-1 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Meta Title</label>
+                                <input type="text" name="meta_title" placeholder="Custom meta title for this service" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <p class="text-xs text-gray-500 mt-1">Leave empty to use service title + site name</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description</label>
+                                <textarea name="meta_description" rows="3" placeholder="Brief description for search engines (150-160 characters recommended)" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                                <p class="text-xs text-gray-500 mt-1">Leave empty to use service description</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Meta Keywords</label>
+                                <input type="text" name="meta_keywords" placeholder="keyword1, keyword2, keyword3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <p class="text-xs text-gray-500 mt-1">Comma-separated keywords related to this service</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- Submit Buttons -->
                 <div class="flex justify-end gap-3 mt-8 pt-6 border-t border-gray-200">
                     <a href="{{ route('admin.services.index') }}" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200">Cancel</a>
@@ -246,8 +282,33 @@
 </div>
 
 <script>
+// Auto-generate slug from title
+function generateSlug(text) {
+    return text
+        .toLowerCase()
+        .replace(/[^a-z0-9 -]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .trim('-');
+}
+
 // Tab functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Auto-generate slug when title changes
+    const titleInput = document.getElementById('title');
+    const slugInput = document.getElementById('slug');
+    
+    if (titleInput && slugInput) {
+        titleInput.addEventListener('input', function() {
+            if (!slugInput.dataset.manual) {
+                slugInput.value = generateSlug(this.value);
+            }
+        });
+        
+        slugInput.addEventListener('input', function() {
+            this.dataset.manual = 'true';
+        });
+    }
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
     
