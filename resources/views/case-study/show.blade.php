@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
-@section('title', $portfolio->title . ' - Case Study')
-@section('description', $portfolio->description)
+@section('title', $portfolio->meta_title ?: $portfolio->title . ' - Case Study - ' . App\Models\SiteSetting::get('site_name', 'Technoit'))
+@section('description', $portfolio->meta_description ?: $portfolio->description)
+@section('keywords', $portfolio->meta_keywords ?: $portfolio->title . ', case study, ' . $portfolio->category . ', ' . App\Models\SiteSetting::get('site_name', 'Technoit') . ', portfolio, project')
 
 @section('content')
 <!-- Portfolio Hero Section -->

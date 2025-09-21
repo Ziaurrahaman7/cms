@@ -36,6 +36,9 @@
                         <button type="button" class="tab-button py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="client-reviews">
                             Client Reviews
                         </button>
+                        <button type="button" class="tab-button py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="seo">
+                            SEO
+                        </button>
                     </nav>
                 </div>
                 
@@ -329,6 +332,30 @@
                     <button type="button" id="add-client-review" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
                         Add Client Review
                     </button>
+                </div>
+                
+                <!-- SEO Tab -->
+                <div id="seo-tab" class="tab-content hidden">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">SEO Settings</h3>
+                        <div class="grid grid-cols-1 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Meta Title</label>
+                                <input type="text" name="meta_title" value="{{ old('meta_title', $portfolio->meta_title) }}" placeholder="Custom meta title for this portfolio" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <p class="text-xs text-gray-500 mt-1">Leave empty to use portfolio title + site name</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description</label>
+                                <textarea name="meta_description" rows="3" placeholder="Brief description for search engines (150-160 characters recommended)" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('meta_description', $portfolio->meta_description) }}</textarea>
+                                <p class="text-xs text-gray-500 mt-1">Leave empty to use portfolio description</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Meta Keywords</label>
+                                <input type="text" name="meta_keywords" value="{{ old('meta_keywords', $portfolio->meta_keywords) }}" placeholder="keyword1, keyword2, keyword3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <p class="text-xs text-gray-500 mt-1">Comma-separated keywords related to this portfolio</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="flex justify-between mt-8">

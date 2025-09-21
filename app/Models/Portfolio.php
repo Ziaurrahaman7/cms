@@ -18,7 +18,10 @@ class Portfolio extends Model
         'sort_order',
         'work_process',
         'business_cases',
-        'client_reviews'
+        'client_reviews',
+        'meta_title',
+        'meta_description',
+        'meta_keywords'
     ];
     
     protected $casts = [
