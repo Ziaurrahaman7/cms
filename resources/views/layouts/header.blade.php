@@ -45,16 +45,15 @@
         <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a></li>
         <li><a href="{{ route('about.index') }}" class="{{ request()->routeIs('about.*') ? 'active' : '' }}">About</a></li>
         <li class="dropdown">
-          <a href="{{ route('services.index') }}" class="{{ request()->routeIs('services.*') ? 'active' : '' }}">Services <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+          <a href="#" class="{{ request()->routeIs('services.*') ? 'active' : '' }}">Services <i class="bi bi-chevron-down dropdown-indicator"></i></a>
           <ul>
+            <li><a href="{{ route('services.index') }}">All Services</a></li>
             @php
-              $headerServices = App\Models\Service::active()->ordered()->get();
+              $headerServices = App\Models\Service::active()->ordered()->take(6)->get();
             @endphp
-            @forelse($headerServices as $service)
+            @foreach($headerServices as $service)
               <li><a href="{{ route('services.show', $service->slug) }}">{{ $service->title }}</a></li>
-            @empty
-              <li><a href="{{ route('services.index') }}">View All Services</a></li>
-            @endforelse
+            @endforeach
           </ul>
         </li>
         <li class="dropdown">
