@@ -100,6 +100,13 @@
       animation: none;
     }
   </style>
+  <style>
+        /* Global text justification */
+    .text-content, .description, .content, article p, .post-content, .blog-content, .testimonial-item p, .about .content p, .recent-posts article p, .blog .posts-list article p, .blog .blog-details .content p, .contact-information-box-3 .contact-info p, .footer-text p, .service-card p, .product-card p, .industry-solution-card p, .list-wrap p, .icon-box p, .card-text, .card-body p {
+      text-align: justify !important;
+    }
+
+  </style>
 </head>
 
 <body>
