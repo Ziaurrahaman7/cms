@@ -4,6 +4,11 @@
 @section('description', 'Learn more about our company, team, and mission to deliver exceptional IT solutions.')
 
 @section('content')
+<style>
+  .text-justify{
+    text-align: justify !important;
+  }
+</style>
 <!-- About Hero Banner -->
 <section id="about-hero" class="hero sticked-header-offset" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 70vh; position: relative; overflow: hidden;">
   <div id="particles-js"></div>
@@ -37,7 +42,7 @@
       <div class="col-lg-6" data-aos="fade-right">
         <div class="about-content">
           <h2 class="mb-4">Who We Are</h2>
-          <p class="mb-4">{{ App\Models\SiteSetting::get('about_who_we_are', 'We are a passionate team of technology experts dedicated to delivering innovative IT solutions that drive business growth and success.') }}</p>
+          <p class="mb-4 text-justify">{{ App\Models\SiteSetting::get('about_who_we_are', 'We are a passionate team of technology experts dedicated to delivering innovative IT solutions that drive business growth and success.') }}</p>
           
           <div class="mb-4 row g-4">
             <div class="col-6">
@@ -98,22 +103,22 @@
   <div class="container">
     <div class="row g-5">
       <div class="col-lg-6" data-aos="fade-up">
-        <div class="p-5 bg-white shadow-sm mission-card rounded-4 h-100">
+        <div class="p-4 shadow-sm bg2-white mission-card rounded-4 h-100">
           <div class="mb-4 icon-wrapper" style="width: 80px; height: 80px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
             <i class="text-white bi bi-bullseye" style="font-size: 2rem;"></i>
           </div>
           <h3 class="mb-3">Our Mission</h3>
-          <p class="text-muted">{{ App\Models\SiteSetting::get('about_mission', 'To empower businesses with innovative technology solutions that drive growth, efficiency, and success in the digital age. We strive to be the trusted partner for all your IT needs.') }}</p>
+          <p class="text-justify">{{ App\Models\SiteSetting::get('about_mission', 'To empower businesses with innovative technology solutions that drive growth, efficiency, and success in the digital age. We strive to be the trusted partner for all your IT needs.') }}</p>
         </div>
       </div>
       
       <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="p-5 bg-white shadow-sm vision-card rounded-4 h-100">
+        <div class="p-4 bg-white shadow-sm vision-card rounded-4 h-100">
           <div class="mb-4 icon-wrapper" style="width: 80px; height: 80px; background: linear-gradient(45deg, #4ecdc4, #44a08d); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
             <i class="text-white bi bi-eye" style="font-size: 2rem;"></i>
           </div>
           <h3 class="mb-3">Our Vision</h3>
-          <p class="text-muted">{{ App\Models\SiteSetting::get('about_vision', 'To be the leading IT solutions provider globally, recognized for our innovation, quality, and commitment to client success. We envision a future where technology seamlessly enhances every business.') }}</p>
+          <p class="text-justify">{{ App\Models\SiteSetting::get('about_vision', 'To be the leading IT solutions provider globally, recognized for our innovation, quality, and commitment to client success. We envision a future where technology seamlessly enhances every business.') }}</p>
         </div>
       </div>
     </div>
@@ -129,10 +134,6 @@
     </div>
     
     <div class="row g-4">
-      @php
-        $achievements = App\Models\Achievement::active()->ordered()->get();
-      @endphp
-      
       @forelse($achievements as $achievement)
       <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
         <div class="p-4 text-center bg-white shadow-sm achievement-card rounded-4 h-100">
@@ -146,13 +147,13 @@
             @endif
           </div>
           <h4 class="mb-3">{{ $achievement->title }}</h4>
-          <p class="mb-3 text-muted">{{ $achievement->description }}</p>
-          <div class="achievement-year">
+          {{-- <p class="mb-3 text-muted">{{ $achievement->description }}</p> --}}
+          {{-- <div class="achievement-year">
             <span class="px-3 py-1 badge 
               @if($achievement->category === 'certificate') bg-primary
               @elseif($achievement->category === 'achievement') bg-success
               @else bg-warning text-dark @endif">{{ $achievement->year }}</span>
-          </div>
+          </div> --}}
         </div>
       </div>
       @empty
@@ -161,6 +162,16 @@
       </div>
       @endforelse
     </div>
+    
+    @if($achievements->count() >= 6)
+    <div class="mt-5 row">
+      <div class="text-center col-12">
+        <a href="{{ route('about.certificates') }}" class="px-4 py-3 btn btn-primary btn-lg rounded-pill">
+          <i class="bi bi-award me-2"></i>See All Certificates
+        </a>
+      </div>
+    </div>
+    @endif
   </div>
 </section>
 

@@ -17,6 +17,7 @@ Route::get('/blog/{post}', [App\Http\Controllers\PostController::class, 'show'])
 
 // About Us page
 Route::get('/about-us', [App\Http\Controllers\AboutController::class, 'index'])->name('about.index');
+Route::get('/certificates', [App\Http\Controllers\AboutController::class, 'certificates'])->name('about.certificates');
 
 // Case Study page
 Route::get('/case-study', [App\Http\Controllers\CaseStudyController::class, 'index'])->name('case-study.index');
