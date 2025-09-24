@@ -197,6 +197,23 @@
             </div>
             @endif
             
+            <!-- Stats Settings -->
+            @if(isset($settings['stats']))
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">About Page Stats</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    @foreach($settings['stats'] as $setting)
+                        <div>
+                            <label for="{{ $setting->key }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ ucwords(str_replace('_', ' ', str_replace('stats_', '', $setting->key))) }}
+                            </label>
+                            <input type="text" name="settings[{{ $setting->key }}]" value="{{ $setting->value }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+            
             <!-- Email Settings -->
             @if(isset($settings['email']))
             <div class="mb-8">

@@ -37,32 +37,31 @@
       <div class="col-lg-6" data-aos="fade-right">
         <div class="about-content">
           <h2 class="mb-4">Who We Are</h2>
-          <p class="mb-4 lead">{{ App\Models\SiteSetting::get('about_who_we_are', 'We are a passionate team of technology experts dedicated to delivering innovative IT solutions that drive business growth and success.') }}</p>
-          <p class="mb-4">With years of experience in the industry, we have helped countless businesses transform their operations through cutting-edge technology solutions. Our commitment to excellence and customer satisfaction sets us apart in the competitive IT landscape.</p>
+          <p class="mb-4">{{ App\Models\SiteSetting::get('about_who_we_are', 'We are a passionate team of technology experts dedicated to delivering innovative IT solutions that drive business growth and success.') }}</p>
           
           <div class="mb-4 row g-4">
             <div class="col-6">
               <div class="text-center stat-item">
-                <h3 class="mb-2 fw-bold text-primary">500+</h3>
-                <p class="mb-0 text-muted">Projects Completed</p>
+                <h3 class="mb-2 fw-bold text-primary">{{ App\Models\SiteSetting::get('stats_projects_completed', '500+') }}</h3>
+                <p class="mb-0 text-muted">{{ App\Models\SiteSetting::get('stats_projects_label', 'Projects Completed') }}</p>
               </div>
             </div>
             <div class="col-6">
               <div class="text-center stat-item">
-                <h3 class="mb-2 fw-bold text-primary">200+</h3>
-                <p class="mb-0 text-muted">Happy Clients</p>
+                <h3 class="mb-2 fw-bold text-primary">{{ App\Models\SiteSetting::get('stats_happy_clients', '200+') }}</h3>
+                <p class="mb-0 text-muted">{{ App\Models\SiteSetting::get('stats_happy_clients_label', 'Happy Clients') }}</p>
               </div>
             </div>
             <div class="col-6">
               <div class="text-center stat-item">
-                <h3 class="mb-2 fw-bold text-primary">5+</h3>
-                <p class="mb-0 text-muted">Years Experience</p>
+                <h3 class="mb-2 fw-bold text-primary">{{ App\Models\SiteSetting::get('stats_years_experience', '5+') }}</h3>
+                <p class="mb-0 text-muted">{{ App\Models\SiteSetting::get('stats_years_experience_label', 'Years Experience') }}</p>
               </div>
             </div>
             <div class="col-6">
               <div class="text-center stat-item">
-                <h3 class="mb-2 fw-bold text-primary">15+</h3>
-                <p class="mb-0 text-muted">Countries Served</p>
+                <h3 class="mb-2 fw-bold text-primary">{{ App\Models\SiteSetting::get('stats_countries_served', '15+') }}</h3>
+                <p class="mb-0 text-muted">{{ App\Models\SiteSetting::get('stats_countries_served_label', 'Countries Served') }}</p>
               </div>
             </div>
           </div>
@@ -136,7 +135,7 @@
       
       @forelse($achievements as $achievement)
       <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
-        <div class="p-4 bg-white shadow-sm achievement-card rounded-4 h-100 text-center">
+        <div class="p-4 text-center bg-white shadow-sm achievement-card rounded-4 h-100">
           <div class="mb-3 achievement-icon">
             @if($achievement->image && file_exists(public_path('storage/achievements/' . $achievement->image)))
               <img src="{{ asset('storage/achievements/' . $achievement->image) }}" alt="{{ $achievement->title }}" class="img-fluid rounded-3" style="width: 100%; height: 200px; object-fit: cover;">
@@ -157,7 +156,7 @@
         </div>
       </div>
       @empty
-      <div class="col-12 text-center">
+      <div class="text-center col-12">
         <p class="text-muted">No achievements available at the moment.</p>
       </div>
       @endforelse

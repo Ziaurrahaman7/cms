@@ -114,6 +114,16 @@ class AdminSiteSettingController extends Controller
             ['key' => 'about_vision', 'value' => 'To be the leading IT solutions provider globally, recognized for our innovation, quality, and commitment to client success. We envision a future where technology seamlessly enhances every business.', 'type' => 'textarea', 'group' => 'about'],
             ['key' => 'about_image', 'value' => '', 'type' => 'image', 'group' => 'about'],
             
+            // About Stats Settings
+            ['key' => 'stats_projects_completed', 'value' => '500+', 'type' => 'text', 'group' => 'stats'],
+            ['key' => 'stats_projects_label', 'value' => 'Projects Completed', 'type' => 'text', 'group' => 'stats'],
+            ['key' => 'stats_happy_clients', 'value' => '200+', 'type' => 'text', 'group' => 'stats'],
+            ['key' => 'stats_happy_clients_label', 'value' => 'Happy Clients', 'type' => 'text', 'group' => 'stats'],
+            ['key' => 'stats_years_experience', 'value' => '5+', 'type' => 'text', 'group' => 'stats'],
+            ['key' => 'stats_years_experience_label', 'value' => 'Years Experience', 'type' => 'text', 'group' => 'stats'],
+            ['key' => 'stats_countries_served', 'value' => '15+', 'type' => 'text', 'group' => 'stats'],
+            ['key' => 'stats_countries_served_label', 'value' => 'Countries Served', 'type' => 'text', 'group' => 'stats'],
+            
             // Email Settings
             ['key' => 'mail_mailer', 'value' => 'smtp', 'type' => 'text', 'group' => 'email'],
             ['key' => 'mail_host', 'value' => 'smtp.gmail.com', 'type' => 'text', 'group' => 'email'],
