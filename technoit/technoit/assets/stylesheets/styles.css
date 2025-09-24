@@ -2431,7 +2431,7 @@ dl, ol, ul {
 .stats-counter .stats-item span {
   font-size: 24px;
   display: block;
-  color: var(--color-primary);
+   color: #fff;
   line-height: 34px;
   text-align: center;
 }

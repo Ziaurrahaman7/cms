@@ -70,23 +70,7 @@
             @endforelse
           </ul>
         </li>
-        <li><a href="{{ route('clients.index') }}" class="{{ request()->routeIs('clients.*') ? 'active' : '' }}">Clients</a></li>
-        <li class="dropdown">
-          <a href="{{ route('partners.index') }}" class="{{ request()->routeIs('partners.*') ? 'active' : '' }}">Partners <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-          <ul>
-            @php
-              $headerPartners = App\Models\Partner::ordered()->get();
-            @endphp
-            @forelse($headerPartners as $partner)
-              <li><a href="{{ route('partners.show', $partner->slug) }}">{{ $partner->name }}</a></li>
-            @empty
-              <li><a href="{{ route('partners.index') }}">No Partners Available</a></li>
-            @endforelse
-            <li><a href="{{ route('partners.index') }}">All Partners</a></li>
-          </ul>
-        </li>
         <li><a href="{{ route('posts.index') }}" class="{{ request()->routeIs('posts.*') ? 'active' : '' }}">Blog</a></li>
-        <li><a href="{{ route('contact.index') }}" class="{{ request()->routeIs('contact.*') ? 'active' : '' }}">Contact</a></li>
       </ul>
     </nav>
     <a href="#contact" class="btn-get-started hide-on-mobile">Get Quotes</a>

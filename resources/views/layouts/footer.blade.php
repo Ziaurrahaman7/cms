@@ -1,6 +1,6 @@
 <footer id="footer" class="footer-section">
   <div class="container">
-      <div class="pt-5 pb-5 footer-content">
+      <div class="pt-5 pb-2 footer-content">
           <div class="row">
               <div class="col-xl-4 col-lg-4 mb-50">
                   <div class="footer-widget">
@@ -70,7 +70,10 @@
                         <ul class="list">
                           <li><a href="{{ route('case-study.index') }}">Portfolio</a></li>
                           <li><a href="{{ route('case-study.index') }}">Case Study</a></li>
+                          <li><a href="{{ route('clients.index') }}">Clients</a></li>
+                          <li><a href="{{ route('partners.index') }}">Partners</a></li>
                           <li><a href="{{ route('careers.index') }}">Careers</a></li>
+                          <li><a href="{{ route('contact.index') }}">Contact</a></li>
                           <li><a href="{{ route('posts.index') }}">Blogs</a></li>
                         </ul>
                     </div>

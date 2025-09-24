@@ -49,7 +49,8 @@
       
       <div class="row g-4">
         @php
-          $services = App\Models\Service::active()->ordered()->get();
+          $services = App\Models\Service::active()->ordered()->take(6)->get();
+          $totalServices = App\Models\Service::active()->count();
         @endphp
         
         @forelse($services as $service)
@@ -99,6 +100,16 @@
         </div>
         @endforelse
       </div>
+      
+      @if($totalServices > 6)
+      <div class="mt-5 row">
+        <div class="text-center col-12">
+          <a href="{{ route('services.index') }}" class="px-5 py-3 btn btn-light btn-lg rounded-pill fw-bold" style="background: rgba(255,255,255,0.9); color: #667eea; border: 2px solid rgba(255,255,255,0.3);">
+            <i class="bi bi-arrow-right me-2"></i>See More Services
+          </a>
+        </div>
+      </div>
+      @endif
     </div>
   </div>
   
@@ -130,22 +141,22 @@
         
         @forelse($products as $product)
         <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
-          <div class="product-card bg-white rounded-4 shadow-lg overflow-hidden h-100" style="transition: all 0.3s ease;">
+          <div class="overflow-hidden bg-white shadow-lg product-card rounded-4 h-100" style="transition: all 0.3s ease;">
             <div class="product-image position-relative" style="height: 200px; overflow: hidden;">
               @if($product->image && file_exists(public_path('storage/' . $product->image)))
                 <img src="{{ asset('storage/' . $product->image) }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $product->title }}">
               @else
                 <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background: linear-gradient(45deg, #667eea, #764ba2);">
-                  <i class="bi bi-laptop text-white" style="font-size: 3rem;"></i>
+                  <i class="text-white bi bi-laptop" style="font-size: 3rem;"></i>
                 </div>
               @endif
-              <div class="product-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease;">
+              <div class="top-0 product-overlay position-absolute start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease;">
                 <span class="text-white fw-bold">View Details</span>
               </div>
             </div>
-            <div class="card-body p-4">
+            <div class="p-4 card-body">
               <h4 class="mb-3 fw-bold">{{ $product->title }}</h4>
-              <p class="text-muted mb-4">{{ Str::limit($product->description, 80) }}</p>
+              <p class="mb-4 text-muted">{{ Str::limit($product->description, 80) }}</p>
               <div class="d-flex align-items-center justify-content-between">
                 <a href="{{ route('products.show', $product->slug) }}" class="btn btn-outline-primary btn-sm rounded-pill">
                   Learn More
@@ -157,13 +168,13 @@
         </div>
         @empty
         <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-          <div class="product-card bg-white rounded-4 shadow-lg overflow-hidden h-100">
+          <div class="overflow-hidden bg-white shadow-lg product-card rounded-4 h-100">
             <div class="product-image" style="height: 200px; background: linear-gradient(45deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center;">
-              <i class="bi bi-laptop text-white" style="font-size: 3rem;"></i>
+              <i class="text-white bi bi-laptop" style="font-size: 3rem;"></i>
             </div>
-            <div class="card-body p-4">
+            <div class="p-4 card-body">
               <h4 class="mb-3 fw-bold">ERP Solution</h4>
-              <p class="text-muted mb-4">Complete enterprise resource planning system for business management</p>
+              <p class="mb-4 text-muted">Complete enterprise resource planning system for business management</p>
               <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm rounded-pill">Learn More</a>
             </div>
           </div>
@@ -207,31 +218,31 @@
         
         @forelse($industries as $industry)
         <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
-          <div class="industry-solution-card bg-white rounded-4 p-4 h-100 shadow-sm text-center">
-            <div class="industry-icon mb-3">
+          <div class="p-4 text-center bg-white shadow-sm industry-solution-card rounded-4 h-100">
+            <div class="mb-3 industry-icon">
               @if($industry->image && file_exists(public_path('storage/' . $industry->image)))
                 <img src="{{ asset('storage/' . $industry->image) }}" alt="{{ $industry->title }}" class="mx-auto rounded-circle" style="width: 70px; height: 70px; object-fit: cover;">
               @else
-                <div class="icon-wrapper mx-auto" style="width: 70px; height: 70px; background: {{ $gradients[$loop->index % 4] }}; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <div class="mx-auto icon-wrapper" style="width: 70px; height: 70px; background: {{ $gradients[$loop->index % 4] }}; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
                   <i class="{{ $industry->icon ?? 'bi bi-building' }} text-white" style="font-size: 1.8rem;"></i>
                 </div>
               @endif
             </div>
             <h5 class="mb-2">{{ $industry->title }}</h5>
-            <p class="text-muted small mb-3">{{ $industry->description }}</p>
+            <p class="mb-3 text-muted small">{{ $industry->description }}</p>
             <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm">Explore</a>
           </div>
         </div>
         @empty
         <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-          <div class="industry-solution-card bg-white rounded-4 p-4 h-100 shadow-sm text-center">
-            <div class="industry-icon mb-3">
-              <div class="icon-wrapper mx-auto" style="width: 70px; height: 70px; background: linear-gradient(45deg, #ff6b6b, #ee5a24); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                <i class="bi bi-cart text-white" style="font-size: 1.8rem;"></i>
+          <div class="p-4 text-center bg-white shadow-sm industry-solution-card rounded-4 h-100">
+            <div class="mb-3 industry-icon">
+              <div class="mx-auto icon-wrapper" style="width: 70px; height: 70px; background: linear-gradient(45deg, #ff6b6b, #ee5a24); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <i class="text-white bi bi-cart" style="font-size: 1.8rem;"></i>
               </div>
             </div>
             <h5 class="mb-2">Retail</h5>
-            <p class="text-muted small mb-3">POS systems, inventory management, e-commerce platforms</p>
+            <p class="mb-3 text-muted small">POS systems, inventory management, e-commerce platforms</p>
             <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm">Explore</a>
           </div>
         </div>
@@ -247,11 +258,11 @@
         <div class="col-lg-8">
           <h3 class="mb-4 text-white">Ready to Transform Your Business?</h3>
           <p class="mb-4 text-white-50">Get started with our professional services today</p>
-          <div class="d-flex flex-wrap justify-content-center gap-3">
-            <a href="{{ route('contact.index') }}" class="btn btn-light btn-lg px-5 py-3 rounded-pill fw-bold">
+          <div class="flex-wrap gap-3 d-flex justify-content-center">
+            <a href="{{ route('contact.index') }}" class="px-5 py-3 btn btn-light btn-lg rounded-pill fw-bold">
               <i class="bi bi-chat-dots me-2"></i>Request Quote
             </a>
-            <a href="{{ route('contact.index') }}" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold">
+            <a href="{{ route('contact.index') }}" class="px-5 py-3 btn btn-outline-light btn-lg rounded-pill fw-bold">
               <i class="bi bi-telephone me-2"></i>Contact Us
             </a>
           </div>
@@ -263,7 +274,7 @@
   <!-- Why Choose Us Section -->
   <section id="featured" class="py-5">
     <div class="container">
-        <div class="section-header text-center" data-aos="fade-up" data-aos-delay="100">
+        <div class="text-center section-header" data-aos="fade-up" data-aos-delay="100">
           <h2>Why Choose Us</h2>
           <p>Discover what makes us the perfect choice for your business</p>
         </div>
@@ -344,72 +355,7 @@
   </div>
 </section>
 
-<!-- Portfolio Section -->
-<section id="portfolio" class="portfolio">
-  <div class="container" data-aos="fade-up">
-    <div class="section-header">
-      <h2>Our Portfolio</h2>
-      <p>Showcasing our best work and successful projects</p>
-    </div>
-    <div class="portfolio-isotope" data-portfolio-filter="*" data-portfolio-layout="masonry" data-portfolio-sort="original-order" data-aos="fade-up" data-aos-delay="100">
-      <div>
-        <ul class="portfolio-flters">
-          <li data-filter="*" class="filter-active">All</li>
-          @php
-            $portfolioCategories = App\Models\PortfolioCategory::active()->ordered()->get();
-          @endphp
-          @foreach($portfolioCategories as $category)
-            <li data-filter=".filter-{{ $category->slug }}">{{ $category->name }}</li>
-          @endforeach
-        </ul>
-      </div>
-      <div class="row gy-4 portfolio-container">
-        @php
-          $portfolios = App\Models\Portfolio::active()->ordered()->get();
-        @endphp
-        
-        @forelse($portfolios as $portfolio)
-        <div class="col-xl-4 col-md-6 portfolio-item filter-{{ $portfolio->category }}">
-          <div class="overflow-hidden portfolio-wrap position-relative">
-            @if($portfolio->image && file_exists(public_path('storage/portfolios/' . $portfolio->image)))
-              <a href="{{ asset('storage/portfolios/' . $portfolio->image) }}" class="glightbox" data-gallery="portfolio-gallery" data-glightbox="title: {{ $portfolio->title }}; description: {{ $portfolio->description }}">
-                <img src="{{ asset('storage/portfolios/' . $portfolio->image) }}" class="img-fluid" alt="{{ $portfolio->title }}" style="transition: transform 0.3s ease;">
-              </a>
-            @else
-              <a href="{{ asset('assets/images/portfolio/product-' . (($loop->index % 6) + 1) . '.jpg') }}" class="glightbox" data-gallery="portfolio-gallery" data-glightbox="title: {{ $portfolio->title }}; description: {{ $portfolio->description }}">
-                <img src="{{ asset('assets/images/portfolio/product-' . (($loop->index % 6) + 1) . '.jpg') }}" class="img-fluid" alt="{{ $portfolio->title }}" style="transition: transform 0.3s ease;">
-              </a>
-            @endif
-            <div class="top-0 portfolio-overlay position-absolute start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease; pointer-events: none;">
-              <div class="text-center text-white">
-                <h5 class="mb-2">{{ $portfolio->title }}</h5>
-                <p class="mb-3">{{ Str::limit($portfolio->description, 50) }}</p>
-                @if($portfolio->project_url)
-                  <a href="{{ $portfolio->project_url }}" target="_blank" class="btn btn-outline-light btn-sm" style="pointer-events: all;"><i class="bi bi-link-45deg"></i> Visit</a>
-                @endif
-              </div>
-            </div>
-          </div>
-        </div>
-        @empty
-        <div class="col-xl-4 col-md-6 portfolio-item filter-app">
-          <div class="overflow-hidden portfolio-wrap position-relative">
-            <a href="{{ asset('assets/images/portfolio/product-1.jpg') }}" class="glightbox" data-gallery="portfolio-gallery" data-glightbox="title: Sample Project; description: Professional web development">
-              <img src="{{ asset('assets/images/portfolio/product-1.jpg') }}" class="img-fluid" alt="Sample Project" style="transition: transform 0.3s ease;">
-            </a>
-            <div class="top-0 portfolio-overlay position-absolute start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease; pointer-events: none;">
-              <div class="text-center text-white">
-                <h5 class="mb-2">Sample Project</h5>
-                <p class="mb-3">Professional web development</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        @endforelse
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <!--  Testimonials Section  -->
 <section id="testimonials" class="testimonials">
@@ -510,7 +456,7 @@
   </div>
 </div>
 
-<!--  Clients Section (3 Categories) -->
+<!--  Clients Section -->
 <div id="clients" class="clients section">
   <div class="container" data-aos="zoom-out">
     <div class="mb-5 text-center section-header">
@@ -518,11 +464,13 @@
       <p>We're proud to work with amazing companies across different sectors</p>
     </div>
     
-    <!-- Client Tabs -->
     <div class="clients-tabs">
       <ul class="nav nav-tabs justify-content-center mb-4" id="clientTabs" role="tablist">
         <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="private-tab" data-bs-toggle="tab" data-bs-target="#private" type="button" role="tab">Private Companies</button>
+          <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab">All</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="private-tab" data-bs-toggle="tab" data-bs-target="#private" type="button" role="tab">Private Companies</button>
         </li>
         <li class="nav-item" role="presentation">
           <button class="nav-link" id="government-tab" data-bs-toggle="tab" data-bs-target="#government" type="button" role="tab">Government</button>
@@ -534,13 +482,40 @@
       
       <div class="tab-content" id="clientTabsContent">
         @php
+          $allClients = App\Models\Client::where('is_active', true)->orderBy('sort_order')->get();
           $privateClients = App\Models\Client::where('category', 'private')->where('is_active', true)->orderBy('sort_order')->get();
           $governmentClients = App\Models\Client::where('category', 'government')->where('is_active', true)->orderBy('sort_order')->get();
           $globalClients = App\Models\Client::where('category', 'global')->where('is_active', true)->orderBy('sort_order')->get();
         @endphp
         
+        <!-- All Clients Tab -->
+        <div class="tab-pane fade show active" id="all" role="tabpanel">
+          <div class="clients-slider swiper">
+            <div class="swiper-wrapper align-items-center">
+              @forelse($allClients as $client)
+                <div class="swiper-slide">
+                  @if($client->website_url)
+                    <a href="{{ $client->website_url }}" target="_blank">
+                  @endif
+                  @if($client->logo && file_exists(public_path('storage/clients/' . $client->logo)))
+                    <img src="{{ asset('storage/clients/' . $client->logo) }}" class="img-fluid client-logo" alt="{{ $client->name }}">
+                  @else
+                    <img src="{{ asset('assets/images/clients/client-' . (($loop->index % 6) + 1) . '.png') }}" class="img-fluid client-logo" alt="{{ $client->name }}">
+                  @endif
+                  @if($client->website_url)
+                    </a>
+                  @endif
+                </div>
+              @empty
+                <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-1.png') }}" class="img-fluid client-logo" alt="Client 1"></div>
+                <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-2.png') }}" class="img-fluid client-logo" alt="Client 2"></div>
+              @endforelse
+            </div>
+          </div>
+        </div>
+        
         <!-- Private Companies Tab -->
-        <div class="tab-pane fade show active" id="private" role="tabpanel">
+        <div class="tab-pane fade" id="private" role="tabpanel">
           <div class="clients-slider swiper">
             <div class="swiper-wrapper align-items-center">
               @forelse($privateClients as $client)
@@ -559,7 +534,6 @@
                 </div>
               @empty
                 <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-1.png') }}" class="img-fluid client-logo" alt="Private Client 1"></div>
-                <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-2.png') }}" class="img-fluid client-logo" alt="Private Client 2"></div>
               @endforelse
             </div>
           </div>
@@ -585,7 +559,6 @@
                 </div>
               @empty
                 <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-5.png') }}" class="img-fluid client-logo" alt="Government Client 1"></div>
-                <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-6.png') }}" class="img-fluid client-logo" alt="Government Client 2"></div>
               @endforelse
             </div>
           </div>
@@ -611,7 +584,6 @@
                 </div>
               @empty
                 <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-3.png') }}" class="img-fluid client-logo" alt="Global Client 1"></div>
-                <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-4.png') }}" class="img-fluid client-logo" alt="Global Client 2"></div>
               @endforelse
             </div>
           </div>
@@ -632,7 +604,7 @@
   transform: scale(1.05);
 }
 .clients-tabs .nav-tabs {
-  border-bottom: 2px solid #e9ecef;
+  border-bottom:0px;
 }
 .clients-tabs .nav-link {
   color: #6c757d;
