@@ -95,10 +95,7 @@
       border-color: var(--danger-color) !important;
     }
     
-    /* Gradient backgrounds */
-    .hero, .gradient-bg {
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
-    }
+
     
     /* Links */
     a {
