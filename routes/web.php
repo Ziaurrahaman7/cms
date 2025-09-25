@@ -159,6 +159,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [App\Http\Controllers\AdminSiteSettingController::class, 'index'])->name('index');
         Route::post('/update', [App\Http\Controllers\AdminSiteSettingController::class, 'update'])->name('update');
         Route::post('/seed', [App\Http\Controllers\AdminSiteSettingController::class, 'seed'])->name('seed');
+        Route::post('/reset-theme', [App\Http\Controllers\AdminSiteSettingController::class, 'resetTheme'])->name('reset-theme');
     });
     
     // Admin Feature Management

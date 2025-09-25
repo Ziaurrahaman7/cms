@@ -25,12 +25,87 @@
     
     @if($settings->isNotEmpty())
     <div class="p-6">
+        <!-- Tab Navigation -->
+        <div class="mb-6">
+            <nav class="flex space-x-8 border-b border-gray-200" aria-label="Tabs">
+                @if(isset($settings['general']))
+                <button type="button" class="tab-button active py-2 px-1 border-b-2 border-blue-500 font-medium text-sm text-blue-600" data-tab="general">
+                    General
+                </button>
+                @endif
+                @if(isset($settings['seo']))
+                <button type="button" class="tab-button py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="seo">
+                    SEO
+                </button>
+                @endif
+                @if(isset($settings['contact']))
+                <button type="button" class="tab-button py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="contact">
+                    Contact
+                </button>
+                @endif
+                @if(isset($settings['social']))
+                <button type="button" class="tab-button py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="social">
+                    Social
+                </button>
+                @endif
+                @if(isset($settings['hero']))
+                <button type="button" class="tab-button py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="hero">
+                    Hero
+                </button>
+                @endif
+                @if(isset($settings['footer']))
+                <button type="button" class="tab-button py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="footer">
+                    Footer
+                </button>
+                @endif
+                @if(isset($settings['about']))
+                <button type="button" class="tab-button py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="about">
+                    About
+                </button>
+                @endif
+                @if(isset($settings['stats']))
+                <button type="button" class="tab-button py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="stats">
+                    Stats
+                </button>
+                @endif
+                @if(isset($settings['theme']))
+                <button type="button" class="tab-button py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="theme">
+                    Theme
+                </button>
+                @endif
+                @if(isset($settings['email']))
+                <button type="button" class="tab-button py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="email">
+                    Email
+                </button>
+                @endif
+            </nav>
+        </div>
+        
+        <!-- Success/Error Messages -->
+        @if(session('success'))
+            <div class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+                {{ session('success') }}
+            </div>
+        @endif
+        
+        @if($errors->any())
+            <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                <ul class="list-disc list-inside">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        
         <form id="settings-form" action="{{ route('admin.site-settings.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             
+            <!-- Tab Contents -->
+            
             <!-- General Settings -->
             @if(isset($settings['general']))
-            <div class="mb-8">
+            <div class="tab-content active" id="general-tab">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">General Settings</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     @foreach($settings['general'] as $setting)
@@ -61,7 +136,7 @@
             
             <!-- SEO Settings -->
             @if(isset($settings['seo']))
-            <div class="mb-8">
+            <div class="tab-content" id="seo-tab">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">SEO Settings</h3>
                 <div class="space-y-4">
                     @foreach($settings['seo'] as $setting)
@@ -82,7 +157,7 @@
             
             <!-- Contact Settings -->
             @if(isset($settings['contact']))
-            <div class="mb-8">
+            <div class="tab-content" id="contact-tab">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Contact Information</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     @foreach($settings['contact'] as $setting)
@@ -103,7 +178,7 @@
             
             <!-- Social Links -->
             @if(isset($settings['social']))
-            <div class="mb-8">
+            <div class="tab-content" id="social-tab">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Social Media Links</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     @foreach($settings['social'] as $setting)
@@ -120,7 +195,7 @@
             
             <!-- Hero Section -->
             @if(isset($settings['hero']))
-            <div class="mb-8">
+            <div class="tab-content" id="hero-tab">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Hero Section</h3>
                 <div class="space-y-4">
                     @foreach($settings['hero'] as $setting)
@@ -150,7 +225,7 @@
             
             <!-- Footer Settings -->
             @if(isset($settings['footer']))
-            <div class="mb-8">
+            <div class="tab-content" id="footer-tab">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Footer Settings</h3>
                 <div class="space-y-4">
                     @foreach($settings['footer'] as $setting)
@@ -171,7 +246,7 @@
             
             <!-- About Page Settings -->
             @if(isset($settings['about']))
-            <div class="mb-8">
+            <div class="tab-content" id="about-tab">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">About Page Settings</h3>
                 <div class="space-y-4">
                     @foreach($settings['about'] as $setting)
@@ -199,7 +274,7 @@
             
             <!-- Stats Settings -->
             @if(isset($settings['stats']))
-            <div class="mb-8">
+            <div class="tab-content" id="stats-tab">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">About Page Stats</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     @foreach($settings['stats'] as $setting)
@@ -214,9 +289,34 @@
             </div>
             @endif
             
+            <!-- Theme Settings -->
+            @if(isset($settings['theme']))
+            <div class="tab-content" id="theme-tab">
+                <div class="flex justify-between items-center mb-4 pb-2 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900">Theme Colors</h3>
+                    <button type="button" onclick="resetThemeColors()" class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm transition-colors">
+                        <i class="fas fa-undo mr-1"></i>Reset to Default
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    @foreach($settings['theme'] as $setting)
+                        <div>
+                            <label for="{{ $setting->key }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ ucwords(str_replace('_', ' ', str_replace('theme_', '', $setting->key))) }}
+                            </label>
+                            <div class="flex items-center space-x-3">
+                                <input type="color" id="color_{{ $setting->key }}" value="{{ $setting->value }}" class="w-16 h-10 border border-gray-300 rounded cursor-pointer" onchange="updateTextInput('{{ $setting->key }}', this.value)">
+                                <input type="text" name="settings[{{ $setting->key }}]" id="text_{{ $setting->key }}" value="{{ $setting->value }}" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" pattern="^#[0-9A-Fa-f]{6}$" onchange="updateColorPicker('{{ $setting->key }}', this.value)">
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+            
             <!-- Email Settings -->
             @if(isset($settings['email']))
-            <div class="mb-8">
+            <div class="tab-content" id="email-tab">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Email Configuration</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     @foreach($settings['email'] as $setting)
@@ -255,9 +355,16 @@
             @endif
             
             <!-- Submit Button -->
-            <div class="flex justify-end pt-6 border-t border-gray-200">
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
-                    Update Settings
+            <div class="flex justify-end pt-6 border-t border-gray-200 mt-6">
+                <button type="button" id="update-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors" onclick="validateAndSubmit()">
+                    <span id="btn-text">Update Settings</span>
+                    <span id="btn-loader" class="hidden">
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Updating...
+                    </span>
                 </button>
             </div>
         </form>
@@ -273,4 +380,175 @@
     </div>
     @endif
 </div>
+
+<style>
+.tab-content {
+    display: none;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+}
+
+.tab-content.active {
+    display: block;
+    visibility: visible;
+    height: auto;
+    overflow: visible;
+}
+
+.tab-button.active {
+    border-color: #3b82f6 !important;
+    color: #2563eb !important;
+}
+
+/* Force all form fields to be included in form submission */
+form input[type="hidden"],
+form input[name^="settings"],
+form input[name^="files"],
+form textarea[name^="settings"],
+form select[name^="settings"] {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: auto !important;
+    height: auto !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Loader styles */
+.hidden {
+    display: none;
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.opacity-75 {
+    opacity: 0.75;
+}
+
+.cursor-not-allowed {
+    cursor: not-allowed;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    // Check if theme was reset and activate theme tab
+    @if(session('reset_theme'))
+    const themeTab = document.querySelector('[data-tab="theme"]');
+    if (themeTab) {
+        themeTab.click();
+    }
+    @endif
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetTab = this.getAttribute('data-tab');
+            
+            // Remove active class from all buttons
+            tabButtons.forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.remove('border-blue-500', 'text-blue-600');
+                btn.classList.add('border-transparent', 'text-gray-500');
+            });
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            this.classList.remove('border-transparent', 'text-gray-500');
+            this.classList.add('border-blue-500', 'text-blue-600');
+            
+            // Hide all tab contents
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Show target tab content
+            const targetContent = document.getElementById(targetTab + '-tab');
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
+    });
+});
+
+function validateAndSubmit() {
+    // Show loader
+    const updateBtn = document.getElementById('update-btn');
+    const btnText = document.getElementById('btn-text');
+    const btnLoader = document.getElementById('btn-loader');
+    
+    updateBtn.disabled = true;
+    updateBtn.classList.add('opacity-75', 'cursor-not-allowed');
+    btnText.classList.add('hidden');
+    btnLoader.classList.remove('hidden');
+    
+    // Temporarily show all tab contents to ensure all form fields are submitted
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabContents.forEach(content => {
+        content.style.display = 'block';
+        content.style.visibility = 'visible';
+        content.style.height = 'auto';
+        content.style.overflow = 'visible';
+        content.style.position = 'static';
+    });
+    
+    // Submit the form
+    setTimeout(() => {
+        document.getElementById('settings-form').submit();
+    }, 100);
+    
+    return false; // Prevent default form submission
+}
+
+function updateTextInput(key, value) {
+    document.getElementById('text_' + key).value = value;
+}
+
+function updateColorPicker(key, value) {
+    if (value.match(/^#[0-9A-Fa-f]{6}$/)) {
+        document.getElementById('color_' + key).value = value;
+    }
+}
+
+function resetThemeColors() {
+    const defaultColors = {
+        'theme_primary_color': '#667eea',
+        'theme_secondary_color': '#764ba2',
+        'theme_accent_color': '#ffc107',
+        'theme_success_color': '#28a745',
+        'theme_info_color': '#17a2b8',
+        'theme_warning_color': '#ffc107',
+        'theme_danger_color': '#dc3545'
+    };
+    
+    // Update color pickers and text inputs
+    Object.keys(defaultColors).forEach(key => {
+        const colorPicker = document.getElementById('color_' + key);
+        const textInput = document.getElementById('text_' + key);
+        
+        if (colorPicker && textInput) {
+            colorPicker.value = defaultColors[key];
+            textInput.value = defaultColors[key];
+        }
+    });
+    
+    // Submit the form to save changes
+    validateAndSubmit();
+}
+</script>
 @endsection

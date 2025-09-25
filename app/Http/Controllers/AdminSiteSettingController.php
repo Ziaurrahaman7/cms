@@ -124,6 +124,15 @@ class AdminSiteSettingController extends Controller
             ['key' => 'stats_countries_served', 'value' => '15+', 'type' => 'text', 'group' => 'stats'],
             ['key' => 'stats_countries_served_label', 'value' => 'Countries Served', 'type' => 'text', 'group' => 'stats'],
             
+            // Theme Settings
+            ['key' => 'theme_primary_color', 'value' => '#667eea', 'type' => 'color', 'group' => 'theme'],
+            ['key' => 'theme_secondary_color', 'value' => '#764ba2', 'type' => 'color', 'group' => 'theme'],
+            ['key' => 'theme_accent_color', 'value' => '#ffc107', 'type' => 'color', 'group' => 'theme'],
+            ['key' => 'theme_success_color', 'value' => '#28a745', 'type' => 'color', 'group' => 'theme'],
+            ['key' => 'theme_info_color', 'value' => '#17a2b8', 'type' => 'color', 'group' => 'theme'],
+            ['key' => 'theme_warning_color', 'value' => '#ffc107', 'type' => 'color', 'group' => 'theme'],
+            ['key' => 'theme_danger_color', 'value' => '#dc3545', 'type' => 'color', 'group' => 'theme'],
+            
             // Email Settings
             ['key' => 'mail_mailer', 'value' => 'smtp', 'type' => 'text', 'group' => 'email'],
             ['key' => 'mail_host', 'value' => 'smtp.gmail.com', 'type' => 'text', 'group' => 'email'],
@@ -146,5 +155,29 @@ class AdminSiteSettingController extends Controller
         \Illuminate\Support\Facades\Cache::flush();
 
         return redirect()->route('admin.site-settings.index')->with('success', 'Default settings created successfully!');
+    }
+    
+    public function resetTheme()
+    {
+        $defaultThemeColors = [
+            'theme_primary_color' => '#667eea',
+            'theme_secondary_color' => '#764ba2',
+            'theme_accent_color' => '#ffc107',
+            'theme_success_color' => '#28a745',
+            'theme_info_color' => '#17a2b8',
+            'theme_warning_color' => '#ffc107',
+            'theme_danger_color' => '#dc3545',
+        ];
+        
+        foreach ($defaultThemeColors as $key => $value) {
+            SiteSetting::where('key', $key)->update(['value' => $value]);
+        }
+        
+        // Clear cache
+        \Illuminate\Support\Facades\Cache::flush();
+        
+        return redirect()->route('admin.site-settings.index')
+            ->with('success', 'Theme colors reset to default successfully!')
+            ->with('reset_theme', true);
     }
 }

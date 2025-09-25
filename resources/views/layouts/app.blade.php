@@ -39,6 +39,101 @@
   <!-- Main CSS File -->
   <link href="{{ asset('assets/stylesheets/styles.css') }}" id="theme-style" rel="stylesheet">
   
+  <!-- Dynamic Theme Colors -->
+  <style>
+    :root {
+      --primary-color: {{ App\Models\SiteSetting::get('theme_primary_color', '#667eea') }};
+      --secondary-color: {{ App\Models\SiteSetting::get('theme_secondary_color', '#764ba2') }};
+      --accent-color: {{ App\Models\SiteSetting::get('theme_accent_color', '#ffc107') }};
+      --success-color: {{ App\Models\SiteSetting::get('theme_success_color', '#28a745') }};
+      --info-color: {{ App\Models\SiteSetting::get('theme_info_color', '#17a2b8') }};
+      --warning-color: {{ App\Models\SiteSetting::get('theme_warning_color', '#ffc107') }};
+      --danger-color: {{ App\Models\SiteSetting::get('theme_danger_color', '#dc3545') }};
+      
+      /* Legacy variable names for existing CSS */
+      --color-primary: {{ App\Models\SiteSetting::get('theme_primary_color', '#667eea') }};
+      --color-secondary: {{ App\Models\SiteSetting::get('theme_secondary_color', '#764ba2') }};
+    }
+    
+    /* Apply theme colors */
+    .btn-primary, .bg-primary {
+      background-color: var(--primary-color) !important;
+      border-color: var(--primary-color) !important;
+    }
+    
+    .btn-outline-primary {
+      color: var(--primary-color) !important;
+      border-color: var(--primary-color) !important;
+    }
+    
+    .btn-outline-primary:hover {
+      background-color: var(--primary-color) !important;
+      border-color: var(--primary-color) !important;
+    }
+    
+    .text-primary {
+      color: var(--primary-color) !important;
+    }
+    
+    .btn-warning, .bg-warning {
+      background-color: var(--warning-color) !important;
+      border-color: var(--warning-color) !important;
+    }
+    
+    .btn-success, .bg-success {
+      background-color: var(--success-color) !important;
+      border-color: var(--success-color) !important;
+    }
+    
+    .btn-info, .bg-info {
+      background-color: var(--info-color) !important;
+      border-color: var(--info-color) !important;
+    }
+    
+    .btn-danger, .bg-danger {
+      background-color: var(--danger-color) !important;
+      border-color: var(--danger-color) !important;
+    }
+    
+    /* Gradient backgrounds */
+    .hero, .gradient-bg {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
+    }
+    
+    /* Links */
+    a {
+      color: var(--primary-color);
+    }
+    
+    a:hover {
+      color: var(--secondary-color);
+    }
+    
+    /* Section headers and other primary color elements */
+    .section-header h2,
+    .text-primary,
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--primary-color) !important;
+    }
+    
+    /* Icon boxes and feature elements */
+    .icon-box .icon,
+    .feature-icon,
+    .service-icon {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)) !important;
+    }
+    
+    /* Badges and labels */
+    .badge.bg-primary {
+      background-color: var(--primary-color) !important;
+    }
+    
+    /* Borders */
+    .border-primary {
+      border-color: var(--primary-color) !important;
+    }
+  </style>
+  
   <style>
     .portfolio-wrap:hover img {
       transform: scale(1.1);
