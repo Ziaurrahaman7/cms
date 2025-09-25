@@ -5,7 +5,7 @@
 
 @section('content')
 <!-- Contact Hero Banner -->
-<section id="contact-hero" class="hero sticked-header-offset" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 60vh; position: relative; overflow: hidden;">
+{{-- <section id="contact-hero" class="hero sticked-header-offset" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 60vh; position: relative; overflow: hidden;">
   <div id="particles-js"></div>
   <div class="container position-relative">
     <div class="text-center row gy-5 align-items-center justify-content-center" style="min-height: 60vh;">
@@ -28,14 +28,14 @@
   <div class="position-absolute" style="top: 10%; left: 10%; width: 100px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 50%; animation: float 6s ease-in-out infinite;"></div>
   <div class="position-absolute" style="top: 60%; right: 15%; width: 150px; height: 150px; background: rgba(255,255,255,0.05); border-radius: 50%; animation: float 8s ease-in-out infinite reverse;"></div>
   <div class="position-absolute" style="bottom: 20%; left: 20%; width: 80px; height: 80px; background: rgba(255,255,255,0.08); border-radius: 50%; animation: float 7s ease-in-out infinite;"></div>
-</section>
+</section> --}}
 
 
 
 
 
 <!-- Contact Form Section -->
-<section id="contact-form" class="py-5" style="background: #f8f9fa;">
+<section id="contact-form" class="pb-5" style="padding-top:130px;background: #f8f9fa;">
   <div class="container">
     <div class="mb-5 text-center section-header">
       <h2 class="mb-3">Get In Touch</h2>

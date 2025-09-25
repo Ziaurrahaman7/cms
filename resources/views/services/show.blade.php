@@ -13,11 +13,11 @@
         <div class="hero-content">
           <h1 class="mb-4 text-white" data-aos="fade-up" style="font-size: 3.5rem; font-weight: 700; line-height: 1.2;">{{ $service->title }}</h1>
           <p class="mb-4 text-white fs-5 lead" data-aos="fade-up" data-aos-delay="200">{{ $service->description }}</p>
-          <div data-aos="fade-up" data-aos-delay="400">
+          {{-- <div data-aos="fade-up" data-aos-delay="400">
             <a href="{{ route('contact.index') }}" class="px-4 py-3 text-white btn btn-warning btn-lg rounded-pill fw-bold">
               <i class="bi bi-envelope me-2"></i>Contact Us
             </a>
-          </div>
+          </div> --}}
         </div>
       </div>
       <div class="py-3 col-lg-6" data-aos="fade-right">
@@ -74,9 +74,9 @@
           </div>
           <h5 class="mb-3">{{ $serviceItem->title }}</h5>
           <p class="mb-3 text-muted">{{ Str::limit($serviceItem->description, 100) }}</p>
-          <a href="{{ route('services.show', $serviceItem->slug) }}" class="px-3 py-2 btn btn-outline-primary rounded-pill">
+          {{-- <a href="{{ route('services.show', $serviceItem->slug) }}" class="px-3 py-2 btn btn-outline-primary rounded-pill">
             Learn More <i class="bi bi-arrow-right ms-1"></i>
-          </a>
+          </a> --}}
         </div>
       </div>
       @empty
@@ -89,7 +89,7 @@
 </section>
 
 <!-- Key Features Section -->
-@if($service->key_features && count($service->key_features) > 0)
+{{-- @if($service->key_features && count($service->key_features) > 0)
 <section class="py-5">
   <div class="container">
     <div class="mb-5 row justify-content-center">
@@ -120,8 +120,34 @@
     </div>
   </div>
 </section>
+@endif --}}
+<!-- Service Overview Section -->
+@if($service->service_overview && count($service->service_overview) > 0)
+<section id="service-overview" class="py-5">
+  <div class="container">
+    <div class="mb-5 row justify-content-center">
+      <div class="text-center col-lg-8">
+        <h2 class="mb-4">Why Choose Our {{ $service->title }}?</h2>
+        <p class="lead text-muted">We deliver exceptional results with cutting-edge technology and industry expertise</p>
+      </div>
+    </div>
+    
+    <div class="row g-4">
+      @foreach($service->service_overview as $index => $overview)
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ $index * 200 }}">
+        <div class="p-4 text-center feature-box h-100">
+          <div class="mb-3 feature-icon" style="width: 80px; height: 80px; background: linear-gradient(45deg, #ff6b6b, #ee5a24); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+            <i class="text-white {{ $overview['icon'] ?? 'bi bi-lightning' }}" style="font-size: 2rem;"></i>
+          </div>
+          <h5 class="mb-3">{{ $overview['title'] }}</h5>
+          <p class="text-muted">{{ $overview['description'] }}</p>
+        </div>
+      </div>
+      @endforeach
+    </div>
+  </div>
+</section>
 @endif
-
 <!-- CTA Section -->
 <section class="py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); position: relative; overflow: hidden;">
   <div class="container position-relative">
@@ -134,7 +160,7 @@
             </div>
           </div>
           <h2 class="mb-4 text-white" style="font-size: 3rem; font-weight: 700; line-height: 1.2;">Ready to Get Started?</h2>
-          <p class="mx-auto mb-5 text-white-50 fs-5" style="max-width: 600px;">Transform your business with our {{ $service->title }} solutions. Contact us today for a free consultation and let's build something amazing together.</p>
+          {{-- <p class="mx-auto mb-5 text-white-50 fs-5" style="max-width: 600px;">Transform your business with our {{ $service->title }} solutions. Contact us today for a free consultation and let's build something amazing together.</p> --}}
           <div class="cta-buttons" data-aos="fade-up" data-aos-delay="200">
             <a href="{{ route('contact.index') }}" class="px-5 py-3 mb-3 shadow-lg me-3 btn btn-warning btn-lg rounded-pill fw-bold" style="transform: translateY(0); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
               <i class="bi bi-send me-2"></i>Get Free Quote
@@ -193,33 +219,7 @@
 </section>
 @endif
 
-<!-- Service Overview Section -->
-@if($service->service_overview && count($service->service_overview) > 0)
-<section id="service-overview" class="py-5">
-  <div class="container">
-    <div class="mb-5 row justify-content-center">
-      <div class="text-center col-lg-8">
-        <h2 class="mb-4">Why Choose Our {{ $service->title }}?</h2>
-        <p class="lead text-muted">We deliver exceptional results with cutting-edge technology and industry expertise</p>
-      </div>
-    </div>
-    
-    <div class="row g-4">
-      @foreach($service->service_overview as $index => $overview)
-      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ $index * 200 }}">
-        <div class="p-4 text-center feature-box h-100">
-          <div class="mb-3 feature-icon" style="width: 80px; height: 80px; background: linear-gradient(45deg, #ff6b6b, #ee5a24); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
-            <i class="text-white {{ $overview['icon'] ?? 'bi bi-lightning' }}" style="font-size: 2rem;"></i>
-          </div>
-          <h5 class="mb-3">{{ $overview['title'] }}</h5>
-          <p class="text-muted">{{ $overview['description'] }}</p>
-        </div>
-      </div>
-      @endforeach
-    </div>
-  </div>
-</section>
-@endif
+
 
 
 
@@ -249,7 +249,7 @@
 @endif
 
 <!-- Portfolio Section -->
-@if($service->portfolio_items && count($service->portfolio_items) > 0)
+{{-- @if($service->portfolio_items && count($service->portfolio_items) > 0)
 <section class="py-5">
   <div class="container">
     <div class="mb-5 text-center">
@@ -274,7 +274,7 @@
     </div>
   </div>
 </section>
-@endif
+@endif --}}
 
 <!-- Process Section -->
 @if($service->process_steps && count($service->process_steps) > 0)
@@ -309,7 +309,7 @@
     <div class="row align-items-center">
       <div class="col-lg-8">
         <h2 class="mb-3 text-white">Ready to Transform Your Business?</h2>
-        <p class="mb-0 text-white-50 fs-5">Let's discuss your {{ $service->title }} project and create something amazing together.</p>
+        {{-- <p class="mb-0 text-white-50 fs-5">Let's discuss your {{ $service->title }} project and create something amazing together.</p> --}}
       </div>
       <div class="col-lg-4 text-lg-end">
         <div class="gap-3 d-flex justify-content-lg-end justify-content-center">
