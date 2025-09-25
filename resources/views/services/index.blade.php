@@ -8,15 +8,15 @@
 <section id="services-hero" class="hero sticked-header-offset" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 60vh; position: relative; overflow: hidden;">
   <div id="particles-js"></div>
   <div class="container position-relative">
-    <div class="row gy-5 align-items-center justify-content-center text-center" style="min-height: 60vh;">
+    <div class="text-center row gy-5 align-items-center justify-content-center" style="min-height: 60vh;">
       <div class="col-lg-8">
-        <h1 class="text-white mb-4" data-aos="fade-up" style="font-size: 3.5rem; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Our Services</h1>
-        <p class="text-white-50 mb-4 fs-5" data-aos="fade-up" data-aos-delay="200">Comprehensive IT solutions tailored to meet your business needs and drive digital transformation.</p>
-        <div class="d-flex justify-content-center gap-3" data-aos="fade-up" data-aos-delay="400">
-          <a href="#services-list" class="btn btn-light btn-lg px-4 py-3 rounded-pill">
+        <h1 class="mb-4 text-white" data-aos="fade-up" style="font-size: 3.5rem; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Our Services</h1>
+        <p class="mb-4 text-white-50 fs-5" data-aos="fade-up" data-aos-delay="200">Comprehensive IT solutions tailored to meet your business needs and drive digital transformation.</p>
+        <div class="gap-3 d-flex justify-content-center" data-aos="fade-up" data-aos-delay="400">
+          <a href="#services-list" class="px-4 py-3 btn btn-light btn-lg rounded-pill">
             <i class="bi bi-arrow-down me-2"></i>Explore Services
           </a>
-          <a href="{{ route('contact.index') }}" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill">
+          <a href="{{ route('contact.index') }}" class="px-4 py-3 btn btn-outline-light btn-lg rounded-pill">
             <i class="bi bi-chat-dots me-2"></i>Get Quote
           </a>
         </div>
@@ -30,18 +30,38 @@
   <div class="position-absolute" style="bottom: 20%; left: 20%; width: 80px; height: 80px; background: rgba(255,255,255,0.08); border-radius: 50%; animation: float 7s ease-in-out infinite;"></div>
 </section>
 
+<!-- Service Section from Site Settings -->
+@php
+  $serviceTitle = App\Models\SiteSetting::get('service_section_title', 'Our Services');
+  $serviceDescription = App\Models\SiteSetting::get('service_section_description', 'Comprehensive IT solutions to drive your business forward');
+@endphp
+@if($serviceTitle || $serviceDescription)
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="mb-5 text-center ">
+      @if($serviceTitle)
+        <h2 class="mb-3">{{ $serviceTitle }}</h2>
+      @endif
+      @if($serviceDescription)
+        <div class="card-text">{!! $serviceDescription !!}</div>
+      @endif
+    </div>
+  </div>
+</section>
+@endif
+
 <!-- Services List Section -->
 <section id="services-list" class="py-5">
   <div class="container">
-    <div class="section-header text-center mb-5">
-      <h2 class="mb-3">What We Offer</h2>
+    <div class="mb-5 text-center section-header">
+      <h2 class="mb-3">Service we Serve</h2>
       <p class="text-muted">Professional IT solutions designed to accelerate your business growth</p>
     </div>
     
     <div class="row g-4">
       @forelse($services as $service)
       <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
-        <div class="service-card h-100 bg-white rounded-4 shadow-lg overflow-hidden" style="transition: all 0.3s ease; border: none;">
+        <div class="overflow-hidden bg-white shadow-lg service-card h-100 rounded-4" style="transition: all 0.3s ease; border: none;">
           <div class="service-image position-relative" style="height: 250px; overflow: hidden;">
             @if($service->image && file_exists(public_path('storage/services/' . $service->image)))
               <img src="{{ asset('storage/services/' . $service->image) }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $service->title }}">
@@ -56,16 +76,16 @@
                 @endif
               </div>
             @endif
-            <div class="service-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease;">
+            <div class="top-0 service-overlay position-absolute start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease;">
               <span class="text-white fw-bold">Learn More</span>
             </div>
           </div>
           
-          <div class="card-body p-4">
-            <h4 class="card-title mb-3 fw-bold" style="color: #2c3e50;">{{ $service->title }}</h4>
-            <p class="card-text text-muted mb-4">{{ $service->description }}</p>
+          <div class="p-4 card-body">
+            <h4 class="mb-3 card-title fw-bold" style="color: #2c3e50;">{{ $service->title }}</h4>
+            <p class="mb-4 card-text text-muted">{{ $service->description }}</p>
             <div class="d-flex align-items-center justify-content-between">
-              <a href="{{ route('services.show', $service->slug) }}" class="btn btn-primary btn-sm px-4 py-2 rounded-pill" style="background: linear-gradient(45deg, #667eea, #764ba2); border: none;">
+              <a href="{{ route('services.show', $service->slug) }}" class="px-4 py-2 btn btn-primary btn-sm rounded-pill" style="background: linear-gradient(45deg, #667eea, #764ba2); border: none;">
                 Learn More
               </a>
               <div class="service-number text-muted fw-bold" style="font-size: 2rem; opacity: 0.1;">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</div>
@@ -74,7 +94,7 @@
         </div>
       </div>
       @empty
-      <div class="col-12 text-center">
+      <div class="text-center col-12">
         <p class="text-muted">No services available at the moment.</p>
       </div>
       @endforelse
@@ -87,13 +107,13 @@
   <div class="container text-center">
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <h2 class="text-white mb-4">Need a Custom Solution?</h2>
-        <p class="text-white-50 mb-4 fs-5">Can't find exactly what you're looking for? Let's discuss your specific requirements and create a tailored solution.</p>
-        <div class="d-flex justify-content-center gap-3">
-          <a href="{{ route('contact.index') }}" class="btn btn-light btn-lg px-4 py-3 rounded-pill">
+        <h2 class="mb-4 text-white">Need a Custom Solution?</h2>
+        <p class="mb-4 text-white-50 fs-5">Can't find exactly what you're looking for? Let's discuss your specific requirements and create a tailored solution.</p>
+        <div class="gap-3 d-flex justify-content-center">
+          <a href="{{ route('contact.index') }}" class="px-4 py-3 btn btn-light btn-lg rounded-pill">
             <i class="bi bi-chat-dots me-2"></i>Discuss Your Needs
           </a>
-          <a href="{{ route('about.index') }}" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill">
+          <a href="{{ route('about.index') }}" class="px-4 py-3 btn btn-outline-light btn-lg rounded-pill">
             <i class="bi bi-people me-2"></i>Meet Our Team
           </a>
         </div>

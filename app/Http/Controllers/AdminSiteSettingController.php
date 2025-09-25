@@ -38,7 +38,7 @@ class AdminSiteSettingController extends Controller
                     $file = $request->file("files.{$key}");
                     $path = $file->store('settings', 'public');
                     $value = $path;
-                } elseif ($setting->type === 'image' && $request->hasFile('files') && isset($request->file('files')[$key])) {
+                } elseif ($setting->type === 'image' && $request->hasFile('files') && is_array($request->file('files')) && isset($request->file('files')[$key])) {
                     // Handle array notation files[key]
                     // Delete old file
                     if ($setting->value && Storage::disk('public')->exists($setting->value)) {
@@ -124,6 +124,10 @@ class AdminSiteSettingController extends Controller
             ['key' => 'stats_countries_served', 'value' => '15+', 'type' => 'text', 'group' => 'stats'],
             ['key' => 'stats_countries_served_label', 'value' => 'Countries Served', 'type' => 'text', 'group' => 'stats'],
             
+            // Service Section Settings
+            ['key' => 'service_section_title', 'value' => 'Our Services', 'type' => 'text', 'group' => 'service'],
+            ['key' => 'service_section_description', 'value' => 'Comprehensive IT solutions to drive your business forward', 'type' => 'summernote', 'group' => 'service'],
+            
             // Theme Settings
             ['key' => 'theme_primary_color', 'value' => '#667eea', 'type' => 'color', 'group' => 'theme'],
             ['key' => 'theme_secondary_color', 'value' => '#764ba2', 'type' => 'color', 'group' => 'theme'],
@@ -179,5 +183,28 @@ class AdminSiteSettingController extends Controller
         return redirect()->route('admin.site-settings.index')
             ->with('success', 'Theme colors reset to default successfully!')
             ->with('reset_theme', true);
+    }
+    
+    public function uploadImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+        
+        try {
+            $file = $request->file('image');
+            $path = $file->store('summernote', 'public');
+            $url = asset('storage/' . $path);
+            
+            return response()->json([
+                'success' => true,
+                'url' => $url
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Upload failed: ' . $e->getMessage()
+            ]);
+        }
     }
 }

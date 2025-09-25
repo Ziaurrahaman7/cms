@@ -162,6 +162,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/reset-theme', [App\Http\Controllers\AdminSiteSettingController::class, 'resetTheme'])->name('reset-theme');
     });
     
+    // Image upload for Summernote
+    Route::post('/admin/upload-image', [App\Http\Controllers\AdminSiteSettingController::class, 'uploadImage'])->name('admin.upload-image');
+    
     // Admin Feature Management
     Route::prefix('admin/features')->name('admin.features.')->group(function () {
         Route::get('/', [App\Http\Controllers\AdminFeatureController::class, 'index'])->name('index');

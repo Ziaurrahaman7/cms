@@ -68,6 +68,11 @@
                     Stats
                 </button>
                 @endif
+                @if(isset($settings['service']))
+                <button type="button" class="tab-button py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="service">
+                    Service
+                </button>
+                @endif
                 @if(isset($settings['theme']))
                 <button type="button" class="tab-button py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="theme">
                     Theme
@@ -289,6 +294,27 @@
             </div>
             @endif
             
+            <!-- Service Section Settings -->
+            @if(isset($settings['service']))
+            <div class="tab-content" id="service-tab">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Service Section Settings</h3>
+                <div class="space-y-4">
+                    @foreach($settings['service'] as $setting)
+                        <div>
+                            <label for="{{ $setting->key }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ ucwords(str_replace('_', ' ', str_replace('service_section_', '', $setting->key))) }}
+                            </label>
+                            @if($setting->type === 'summernote')
+                                <textarea name="settings[{{ $setting->key }}]" id="{{ $setting->key }}" class="summernote w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{{ $setting->value }}</textarea>
+                            @else
+                                <input type="text" name="settings[{{ $setting->key }}]" value="{{ $setting->value }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+            
             <!-- Theme Settings -->
             @if(isset($settings['theme']))
             <div class="tab-content" id="theme-tab">
@@ -380,6 +406,9 @@
     </div>
     @endif
 </div>
+
+<!-- Summernote CSS -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
 <style>
 .tab-content {
@@ -549,6 +578,58 @@ function resetThemeColors() {
     
     // Submit the form to save changes
     validateAndSubmit();
+}
+</script>
+
+<!-- Summernote JS -->
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.summernote').summernote({
+        height: 300,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['color', ['forecolor', 'backcolor']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video', 'hr']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ],
+        callbacks: {
+            onImageUpload: function(files) {
+                uploadImage(files[0], this);
+            }
+        }
+    });
+});
+
+function uploadImage(file, editor) {
+    let data = new FormData();
+    data.append('image', file);
+    data.append('_token', '{{ csrf_token() }}');
+    
+    $.ajax({
+        url: '{{ route("admin.upload-image") }}',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: data,
+        type: 'POST',
+        success: function(response) {
+            if(response.success) {
+                $(editor).summernote('insertImage', response.url);
+            } else {
+                alert('Image upload failed: ' + response.message);
+            }
+        },
+        error: function(xhr) {
+            alert('Image upload failed. Please try again.');
+        }
+    });
 }
 </script>
 @endsection
