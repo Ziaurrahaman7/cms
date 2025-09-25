@@ -46,7 +46,28 @@
             </div>
             <span class="badge bg-primary">{{ ucwords(str_replace('-', ' ', $job->type)) }}</span>
           </div>
-          <a href="#contact" class="btn btn-outline-primary" onclick="document.getElementById('position').value='{{ $job->title }}'">Apply Now</a>
+          
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <a href="#contact" class="btn btn-outline-primary me-3" onclick="document.getElementById('position').value='{{ $job->title }}'">Apply Now</a>
+              
+              <!-- Social Share Buttons -->
+              <div class="d-inline-flex gap-2">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}&quote={{ urlencode('Check out this job opportunity: ' . $job->title . ' at ' . App\Models\SiteSetting::get('site_name', 'Technoit')) }}" target="_blank" class="btn btn-sm btn-outline-primary" title="Share on Facebook">
+                  <i class="bi bi-facebook"></i>
+                </a>
+                <a href="https://twitter.com/intent/tweet?text={{ urlencode('Check out this job opportunity: ' . $job->title . ' at ' . App\Models\SiteSetting::get('site_name', 'Technoit')) }}&url={{ urlencode(request()->fullUrl()) }}" target="_blank" class="btn btn-sm btn-outline-info" title="Share on Twitter">
+                  <i class="bi bi-twitter"></i>
+                </a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(request()->fullUrl()) }}" target="_blank" class="btn btn-sm btn-outline-primary" title="Share on LinkedIn">
+                  <i class="bi bi-linkedin"></i>
+                </a>
+                <a href="whatsapp://send?text={{ urlencode('Check out this job opportunity: ' . $job->title . ' at ' . App\Models\SiteSetting::get('site_name', 'Technoit') . ' - ' . request()->fullUrl()) }}" class="btn btn-sm btn-outline-success" title="Share on WhatsApp">
+                  <i class="bi bi-whatsapp"></i>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
         @empty
         <div class="text-center py-5">
@@ -125,4 +146,33 @@
     </div>
   </div>
 </section>
+
+<style>
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-info:hover,
+.btn-outline-success:hover {
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .d-flex.justify-content-between {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .d-inline-flex {
+    justify-content: center;
+  }
+}
+</style>
 @endsection
