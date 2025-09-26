@@ -50,7 +50,7 @@ class AdminServiceController extends Controller
             'slug.regex' => 'Slug can only contain lowercase letters, numbers, and hyphens.',
         ]);
 
-        $data = $request->except(['image', 'key_features', 'we_serve', 'service_overview', 'technologies', 'portfolio_items', 'process_steps']);
+        $data = $request->except(['image', 'sections', 'we_serve', 'service_overview', 'technologies', 'process_steps']);
         $data['is_active'] = $request->has('is_active');
 
         if ($request->hasFile('image')) {
@@ -61,11 +61,10 @@ class AdminServiceController extends Controller
         }
 
         // Handle JSON fields
-        $data['key_features'] = $this->processKeyFeatures($request);
+        $data['sections'] = $this->processSections($request);
         $data['we_serve'] = $request->we_serve ?? [];
         $data['service_overview'] = $request->service_overview ?? [];
         $data['technologies'] = $request->technologies ?? [];
-        $data['portfolio_items'] = $this->processPortfolioItems($request);
         $data['process_steps'] = $request->process_steps ?? [];
 
         $service = Service::create($data);
@@ -112,7 +111,7 @@ class AdminServiceController extends Controller
             'slug.regex' => 'Slug can only contain lowercase letters, numbers, and hyphens.',
         ]);
 
-        $data = $request->except(['image', 'faqs', 'key_features', 'we_serve', 'service_overview', 'technologies', 'portfolio_items', 'process_steps']);
+        $data = $request->except(['image', 'faqs', 'sections', 'we_serve', 'service_overview', 'technologies', 'process_steps']);
         $data['is_active'] = $request->has('is_active');
 
         if ($request->hasFile('image')) {
@@ -127,11 +126,10 @@ class AdminServiceController extends Controller
         }
 
         // Handle JSON fields
-        $data['key_features'] = $this->processKeyFeatures($request, $service->key_features ?? []);
+        $data['sections'] = $this->processSections($request, $service->sections ?? []);
         $data['we_serve'] = $request->we_serve ?? [];
         $data['service_overview'] = $request->service_overview ?? [];
         $data['technologies'] = $request->technologies ?? [];
-        $data['portfolio_items'] = $this->processPortfolioItems($request, $service->portfolio_items ?? []);
         $data['process_steps'] = $request->process_steps ?? [];
 
         $service->update($data);
@@ -234,5 +232,32 @@ class AdminServiceController extends Controller
             $items = $existingItems;
         }
         return $items;
+    }
+
+    private function processSections(Request $request, $existingSections = [])
+    {
+        $sections = [];
+        if ($request->has('sections')) {
+            foreach ($request->sections as $index => $section) {
+                if (!empty($section['title'])) {
+                    $sectionData = [
+                        'title' => $section['title'],
+                        'description' => $section['description'] ?? '',
+                    ];
+                    
+                    if ($request->hasFile("sections.{$index}.image")) {
+                        $image = $request->file("sections.{$index}.image");
+                        $imageName = 'section_' . time() . '_' . $index . '.' . $image->getClientOriginalExtension();
+                        $image->storeAs('services/sections', $imageName, 'public');
+                        $sectionData['image'] = 'services/sections/' . $imageName;
+                    } elseif (isset($existingSections[$index]['image'])) {
+                        $sectionData['image'] = $existingSections[$index]['image'];
+                    }
+                    
+                    $sections[] = $sectionData;
+                }
+            }
+        }
+        return $sections;
     }
 }

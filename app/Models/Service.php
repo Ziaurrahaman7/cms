@@ -19,21 +19,19 @@ class Service extends Model
         'image',
         'is_active',
         'sort_order',
-        'key_features',
+        'sections',
         'we_serve',
         'service_overview',
         'technologies',
-        'portfolio_items',
         'process_steps'
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
-        'key_features' => 'array',
+        'sections' => 'array',
         'we_serve' => 'array',
         'service_overview' => 'array',
         'technologies' => 'array',
-        'portfolio_items' => 'array',
         'process_steps' => 'array'
     ];
 

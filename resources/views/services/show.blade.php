@@ -52,6 +52,57 @@
   </div>
 </section>
 
+<!-- Service Sections -->
+@if($service->sections && count($service->sections) > 0)
+@foreach($service->sections as $index => $section)
+<section class="py-5{{ $index % 2 == 0 ? '' : ' bg-light' }}">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      @if($index % 2 == 0)
+      <!-- Text Left, Image Right -->
+      <div class="col-lg-6" data-aos="fade-right">
+        <div class="section-content">
+          <h2 class="mb-4">{{ $section['title'] }}</h2>
+          <div class="text-muted">{!! nl2br(e($section['description'])) !!}</div>
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="fade-left">
+        <div class="section-image">
+          @if(isset($section['image']) && $section['image'])
+          <img src="{{ asset('storage/' . $section['image']) }}" alt="{{ $section['title'] }}" class="img-fluid rounded-4 shadow-lg">
+          @else
+          <div class="bg-primary rounded-4 d-flex align-items-center justify-content-center" style="height: 400px;">
+            <i class="bi bi-image text-white" style="font-size: 4rem; opacity: 0.5;"></i>
+          </div>
+          @endif
+        </div>
+      </div>
+      @else
+      <!-- Image Left, Text Right -->
+      <div class="col-lg-6" data-aos="fade-right">
+        <div class="section-image">
+          @if(isset($section['image']) && $section['image'])
+          <img src="{{ asset('storage/' . $section['image']) }}" alt="{{ $section['title'] }}" class="img-fluid rounded-4 shadow-lg">
+          @else
+          <div class="bg-primary rounded-4 d-flex align-items-center justify-content-center" style="height: 400px;">
+            <i class="bi bi-image text-white" style="font-size: 4rem; opacity: 0.5;"></i>
+          </div>
+          @endif
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="fade-left">
+        <div class="section-content">
+          <h2 class="mb-4">{{ $section['title'] }}</h2>
+          <div class="text-muted">{!! nl2br(e($section['description'])) !!}</div>
+        </div>
+      </div>
+      @endif
+    </div>
+  </div>
+</section>
+@endforeach
+@endif
+
 <!-- Our Services Section -->
 <section class="py-5" style="background: #f8f9fa;">
   <div class="container">

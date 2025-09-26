@@ -30,8 +30,8 @@
                         <button type="button" class="tab-btn active py-2 px-1 border-b-2 border-blue-500 font-medium text-sm text-blue-600" data-tab="basic">
                             Basic Info
                         </button>
-                        <button type="button" class="tab-btn py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="features">
-                            Key Features
+                        <button type="button" class="tab-btn py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="section">
+                            Section
                         </button>
                         <button type="button" class="tab-btn py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="serve">
                             We Serve
@@ -41,9 +41,6 @@
                         </button>
                         <button type="button" class="tab-btn py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="technologies">
                             Technologies
-                        </button>
-                        <button type="button" class="tab-btn py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="portfolio">
-                            Portfolio
                         </button>
                         <button type="button" class="tab-btn py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="process">
                             Process
@@ -99,29 +96,29 @@
                     </div>
                 </div>
                 
-                <!-- Key Features Tab -->
-                <div class="tab-content hidden" id="features">
+                <!-- Section Tab -->
+                <div class="tab-content hidden" id="section">
                     <div class="mb-4">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Key Features</h3>
-                        <div id="features-container" class="space-y-4">
-                            <div class="feature-item border border-gray-200 p-4 rounded-lg">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Service Sections</h3>
+                        <div id="sections-container" class="space-y-4">
+                            <div class="section-item border border-gray-200 p-4 rounded-lg">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Feature Title</label>
-                                        <input type="text" name="key_features[0][title]" value="{{ old('key_features.0.title') }}" placeholder="Advanced Technology" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Section Title</label>
+                                        <input type="text" name="sections[0][title]" value="{{ old('sections.0.title') }}" placeholder="Why Choose Us" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Feature Image</label>
-                                        <input type="file" name="key_features[0][image]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Section Image</label>
+                                        <input type="file" name="sections[0][image]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div class="md:col-span-2">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                                        <textarea name="key_features[0][description]" rows="2" placeholder="Brief description" class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ old('key_features.0.description') }}</textarea>
+                                        <textarea name="sections[0][description]" rows="4" placeholder="Section description content" class="w-full px-3 py-2 border border-gray-300 rounded-md">{{ old('sections.0.description') }}</textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <button type="button" onclick="addFeature()" class="mt-4 px-4 py-2 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200">Add Feature</button>
+                        <button type="button" onclick="addSection()" class="mt-4 px-4 py-2 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200">Add Section</button>
                     </div>
                 </div>
                 
@@ -199,23 +196,7 @@
                     </div>
                 </div>
                 
-                <!-- Portfolio Tab -->
-                <div class="tab-content hidden" id="portfolio">
-                    <div class="mb-4">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Portfolio Items</h3>
-                        <div id="portfolio-container" class="space-y-4">
-                            <div class="portfolio-item border border-gray-200 p-4 rounded-lg">
-                                <div class="grid grid-cols-1 gap-4">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Project Image</label>
-                                        <input type="file" name="portfolio_items[0][image]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button" onclick="addPortfolio()" class="mt-4 px-4 py-2 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200">Add Portfolio Item</button>
-                    </div>
-                </div>
+
                 
                 <!-- Process Tab -->
                 <div class="tab-content hidden" id="process">
@@ -337,38 +318,37 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-let featureIndex = 1;
+let sectionIndex = 1;
 let serveIndex = 1;
 let overviewIndex = 1;
 let technologyIndex = 1;
-let portfolioIndex = 1;
 let processIndex = 1;
 
-function addFeature() {
-    const container = document.getElementById('features-container');
+function addSection() {
+    const container = document.getElementById('sections-container');
     const newItem = document.createElement('div');
-    newItem.className = 'feature-item border border-gray-200 p-4 rounded-lg';
+    newItem.className = 'section-item border border-gray-200 p-4 rounded-lg';
     newItem.innerHTML = `
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Feature Title</label>
-                <input type="text" name="key_features[${featureIndex}][title]" placeholder="Feature Title" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Section Title</label>
+                <input type="text" name="sections[${sectionIndex}][title]" placeholder="Section Title" class="w-full px-3 py-2 border border-gray-300 rounded-md">
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Feature Image</label>
-                <input type="file" name="key_features[${featureIndex}][image]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Section Image</label>
+                <input type="file" name="sections[${sectionIndex}][image]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md">
             </div>
             <div class="md:col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                <textarea name="key_features[${featureIndex}][description]" rows="2" placeholder="Brief description" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                <textarea name="sections[${sectionIndex}][description]" rows="4" placeholder="Section description content" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
             </div>
             <div class="md:col-span-2">
-                <button type="button" onclick="this.closest('.feature-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>
+                <button type="button" onclick="this.closest('.section-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>
             </div>
         </div>
     `;
     container.appendChild(newItem);
-    featureIndex++;
+    sectionIndex++;
 }
 
 function addServe() {
@@ -448,24 +428,7 @@ function addTechnology() {
     technologyIndex++;
 }
 
-function addPortfolio() {
-    const container = document.getElementById('portfolio-container');
-    const newItem = document.createElement('div');
-    newItem.className = 'portfolio-item border border-gray-200 p-4 rounded-lg';
-    newItem.innerHTML = `
-        <div class="grid grid-cols-1 gap-4">
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Project Image</label>
-                <input type="file" name="portfolio_items[${portfolioIndex}][image]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md">
-            </div>
-            <div>
-                <button type="button" onclick="this.closest('.portfolio-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>
-            </div>
-        </div>
-    `;
-    container.appendChild(newItem);
-    portfolioIndex++;
-}
+
 
 function addProcess() {
     const container = document.getElementById('process-container');
