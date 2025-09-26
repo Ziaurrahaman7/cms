@@ -139,6 +139,42 @@
       opacity: 1 !important;
     }
     
+    /* Back to Top Button */
+    .scroll-top {
+      position: fixed;
+      width: 50px;
+      height: 50px;
+      bottom: 170px;
+      right: 20px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      border-radius: 50px;
+      text-align: center;
+      font-size: 20px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+      z-index: 1001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      opacity: 0;
+      visibility: hidden;
+    }
+    
+    .scroll-top.active {
+      opacity: 1;
+      visibility: visible;
+      bottom: 170px !important;
+    }
+    
+    .scroll-top:hover {
+      background: linear-gradient(45deg, #764ba2, #667eea);
+      transform: translateY(-2px);
+      color: white;
+      text-decoration: none;
+    }
+    
     /* WhatsApp Float Button */
     .whatsapp-float {
       position: fixed;
@@ -247,6 +283,29 @@
         loop: true,
         autoplayVideos: true
       });
+      
+      // Back to Top Button Functionality
+      const scrollTop = document.querySelector('.scroll-top');
+      
+      if (scrollTop) {
+        const toggleScrollTop = function() {
+          if (window.scrollY > 100) {
+            scrollTop.classList.add('active');
+          } else {
+            scrollTop.classList.remove('active');
+          }
+        };
+        
+        window.addEventListener('scroll', toggleScrollTop);
+        
+        scrollTop.addEventListener('click', function(e) {
+          e.preventDefault();
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+      }
     });
   </script>
 
