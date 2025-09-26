@@ -164,7 +164,7 @@
             @if(isset($settings['contact']))
             <div class="tab-content" id="contact-tab">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Contact Information</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     @foreach($settings['contact'] as $setting)
                         <div class="{{ $setting->type === 'textarea' ? 'md:col-span-2' : '' }}">
                             <label for="{{ $setting->key }}" class="block text-sm font-medium text-gray-700 mb-2">
@@ -177,6 +177,56 @@
                             @endif
                         </div>
                     @endforeach
+                </div>
+                
+                <!-- Multiple Office Addresses Section -->
+                <div class="border-t border-gray-200 pt-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="text-md font-semibold text-gray-900">Office Addresses</h4>
+                        <button type="button" onclick="addOfficeAddress()" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm transition-colors">
+                            <i class="fas fa-plus mr-1"></i>Add Office
+                        </button>
+                    </div>
+                    
+                    <div id="office-addresses-container">
+                        @php
+                            $officeAddresses = json_decode(App\Models\SiteSetting::get('office_addresses', '[]'), true);
+                            if (empty($officeAddresses)) {
+                                $officeAddresses = [['name' => '', 'address' => '', 'phone' => '', 'email' => '']];
+                            }
+                        @endphp
+                        
+                        @foreach($officeAddresses as $index => $office)
+                        <div class="office-address-item border border-gray-200 rounded-lg p-4 mb-4" data-index="{{ $index }}">
+                            <div class="flex justify-between items-center mb-3">
+                                <h5 class="font-medium text-gray-700">Office {{ $index + 1 }}</h5>
+                                @if($index > 0)
+                                <button type="button" onclick="removeOfficeAddress({{ $index }})" class="text-red-600 hover:text-red-800 text-sm">
+                                    <i class="fas fa-trash mr-1"></i>Remove
+                                </button>
+                                @endif
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Office Name</label>
+                                    <input type="text" name="office_addresses[{{ $index }}][name]" value="{{ $office['name'] ?? '' }}" placeholder="Head Office" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                                    <input type="tel" name="office_addresses[{{ $index }}][phone]" value="{{ $office['phone'] ?? '' }}" placeholder="+1 (234) 567-890" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                    <input type="email" name="office_addresses[{{ $index }}][email]" value="{{ $office['email'] ?? '' }}" placeholder="office@example.com" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                                    <textarea name="office_addresses[{{ $index }}][address]" rows="2" placeholder="123 Main St, City, Country" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{{ $office['address'] ?? '' }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
             @endif
@@ -578,6 +628,77 @@ function resetThemeColors() {
     
     // Submit the form to save changes
     validateAndSubmit();
+}
+
+// Office Address Functions
+function addOfficeAddress() {
+    const container = document.getElementById('office-addresses-container');
+    const items = container.querySelectorAll('.office-address-item');
+    const newIndex = items.length;
+    
+    const newOfficeHtml = `
+        <div class="office-address-item border border-gray-200 rounded-lg p-4 mb-4" data-index="${newIndex}">
+            <div class="flex justify-between items-center mb-3">
+                <h5 class="font-medium text-gray-700">Office ${newIndex + 1}</h5>
+                <button type="button" onclick="removeOfficeAddress(${newIndex})" class="text-red-600 hover:text-red-800 text-sm">
+                    <i class="fas fa-trash mr-1"></i>Remove
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Office Name</label>
+                    <input type="text" name="office_addresses[${newIndex}][name]" value="" placeholder="Branch Office" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                    <input type="tel" name="office_addresses[${newIndex}][phone]" value="" placeholder="+1 (234) 567-890" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" name="office_addresses[${newIndex}][email]" value="" placeholder="office@example.com" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                    <textarea name="office_addresses[${newIndex}][address]" rows="2" placeholder="123 Main St, City, Country" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    container.insertAdjacentHTML('beforeend', newOfficeHtml);
+}
+
+function removeOfficeAddress(index) {
+    const item = document.querySelector(`[data-index="${index}"]`);
+    if (item) {
+        item.remove();
+        // Reindex remaining items
+        reindexOfficeAddresses();
+    }
+}
+
+function reindexOfficeAddresses() {
+    const items = document.querySelectorAll('.office-address-item');
+    items.forEach((item, index) => {
+        item.setAttribute('data-index', index);
+        item.querySelector('h5').textContent = `Office ${index + 1}`;
+        
+        // Update input names
+        const inputs = item.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            const name = input.getAttribute('name');
+            if (name && name.includes('office_addresses[')) {
+                const newName = name.replace(/office_addresses\[\d+\]/, `office_addresses[${index}]`);
+                input.setAttribute('name', newName);
+            }
+        });
+        
+        // Update remove button onclick
+        const removeBtn = item.querySelector('button[onclick*="removeOfficeAddress"]');
+        if (removeBtn && index > 0) {
+            removeBtn.setAttribute('onclick', `removeOfficeAddress(${index})`);
+        }
+    });
 }
 </script>
 

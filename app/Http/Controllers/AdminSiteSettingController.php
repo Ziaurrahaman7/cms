@@ -62,6 +62,27 @@ class AdminSiteSettingController extends Controller
             }
         }
         
+        // Handle office addresses
+        if ($request->has('office_addresses')) {
+            $officeAddresses = array_filter($request->office_addresses, function($office) {
+                return !empty($office['name']) || !empty($office['address']);
+            });
+            
+            $officeAddressesJson = json_encode(array_values($officeAddresses));
+            
+            SiteSetting::updateOrCreate(
+                ['key' => 'office_addresses'],
+                [
+                    'key' => 'office_addresses',
+                    'value' => $officeAddressesJson,
+                    'type' => 'json',
+                    'group' => 'contact'
+                ]
+            );
+            
+            \Log::info('Office addresses updated: ' . $officeAddressesJson);
+        }
+        
         // Clear all settings cache
         \Illuminate\Support\Facades\Cache::flush();
         
@@ -89,6 +110,7 @@ class AdminSiteSettingController extends Controller
             ['key' => 'contact_email', 'value' => 'info@example.com', 'type' => 'email', 'group' => 'contact'],
             ['key' => 'contact_whatsapp', 'value' => '+1234567890', 'type' => 'phone', 'group' => 'contact'],
             ['key' => 'contact_address', 'value' => '11 West Town, PBo 12345, United States', 'type' => 'textarea', 'group' => 'contact'],
+            ['key' => 'office_addresses', 'value' => '[{"name":"Head Office","address":"11 West Town, PBo 12345, United States","phone":"+1 (234) 567-890","email":"info@example.com"}]', 'type' => 'json', 'group' => 'contact'],
             
             // Social Links
             ['key' => 'social_facebook', 'value' => '', 'type' => 'url', 'group' => 'social'],
