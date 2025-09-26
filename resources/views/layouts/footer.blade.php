@@ -20,7 +20,7 @@
                           <p>{{ App\Models\SiteSetting::get('footer_description', 'Professional IT solutions and business services to help your company grow and succeed in the digital world.') }}</p>
                       </div>
                       <div class="footer-social-icon">
-                          <span>Follow us</span>
+                          <span class="text-black">Follow us</span>
                           @if(App\Models\SiteSetting::get('social_twitter'))
                             <a href="{{ App\Models\SiteSetting::get('social_twitter') }}" class="twitter"><i class="bi bi-twitter-x"></i></a>
                           @endif
@@ -40,7 +40,7 @@
               <div class="col-lg-2 col-md-6 col-sm-12 footer-column">
                     <div class="service-widget footer-widget">
                       <div class="footer-widget-heading">
-                          <h3>Services</h3>
+                          <h3 class="text-black">Services</h3>
                       </div>
                         <ul class="list">
                             @php
@@ -65,7 +65,7 @@
                 <div class="col-lg-2 col-md-6 col-sm-12 footer-column">
                     <div class="service-widget footer-widget">
                       <div class="footer-widget-heading">
-                          <h3>Information</h3>
+                          <h3 class="text-black">Information</h3>
                       </div>
                         <ul class="list">
                           <li><a href="{{ route('case-study.index') }}">Portfolio</a></li>
@@ -81,7 +81,7 @@
               <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
                   <div class="contact-widget footer-widget">
                       <div class="footer-widget-heading">
-                          <h3>Contacts</h3>
+                          <h3 class="text-black">Contacts</h3>
                       </div>
                         <div class="footer-text">
                             <p><i class="bi bi-geo-alt-fill mr-15"></i> {{ App\Models\SiteSetting::get('contact_address', '101 West Town, PBO 12345, United States') }}</p>
@@ -91,7 +91,7 @@
                   </div>
                   <div class="footer-widget">
                       <div class="footer-widget-heading">
-                          <h3>Newsletter</h3>
+                          <h3 class="text-black">Newsletter</h3>
                       </div>
                       <div class="footer-text mb-25">
                           <p>Don't miss to subscribe to our new feeds, kindly fill the form below.</p>

@@ -21,10 +21,10 @@
     color: #fff !important;
   }
   body.mobile-nav-active .header .navbar a:hover {
-    color: #007bff !important;
+    color: #fff !important;
   }
   body.mobile-nav-active .header .navbar a.active {
-    color: #007bff !important;
+    color: #fff !important;
   }
 }
 

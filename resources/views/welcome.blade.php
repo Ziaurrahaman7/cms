@@ -42,7 +42,7 @@
   <!-- Service Highlights Section -->
   <div id="services" class="py-5 section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
     <div class="container">
-      <div class="mb-5 text-center section-header">
+      <div class="mb-5 text-center ">
         <h2 class="mb-3 text-white">Service Highlights</h2>
         <p class="text-white-50">Professional IT solutions tailored to your business needs</p>
       </div>
@@ -129,7 +129,7 @@
   <!-- Product Highlight Section -->
   <div id="products" class="py-5 section">
     <div class="container">
-      <div class="mb-5 text-center section-header">
+      <div class="text-center section-header">
         <h2 class="mb-3">Our Products</h2>
         <p class="text-muted">Innovative software solutions designed to transform your business</p>
       </div>
@@ -197,59 +197,86 @@
     }
   </style>
 
-  <!-- Industry Solutions Section -->
-  <div id="industry-solutions" class="py-5 section" style="background: #f8f9fa;">
+
+  <!-- Success Stories Section -->
+  <section id="success-stories" class="py-5" style="background: #f8f9fa;">
     <div class="container">
-      <div class="mb-5 text-center section-header">
-        <h2 class="mb-3">Industry-Specific Solutions</h2>
-        <p class="text-muted">Tailored technology solutions for different industry verticals</p>
+      <div class="text-center section-header" data-aos="fade-up">
+        <h2 class="mb-3">Our Success Stories</h2>
+        <p class="text-muted">Real projects, real results - see how we've transformed businesses</p>
       </div>
       
       <div class="row g-4">
         @php
-          $industries = App\Models\Industry::active()->ordered()->get();
-          $gradients = [
-            'linear-gradient(45deg, #ff6b6b, #ee5a24)',
-            'linear-gradient(45deg, #667eea, #764ba2)',
-            'linear-gradient(45deg, #4ecdc4, #44a08d)',
-            'linear-gradient(45deg, #feca57, #ff9ff3)'
-          ];
+          $portfolios = App\Models\Portfolio::active()->ordered()->take(6)->get();
         @endphp
         
-        @forelse($industries as $industry)
-        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
-          <div class="p-4 text-center bg-white shadow-sm industry-solution-card rounded-4 h-100">
-            <div class="mb-3 industry-icon">
-              @if($industry->image && file_exists(public_path('storage/' . $industry->image)))
-                <img src="{{ asset('storage/' . $industry->image) }}" alt="{{ $industry->title }}" class="mx-auto rounded-circle" style="width: 70px; height: 70px; object-fit: cover;">
+        @forelse($portfolios as $portfolio)
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
+          <div class="border-0 shadow-sm card h-100 portfolio-card">
+            <div class="overflow-hidden card-img-top position-relative" style="height: 250px;">
+              @if($portfolio->image && file_exists(public_path('storage/portfolios/' . $portfolio->image)))
+                <img src="{{ asset('storage/portfolios/' . $portfolio->image) }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $portfolio->title }}">
               @else
-                <div class="mx-auto icon-wrapper" style="width: 70px; height: 70px; background: {{ $gradients[$loop->index % 4] }}; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                  <i class="{{ $industry->icon ?? 'bi bi-building' }} text-white" style="font-size: 1.8rem;"></i>
-                </div>
+                <img src="{{ asset('assets/images/portfolio/product-' . (($loop->index % 6) + 1) . '.jpg') }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $portfolio->title }}">
               @endif
+              <div class="top-0 position-absolute start-0 w-100 h-100 d-flex align-items-center justify-content-center portfolio-overlay" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease;">
+                @if($portfolio->project_url)
+                  <a href="{{ $portfolio->project_url }}" target="_blank" class="btn btn-light btn-sm">
+                    <i class="bi bi-link-45deg me-1"></i>View Project
+                  </a>
+                @endif
+              </div>
             </div>
-            <h5 class="mb-2">{{ $industry->title }}</h5>
-            <p class="mb-3 text-muted small">{{ $industry->description }}</p>
-            <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm">Explore</a>
+            <div class="card-body d-flex flex-column">
+              <h5 class="mb-2 card-title">{{ $portfolio->title }}</h5>
+              <p class="card-text text-muted flex-grow-1">{{ Str::limit($portfolio->description, 120) }}</p>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <span class="badge bg-primary">{{ ucfirst($portfolio->category) }}</span>
+                <a href="{{ route('case-study.show', $portfolio) }}" class="btn btn-sm">View Details</a>
+              </div>
+            </div>
           </div>
         </div>
         @empty
-        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-          <div class="p-4 text-center bg-white shadow-sm industry-solution-card rounded-4 h-100">
-            <div class="mb-3 industry-icon">
-              <div class="mx-auto icon-wrapper" style="width: 70px; height: 70px; background: linear-gradient(45deg, #ff6b6b, #ee5a24); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                <i class="text-white bi bi-cart" style="font-size: 1.8rem;"></i>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="border-0 shadow-sm card h-100 portfolio-card">
+            <div class="card-img-top" style="height: 250px; background: linear-gradient(45deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center;">
+              <i class="text-white bi bi-trophy" style="font-size: 3rem;"></i>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="mb-2 card-title">Digital Transformation</h5>
+              <p class="card-text text-muted flex-grow-1">How we helped a leading company modernize their operations and increase efficiency by 40%.</p>
+              <div class="mt-auto d-flex justify-content-between align-items-center">
+                <span class="badge bg-primary">Success</span>
+                <a href="{{ route('case-study.index') }}" class="btn btn-outline-primary btn-sm">View Details</a>
               </div>
             </div>
-            <h5 class="mb-2">Retail</h5>
-            <p class="mb-3 text-muted small">POS systems, inventory management, e-commerce platforms</p>
-            <a href="{{ route('contact.index') }}" class="btn btn-outline-primary btn-sm">Explore</a>
           </div>
         </div>
         @endforelse
       </div>
+      
+      <div class="mt-5 text-center">
+        <a href="{{ route('case-study.index') }}" class="px-5 py-3 btn btn-primary btn-lg rounded-pill fw-bold">
+          <i class="bi bi-arrow-right me-2"></i>View All Case Studies
+        </a>
+      </div>
     </div>
-  </div>
+  </section>
+  
+  <style>
+    .portfolio-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+    }
+    .portfolio-card:hover img {
+      transform: scale(1.1);
+    }
+    .portfolio-card:hover .portfolio-overlay {
+      opacity: 1 !important;
+    }
+  </style>
 
   <!-- Call-to-Action Buttons Section -->
   <section id="cta-buttons" class="py-5 text-center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
@@ -459,13 +486,13 @@
 <!--  Clients Section -->
 <div id="clients" class="clients section">
   <div class="container" data-aos="zoom-out">
-    <div class="mb-5 text-center section-header">
+    <div class="text-center section-header">
       <h2>Our Trusted Clients</h2>
       <p>We're proud to work with amazing companies across different sectors</p>
     </div>
     
     <div class="clients-tabs">
-      <ul class="nav nav-tabs justify-content-center mb-4" id="clientTabs" role="tablist">
+      <ul class="mb-4 nav nav-tabs justify-content-center" id="clientTabs" role="tablist">
         <li class="nav-item" role="presentation">
           <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab">All</button>
         </li>
