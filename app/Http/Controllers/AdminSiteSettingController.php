@@ -58,7 +58,18 @@ class AdminSiteSettingController extends Controller
                 
                 \Log::info("Updated setting: {$key} = {$value}");
             } else {
-                \Log::warning("Setting not found: {$key}");
+                // Create new setting if it doesn't exist (for custom scripts)
+                if (in_array($key, ['custom_header_script', 'custom_body_script'])) {
+                    SiteSetting::create([
+                        'key' => $key,
+                        'value' => $value,
+                        'type' => 'textarea',
+                        'group' => 'scripts'
+                    ]);
+                    \Log::info("Created new setting: {$key} = {$value}");
+                } else {
+                    \Log::warning("Setting not found: {$key}");
+                }
             }
         }
         
@@ -168,6 +179,10 @@ class AdminSiteSettingController extends Controller
             ['key' => 'mail_encryption', 'value' => 'tls', 'type' => 'text', 'group' => 'email'],
             ['key' => 'mail_from_address', 'value' => '', 'type' => 'email', 'group' => 'email'],
             ['key' => 'mail_from_name', 'value' => 'Technoit', 'type' => 'text', 'group' => 'email'],
+            
+            // Custom Script Settings
+            ['key' => 'custom_header_script', 'value' => '', 'type' => 'textarea', 'group' => 'scripts'],
+            ['key' => 'custom_body_script', 'value' => '', 'type' => 'textarea', 'group' => 'scripts'],
         ];
 
         foreach ($defaultSettings as $setting) {

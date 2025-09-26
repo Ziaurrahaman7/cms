@@ -83,6 +83,9 @@
                     Email
                 </button>
                 @endif
+                <button type="button" class="tab-button py-2 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="scripts">
+                    Custom Script
+                </button>
             </nav>
         </div>
         
@@ -126,12 +129,12 @@
                                         <div class="text-sm text-gray-500 p-2 bg-gray-100 rounded" style="display:none;">Current: {{ $setting->value }}</div>
                                     </div>
                                 @endif
-                                <input type="file" name="files[{{ $setting->key }}]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <input type="file" name="files[{{ $setting->key }}]" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <input type="hidden" name="settings[{{ $setting->key }}]" value="{{ $setting->value }}">
                             @elseif($setting->type === 'textarea')
-                                <textarea name="settings[{{ $setting->key }}]" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">{{ $setting->value }}</textarea>
+                                <textarea name="settings[{{ $setting->key }}]" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-vertical">{{ $setting->value }}</textarea>
                             @else
-                                <input type="{{ $setting->type === 'url' ? 'url' : ($setting->type === 'email' ? 'email' : 'text') }}" name="settings[{{ $setting->key }}]" value="{{ $setting->value }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <input type="{{ $setting->type === 'url' ? 'url' : ($setting->type === 'email' ? 'email' : ($setting->type === 'phone' ? 'tel' : 'text')) }}" name="settings[{{ $setting->key }}]" value="{{ $setting->value }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                             @endif
                         </div>
                     @endforeach
@@ -430,6 +433,33 @@
             </div>
             @endif
             
+            <!-- Custom Script Settings -->
+            <div class="tab-content" id="scripts-tab">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Custom Scripts</h3>
+                <div class="space-y-4">
+                    @php
+                        $headerScript = App\Models\SiteSetting::where('key', 'custom_header_script')->first();
+                        $bodyScript = App\Models\SiteSetting::where('key', 'custom_body_script')->first();
+                    @endphp
+                    
+                    <div>
+                        <label for="custom_header_script" class="block text-sm font-medium text-gray-700 mb-2">
+                            Header Script
+                        </label>
+                        <textarea name="settings[custom_header_script]" rows="8" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-sm resize-vertical" placeholder="Enter your JavaScript code here..." style="width: 100% !important; min-height: 200px;">{{ $headerScript ? $headerScript->value : '' }}</textarea>
+                        <p class="mt-1 text-sm text-gray-500">This script will be added to the &lt;head&gt; section of all pages</p>
+                    </div>
+                    
+                    <div>
+                        <label for="custom_body_script" class="block text-sm font-medium text-gray-700 mb-2">
+                            Body Script
+                        </label>
+                        <textarea name="settings[custom_body_script]" rows="8" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-sm resize-vertical" placeholder="Enter your JavaScript code here..." style="width: 100% !important; min-height: 200px;">{{ $bodyScript ? $bodyScript->value : '' }}</textarea>
+                        <p class="mt-1 text-sm text-gray-500">This script will be added before the closing &lt;/body&gt; tag of all pages</p>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Submit Button -->
             <div class="flex justify-end pt-6 border-t border-gray-200 mt-6">
                 <button type="button" id="update-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors" onclick="validateAndSubmit()">
@@ -519,6 +549,103 @@ form select[name^="settings"] {
 
 .cursor-not-allowed {
     cursor: not-allowed;
+}
+
+/* Enhanced form styling */
+.form-control, input[type="text"], input[type="email"], input[type="url"], input[type="tel"], input[type="password"], input[type="file"], textarea, select {
+    transition: all 0.3s ease !important;
+    border: 2px solid #e5e7eb !important;
+}
+
+.form-control:focus, input:focus, textarea:focus, select:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+    outline: none !important;
+}
+
+/* File input styling */
+input[type="file"] {
+    padding: 8px !important;
+    background: #f9fafb !important;
+}
+
+/* Select dropdown styling */
+select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e") !important;
+    background-position: right 8px center !important;
+    background-repeat: no-repeat !important;
+    background-size: 16px 12px !important;
+    padding-right: 40px !important;
+}
+
+/* Textarea resize */
+textarea {
+    resize: vertical !important;
+    min-height: 80px !important;
+}
+
+/* Color input */
+input[type="color"] {
+    height: 40px !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+}
+
+/* Force full width for all form elements */
+.tab-content input, .tab-content textarea, .tab-content select {
+    width: 100% !important;
+    display: block !important;
+    box-sizing: border-box !important;
+}
+
+/* Specific fixes for different input types */
+.tab-content input[type="file"] {
+    padding: 8px 12px !important;
+    background: #f8f9fa !important;
+    border: 2px dashed #dee2e6 !important;
+}
+
+.tab-content textarea {
+    min-height: 100px !important;
+    font-family: 'Courier New', monospace !important;
+}
+
+.tab-content select {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+}
+
+/* Ultra strong CSS to force full width */
+form input, form textarea, form select {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    display: block !important;
+    box-sizing: border-box !important;
+}
+
+/* Override any conflicting styles */
+* {
+    box-sizing: border-box !important;
+}
+
+/* Specific targeting for site settings form */
+#settings-form input[type="text"],
+#settings-form input[type="email"],
+#settings-form input[type="url"],
+#settings-form input[type="tel"],
+#settings-form input[type="password"],
+#settings-form input[type="file"],
+#settings-form textarea,
+#settings-form select {
+    width: 100% !important;
+    display: block !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    padding: 8px 12px !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 6px !important;
 }
 </style>
 
