@@ -72,7 +72,7 @@
         <li><a href="{{ route('posts.index') }}" class="{{ request()->routeIs('posts.*') ? 'active' : '' }}">Blog</a></li>
       </ul>
     </nav>
-    <a href="#contact" class="btn-get-started hide-on-mobile">Get Quotes</a>
+    <a href="{{ route('contact.index') }}" class="btn-get-started hide-on-mobile">Get Quotes</a>
     <button id="darkmode-button"><i class="bi bi-moon-fill"></i></button>
     <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
     <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>

@@ -355,6 +355,15 @@
   transform: scale(1.02);
 }
 
+/* Phone and Email button hover effects */
+a[href^="tel:"]:hover, a[href^="mailto:"]:hover {
+  background-color: #fff !important;
+  color: #333 !important;
+  border-color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
 </style>
 
 
