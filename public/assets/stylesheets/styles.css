@@ -1114,7 +1114,10 @@ section {background: var(--light-color);}
   opacity: 1;
   border-radius: 8px;
 }
-
+.clients .swiper-slide img{
+  transform: scale(1.1) !important;
+  filter: grayscale(0%) !important;
+}
 .clients .swiper-slide img:hover {
   transform: scale(1.1);
 }
