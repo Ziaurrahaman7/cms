@@ -95,9 +95,22 @@ class AdminPortfolioController extends Controller
             $data['business_cases'] = !empty($businessCases) ? $businessCases : null;
         }
         
-        $data['client_reviews'] = $request->has('client_reviews') ? array_filter($request->client_reviews, function($item) {
-            return !empty($item['name']) || !empty($item['message']);
-        }) : null;
+        // Handle client reviews with images
+        if ($request->has('client_reviews')) {
+            $clientReviews = [];
+            foreach ($request->client_reviews as $index => $item) {
+                if (!empty($item['name']) || !empty($item['message'])) {
+                    if ($request->hasFile("client_reviews.{$index}.image")) {
+                        $image = $request->file("client_reviews.{$index}.image");
+                        $imageName = time() . '_cr_' . $index . '.' . $image->getClientOriginalExtension();
+                        $image->storeAs('portfolios', $imageName, 'public');
+                        $item['image'] = $imageName;
+                    }
+                    $clientReviews[] = $item;
+                }
+            }
+            $data['client_reviews'] = !empty($clientReviews) ? $clientReviews : null;
+        }
         
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -170,9 +183,24 @@ class AdminPortfolioController extends Controller
             $data['business_cases'] = !empty($businessCases) ? $businessCases : null;
         }
         
-        $data['client_reviews'] = $request->has('client_reviews') ? array_filter($request->client_reviews, function($item) {
-            return !empty($item['name']) || !empty($item['message']);
-        }) : null;
+        // Handle client reviews with images
+        if ($request->has('client_reviews')) {
+            $clientReviews = [];
+            foreach ($request->client_reviews as $index => $item) {
+                if (!empty($item['name']) || !empty($item['message'])) {
+                    if ($request->hasFile("client_reviews.{$index}.image")) {
+                        $image = $request->file("client_reviews.{$index}.image");
+                        $imageName = time() . '_cr_' . $index . '.' . $image->getClientOriginalExtension();
+                        $image->storeAs('portfolios', $imageName, 'public');
+                        $item['image'] = $imageName;
+                    } elseif (isset($portfolio->client_reviews[$index]['image'])) {
+                        $item['image'] = $portfolio->client_reviews[$index]['image'];
+                    }
+                    $clientReviews[] = $item;
+                }
+            }
+            $data['client_reviews'] = !empty($clientReviews) ? $clientReviews : null;
+        }
         
         if ($request->hasFile('image')) {
             if ($portfolio->image && file_exists(storage_path('app/public/portfolios/' . $portfolio->image))) {
