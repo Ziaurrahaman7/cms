@@ -69,10 +69,10 @@
       <div class="col-lg-6" data-aos="fade-left">
         <div class="section-image">
           @if(isset($section['image']) && $section['image'])
-          <img src="{{ asset('storage/' . $section['image']) }}" alt="{{ $section['title'] }}" class="img-fluid rounded-4 shadow-lg">
+          <img src="{{ asset('storage/' . $section['image']) }}" alt="{{ $section['title'] }}" class="shadow-lg img-fluid rounded-4">
           @else
           <div class="bg-primary rounded-4 d-flex align-items-center justify-content-center" style="height: 400px;">
-            <i class="bi bi-image text-white" style="font-size: 4rem; opacity: 0.5;"></i>
+            <i class="text-white bi bi-image" style="font-size: 4rem; opacity: 0.5;"></i>
           </div>
           @endif
         </div>
@@ -82,10 +82,10 @@
       <div class="col-lg-6" data-aos="fade-right">
         <div class="section-image">
           @if(isset($section['image']) && $section['image'])
-          <img src="{{ asset('storage/' . $section['image']) }}" alt="{{ $section['title'] }}" class="img-fluid rounded-4 shadow-lg">
+          <img src="{{ asset('storage/' . $section['image']) }}" alt="{{ $section['title'] }}" class="shadow-lg img-fluid rounded-4">
           @else
           <div class="bg-primary rounded-4 d-flex align-items-center justify-content-center" style="height: 400px;">
-            <i class="bi bi-image text-white" style="font-size: 4rem; opacity: 0.5;"></i>
+            <i class="text-white bi bi-image" style="font-size: 4rem; opacity: 0.5;"></i>
           </div>
           @endif
         </div>
@@ -103,41 +103,7 @@
 @endforeach
 @endif
 
-<!-- Our Services Section -->
-<section class="py-5" style="background: #f8f9fa;">
-  <div class="container">
-    <div class="mb-5 row justify-content-center">
-      <div class="text-center col-lg-8">
-        <h2 class="mb-4">Our Services</h2>
-        <p class="lead text-muted">Comprehensive IT solutions to drive your business forward</p>
-      </div>
-    </div>
-    
-    <div class="row g-4">
-      @php
-        $allServices = App\Models\Service::active()->ordered()->take(6)->get();
-      @endphp
-      @forelse($allServices as $serviceItem)
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
-        <div class="p-4 text-center bg-white shadow-sm service-box rounded-4 h-100">
-          <div class="mb-3 service-icon" style="width: 80px; height: 80px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
-            <i class="text-white bi bi-gear" style="font-size: 2rem;"></i>
-          </div>
-          <h5 class="mb-3">{{ $serviceItem->title }}</h5>
-          <p class="mb-3 text-muted">{{ Str::limit($serviceItem->description, 100) }}</p>
-          {{-- <a href="{{ route('services.show', $serviceItem->slug) }}" class="px-3 py-2 btn btn-outline-primary rounded-pill">
-            Learn More <i class="bi bi-arrow-right ms-1"></i>
-          </a> --}}
-        </div>
-      </div>
-      @empty
-      <div class="text-center col-12">
-        <p class="text-muted">No services available at the moment.</p>
-      </div>
-      @endforelse
-    </div>
-  </div>
-</section>
+
 
 <!-- Key Features Section -->
 {{-- @if($service->key_features && count($service->key_features) > 0)
