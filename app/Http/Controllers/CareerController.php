@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CareerPageSetting;
 use Illuminate\Http\Request;
 
 class CareerController extends Controller
@@ -9,6 +10,7 @@ class CareerController extends Controller
     public function index()
     {
         $jobs = \App\Models\Job::active()->ordered()->get();
-        return view('careers.index', compact('jobs'));
+        $careerSettings = CareerPageSetting::getSettings();
+        return view('careers.index', compact('jobs', 'careerSettings'));
     }
 }

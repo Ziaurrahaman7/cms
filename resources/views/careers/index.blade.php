@@ -11,15 +11,51 @@
     <div class="row align-items-center justify-content-center text-center" style="min-height: 70vh;">
       <div class="col-lg-8">
         <div class="hero-content">
-          <h1 class="mb-4 text-white" data-aos="fade-up">Join Our Team</h1>
-          <p class="mb-5 fs-5 lead text-white-50" data-aos="fade-up" data-aos-delay="200">Build your career with us and be part of an innovative team that's shaping the future of technology.</p>
+          <h1 class="mb-4 text-white" data-aos="fade-up">{{ $careerSettings->hero_title }}</h1>
+          <p class="mb-5 fs-5 lead text-white-50" data-aos="fade-up" data-aos-delay="200">{{ $careerSettings->hero_description }}</p>
           <div class="gap-3 d-flex justify-content-center flex-wrap" data-aos="fade-up" data-aos-delay="400">
             <a href="#openings" class="px-5 py-3 btn btn-warning btn-lg rounded-pill fw-bold">
-              <i class="bi bi-briefcase me-2"></i>View Openings
+              <i class="bi bi-briefcase me-2"></i>{{ $careerSettings->hero_button_text }}
             </a>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Join Us Section -->
+<section class="py-5">
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-8 text-center">
+        <h2 class="mb-4">{{ $careerSettings->why_join_title }}</h2>
+        <p class="lead text-muted">{{ $careerSettings->why_join_description }}</p>
+      </div>
+    </div>
+    
+    <div class="row g-4">
+      @php
+        $gradients = [
+          'linear-gradient(45deg, #667eea, #764ba2)',
+          'linear-gradient(45deg, #4ecdc4, #44a08d)', 
+          'linear-gradient(45deg, #feca57, #ff9ff3)',
+          'linear-gradient(45deg, #ff6b6b, #ee5a24)'
+        ];
+      @endphp
+      @foreach($careerSettings->benefits ?? [] as $index => $benefit)
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($index + 1) * 100 }}">
+        <div class="text-center h-100">
+          <div class="mb-4">
+            <div class="d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background: {{ $gradients[$index % 4] }}; border-radius: 50%;">
+              <i class="text-white {{ $benefit['icon'] }}" style="font-size: 2rem;"></i>
+            </div>
+          </div>
+          <h5 class="mb-3">{{ $benefit['title'] }}</h5>
+          <p class="text-muted">{{ $benefit['description'] }}</p>
+        </div>
+      </div>
+      @endforeach
     </div>
   </div>
 </section>
@@ -42,7 +78,26 @@
             <div>
               <h5 class="mb-2">{{ $job->title }}</h5>
               <p class="text-muted mb-2"><i class="bi bi-geo-alt me-2"></i>{{ $job->location }}</p>
-              <p class="mb-3">{!! Str::limit($job->description, 150) !!}</p>
+              <div class="mb-3">
+                @php
+                  $shortDesc = strip_tags($job->description);
+                  $isLong = strlen($shortDesc) > 150;
+                  $truncated = $isLong ? substr($shortDesc, 0, 150) . '...' : $shortDesc;
+                @endphp
+                
+                <div class="job-description">
+                  <div class="short-desc">{{ $truncated }}</div>
+                  @if($isLong)
+                    <div class="full-desc d-none">{!! $job->description !!}</div>
+                    <button class="btn btn-link p-0 mt-2 read-more-btn" style="color: #0d6efd; font-size: 0.9rem;">
+                      <i class="bi bi-plus-circle me-1"></i>Read More
+                    </button>
+                    <button class="btn btn-link p-0 mt-2 read-less-btn d-none" style="color: #0d6efd; font-size: 0.9rem;">
+                      <i class="bi bi-dash-circle me-1"></i>Read Less
+                    </button>
+                  @endif
+                </div>
+              </div>
             </div>
             <span class="badge bg-primary">{{ ucwords(str_replace('-', ' ', $job->type)) }}</span>
           </div>
@@ -174,5 +229,48 @@
     justify-content: center;
   }
 }
+
+.read-more-btn:hover,
+.read-less-btn:hover {
+  text-decoration: none !important;
+  color: #0a58ca !important;
+}
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Read More/Less functionality
+  document.querySelectorAll('.read-more-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const container = this.closest('.job-description');
+      const shortDesc = container.querySelector('.short-desc');
+      const fullDesc = container.querySelector('.full-desc');
+      const readMoreBtn = container.querySelector('.read-more-btn');
+      const readLessBtn = container.querySelector('.read-less-btn');
+      
+      shortDesc.classList.add('d-none');
+      fullDesc.classList.remove('d-none');
+      readMoreBtn.classList.add('d-none');
+      readLessBtn.classList.remove('d-none');
+    });
+  });
+  
+  document.querySelectorAll('.read-less-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const container = this.closest('.job-description');
+      const shortDesc = container.querySelector('.short-desc');
+      const fullDesc = container.querySelector('.full-desc');
+      const readMoreBtn = container.querySelector('.read-more-btn');
+      const readLessBtn = container.querySelector('.read-less-btn');
+      
+      shortDesc.classList.remove('d-none');
+      fullDesc.classList.add('d-none');
+      readMoreBtn.classList.remove('d-none');
+      readLessBtn.classList.add('d-none');
+    });
+  });
+});
+</script>
 @endsection

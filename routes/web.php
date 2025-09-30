@@ -241,6 +241,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/{jobApplication}/download-cv', [App\Http\Controllers\AdminJobApplicationController::class, 'downloadCv'])->name('download-cv');
         Route::delete('/{jobApplication}', [App\Http\Controllers\AdminJobApplicationController::class, 'destroy'])->name('destroy');
     });
+    
+    // Admin Career Page Settings
+    Route::prefix('admin/career-page')->name('admin.career-page.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminCareerPageController::class, 'index'])->name('index');
+        Route::put('/update', [App\Http\Controllers\AdminCareerPageController::class, 'update'])->name('update');
+    });
 });
 
 require __DIR__.'/auth.php';
