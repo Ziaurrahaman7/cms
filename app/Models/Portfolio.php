@@ -46,4 +46,9 @@ class Portfolio extends Model
     {
         return $query->where('category', $category);
     }
+    
+    public function getRouteKeyName()
+    {
+        return 'id';
+    }
 }

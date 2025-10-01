@@ -15,6 +15,7 @@
             </div>
             <nav class="mt-6">
                 <a href="{{ route('admin.dashboard') }}" class="block px-6 py-3 bg-gray-700 text-white">Dashboard</a>
+                <a href="{{ route('admin.cta-sections.index') }}" class="block px-6 py-3 hover:bg-gray-700">CTA Sections</a>
                 <a href="{{ route('admin.content') }}" class="block px-6 py-3 hover:bg-gray-700">Website Content</a>
                 <a href="{{ route('posts.index') }}" class="block px-6 py-3 hover:bg-gray-700">Posts</a>
                 <form method="POST" action="{{ route('logout') }}" class="block">

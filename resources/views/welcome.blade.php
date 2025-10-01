@@ -258,8 +258,8 @@
       </div>
       
       <div class="mt-5 text-center">
-        <a href="{{ route('case-study.index') }}" class="px-5 py-3 btn btn-primary btn-lg rounded-pill fw-bold">
-          <i class="bi bi-arrow-right me-2"></i>View All Case Studies
+        <a href="{{ route('portfolio.index') }}" class="px-5 py-3 btn btn-primary btn-lg rounded-pill fw-bold">
+          <i class="bi bi-arrow-right me-2"></i>View All Portfolio
         </a>
       </div>
     </div>
@@ -279,24 +279,42 @@
   </style>
 
   <!-- Call-to-Action Buttons Section -->
+  @php
+    $transformSection = App\Models\CTASection::getSection('transform_business', [
+      'title' => 'Ready to Transform Your Business?',
+      'description' => 'Get started with our professional services today',
+      'button_text' => 'Request Quote',
+      'button_link' => '/contact',
+      'secondary_button_text' => 'Contact Us',
+      'secondary_button_link' => '/contact'
+    ]);
+  @endphp
+  @if($transformSection->is_active)
   <section id="cta-buttons" class="py-5 text-center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-8">
-          <h3 class="mb-4 text-white">Ready to Transform Your Business?</h3>
-          <p class="mb-4 text-white-50">Get started with our professional services today</p>
+          <h3 class="mb-4 text-white">{{ $transformSection->title }}</h3>
+          @if($transformSection->description)
+            <p class="mb-4 text-white-50">{{ $transformSection->description }}</p>
+          @endif
           <div class="flex-wrap gap-3 d-flex justify-content-center">
-            <a href="{{ route('contact.index') }}" class="px-5 py-3 btn btn-light btn-lg rounded-pill fw-bold">
-              <i class="bi bi-chat-dots me-2"></i>Request Quote
-            </a>
-            <a href="{{ route('contact.index') }}" class="px-5 py-3 btn btn-outline-light btn-lg rounded-pill fw-bold">
-              <i class="bi bi-telephone me-2"></i>Contact Us
-            </a>
+            @if($transformSection->button_text && $transformSection->button_link)
+              <a href="{{ $transformSection->button_link }}" class="px-5 py-3 btn btn-light btn-lg rounded-pill fw-bold">
+                <i class="bi bi-chat-dots me-2"></i>{{ $transformSection->button_text }}
+              </a>
+            @endif
+            @if($transformSection->secondary_button_text && $transformSection->secondary_button_link)
+              <a href="{{ $transformSection->secondary_button_link }}" class="px-5 py-3 btn btn-outline-light btn-lg rounded-pill fw-bold">
+                <i class="bi bi-telephone me-2"></i>{{ $transformSection->secondary_button_text }}
+              </a>
+            @endif
           </div>
         </div>
       </div>
     </div>
   </section>
+  @endif
 
   <!-- Why Choose Us Section -->
   <section id="featured" class="py-5">
@@ -657,17 +675,31 @@
 
 
 <!--  Call To Action Section  -->
+@php
+  $discussSection = App\Models\CTASection::getSection('discuss_projects', [
+    'title' => "Let's Discuss your Projects",
+    'description' => 'We pride ourselves with our ability to perform and deliver results. Use the form below to discuss your project needs with our team, we will get back asap',
+    'button_text' => 'Contact Us',
+    'button_link' => '/contact'
+  ]);
+@endphp
+@if($discussSection->is_active)
 <section id="call-to-action" class="call-to-action">
   <div class="container text-center aos-init aos-animate" data-aos="zoom-out">
      <div class="row gy-4">
       <div class="col-lg-12">
-          <h3>Let's Discuss your Projects</h3>
-          <p>We pride ourselves with our ability to perform and deliver results. Use the form below to discuss your project needs with our team, we will get back asap</p>
-          <a class="cta-btn" href="{{ route('contact.index') }}">Contact Us</a>
+          <h3>{{ $discussSection->title }}</h3>
+          @if($discussSection->description)
+            <p>{{ $discussSection->description }}</p>
+          @endif
+          @if($discussSection->button_text && $discussSection->button_link)
+            <a class="cta-btn" href="{{ $discussSection->button_link }}">{{ $discussSection->button_text }}</a>
+          @endif
       </div>
     </div>
   </div>
 </section>
+@endif
 
 <!--  Recent Blog Posts Section  -->
 <section id="recent-posts" class="recent-posts sections-bg">

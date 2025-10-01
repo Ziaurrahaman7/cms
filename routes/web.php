@@ -51,6 +51,10 @@ Route::post('/job-apply', [App\Http\Controllers\JobApplicationController::class,
 // Careers page
 Route::get('/careers', [App\Http\Controllers\CareerController::class, 'index'])->name('careers.index');
 
+// Portfolio page
+Route::get('/portfolio', [App\Http\Controllers\PortfolioController::class, 'index'])->name('portfolio.index');
+Route::get('/portfolio/{portfolio}', [App\Http\Controllers\PortfolioController::class, 'show'])->name('portfolio.show');
+
 Route::middleware('auth')->group(function () {
     
     Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -256,6 +260,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/{partnerType}/edit', [App\Http\Controllers\AdminPartnerTypeController::class, 'edit'])->name('edit');
         Route::put('/{partnerType}', [App\Http\Controllers\AdminPartnerTypeController::class, 'update'])->name('update');
         Route::delete('/{partnerType}', [App\Http\Controllers\AdminPartnerTypeController::class, 'destroy'])->name('destroy');
+    });
+    
+    // Admin CTA Sections Management
+    Route::prefix('admin/cta-sections')->name('admin.cta-sections.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminCTASectionController::class, 'index'])->name('index');
+        Route::put('/update', [App\Http\Controllers\AdminCTASectionController::class, 'update'])->name('update');
     });
 });
 

@@ -69,7 +69,7 @@
             @endforelse
           </ul>
         </li>
-        <li><a href="{{ route('posts.index') }}" class="{{ request()->routeIs('posts.*') ? 'active' : '' }}">Blog</a></li>
+        <li><a href="{{ route('case-study.index') }}" class="{{ request()->routeIs('case-study.*') ? 'active' : '' }}">Case Study</a></li>
       </ul>
     </nav>
     <a href="{{ route('contact.index') }}" class="btn-get-started hide-on-mobile">Get Quotes</a>

@@ -68,7 +68,7 @@
                           <h3 class="text-black">Information</h3>
                       </div>
                         <ul class="list">
-                          <li><a href="{{ route('case-study.index') }}">Portfolio</a></li>
+                          <li><a href="{{ route('portfolio.index') }}">Portfolio</a></li>
                           <li><a href="{{ route('case-study.index') }}">Case Study</a></li>
                           <li><a href="{{ route('clients.index') }}">Clients</a></li>
                           <li><a href="{{ route('partners.index') }}">Partners</a></li>
