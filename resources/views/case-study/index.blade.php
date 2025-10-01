@@ -52,29 +52,40 @@
       </div>
       
       <div class="row g-4">
-        @forelse($portfolios as $portfolio)
+        @forelse($caseStudies as $caseStudy)
         <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
           <div class="card h-100 shadow-sm border-0 portfolio-card">
             <div class="card-img-top position-relative overflow-hidden" style="height: 250px;">
-              @if($portfolio->image && file_exists(public_path('storage/portfolios/' . $portfolio->image)))
-                <img src="{{ asset('storage/portfolios/' . $portfolio->image) }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $portfolio->title }}">
+              @if($caseStudy->featured_image)
+                <img src="{{ asset('storage/' . $caseStudy->featured_image) }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $caseStudy->title }}">
               @else
-                <img src="{{ asset('assets/images/portfolio/product-' . (($loop->index % 6) + 1) . '.jpg') }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $portfolio->title }}">
+                <img src="{{ asset('assets/images/portfolio/product-' . (($loop->index % 6) + 1) . '.jpg') }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $caseStudy->title }}">
               @endif
               <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center portfolio-overlay" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease;">
-                @if($portfolio->project_url)
-                  <a href="{{ $portfolio->project_url }}" target="_blank" class="btn btn-light btn-sm">
-                    <i class="bi bi-link-45deg me-1"></i>View Project
+                @if($caseStudy->project_url)
+                  <a href="{{ $caseStudy->project_url }}" target="_blank" class="btn btn-light btn-sm me-2">
+                    <i class="bi bi-link-45deg me-1"></i>Live Project
                   </a>
                 @endif
+                <a href="{{ route('case-study.show', $caseStudy->slug) }}" class="btn btn-warning btn-sm">
+                  <i class="bi bi-eye me-1"></i>Case Study
+                </a>
               </div>
             </div>
             <div class="card-body d-flex flex-column">
-              <h5 class="card-title mb-2">{{ $portfolio->title }}</h5>
-              <p class="card-text text-muted flex-grow-1">{{ Str::limit($portfolio->description, 120) }}</p>
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="badge bg-primary">{{ ucfirst($caseStudy->category) }}</span>
+                @if($caseStudy->client)
+                  <small class="text-muted">{{ $caseStudy->client }}</small>
+                @endif
+              </div>
+              <h5 class="card-title mb-2">{{ $caseStudy->title }}</h5>
+              <p class="card-text text-muted flex-grow-1">{{ Str::limit(strip_tags($caseStudy->description), 120) }}</p>
               <div class="mt-auto d-flex justify-content-between align-items-center">
-                <span class="badge bg-primary">{{ ucfirst($portfolio->category) }}</span>
-                <a href="{{ route('case-study.show', $portfolio) }}" class="btn btn-outline-primary btn-sm">View Details</a>
+                @if($caseStudy->project_date)
+                  <small class="text-muted">{{ $caseStudy->project_date->format('M Y') }}</small>
+                @endif
+                <a href="{{ route('case-study.show', $caseStudy->slug) }}" class="btn btn-outline-primary btn-sm">View Case Study</a>
               </div>
             </div>
           </div>

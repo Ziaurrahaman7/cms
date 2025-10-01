@@ -1,32 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CTA Sections Management - Admin</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100">
-    <div class="min-h-screen flex">
-        <!-- Sidebar -->
-        <div class="w-64 bg-gray-800 text-white">
-            <div class="p-6">
-                <h2 class="text-2xl font-bold">TechnoIT Admin</h2>
-            </div>
-            <nav class="mt-6">
-                <a href="{{ route('dashboard') }}" class="block px-6 py-3 hover:bg-gray-700">Dashboard</a>
-                <a href="{{ route('admin.cta-sections.index') }}" class="block px-6 py-3 bg-gray-700 text-white">CTA Sections</a>
-                <a href="{{ route('posts.index') }}" class="block px-6 py-3 hover:bg-gray-700">Posts</a>
-                <form method="POST" action="{{ route('logout') }}" class="block">
-                    @csrf
-                    <button type="submit" class="w-full text-left px-6 py-3 hover:bg-gray-700">Logout</button>
-                </form>
-            </nav>
-        </div>
-        
-        <!-- Main Content -->
-        <div class="flex-1 p-8">
+@extends('dashboard')
+
+@section('title', 'CTA Sections Management')
+
+@section('content')
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
@@ -149,7 +125,4 @@
         </div>
     </div>
 </div>
-        </div>
-    </div>
-</body>
-</html>
+@endsection

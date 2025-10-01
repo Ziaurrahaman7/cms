@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Portfolio;
+use App\Models\CaseStudyNew;
 use Illuminate\Http\Request;
 
 class CaseStudyController extends Controller
 {
     public function index()
     {
-        $portfolios = Portfolio::active()->ordered()->get();
+        $caseStudies = CaseStudyNew::active()->ordered()->get();
         
-        return view('case-study.index', compact('portfolios'));
+        return view('case-study.index', compact('caseStudies'));
     }
     
-    public function show(Portfolio $portfolio)
+    public function show($slug)
     {
-        return view('case-study.show', compact('portfolio'));
+        $caseStudy = CaseStudyNew::where('slug', $slug)->where('is_active', true)->firstOrFail();
+        
+        return view('case-study.show', compact('caseStudy'));
     }
 }

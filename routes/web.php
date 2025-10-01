@@ -21,7 +21,7 @@ Route::get('/certificates', [App\Http\Controllers\AboutController::class, 'certi
 
 // Case Study page
 Route::get('/case-study', [App\Http\Controllers\CaseStudyController::class, 'index'])->name('case-study.index');
-Route::get('/case-study/{portfolio}', [App\Http\Controllers\CaseStudyController::class, 'show'])->name('case-study.show');
+Route::get('/case-study/{slug}', [App\Http\Controllers\CaseStudyController::class, 'show'])->name('case-study.show');
 
 // Services page
 Route::get('/services', [App\Http\Controllers\ServicePageController::class, 'index'])->name('services.index');
@@ -266,6 +266,16 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin/cta-sections')->name('admin.cta-sections.')->group(function () {
         Route::get('/', [App\Http\Controllers\AdminCTASectionController::class, 'index'])->name('index');
         Route::put('/update', [App\Http\Controllers\AdminCTASectionController::class, 'update'])->name('update');
+    });
+    
+    // Admin Case Studies Management
+    Route::prefix('admin/case-studies')->name('admin.case-studies.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminCaseStudyController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminCaseStudyController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminCaseStudyController::class, 'store'])->name('store');
+        Route::get('/{caseStudy}/edit', [App\Http\Controllers\AdminCaseStudyController::class, 'edit'])->name('edit');
+        Route::put('/{caseStudy}', [App\Http\Controllers\AdminCaseStudyController::class, 'update'])->name('update');
+        Route::delete('/{caseStudy}', [App\Http\Controllers\AdminCaseStudyController::class, 'destroy'])->name('destroy');
     });
 });
 
