@@ -154,6 +154,14 @@
                     <span class="ml-auto bg-indigo-500 text-xs px-2 py-1 rounded-full">{{ \App\Models\Partner::count() }}</span>
                 </a>
                 
+                <a href="{{ route('admin.partner-types.index') }}" class="flex items-center px-6 py-3 {{ request()->routeIs('admin.partner-types.*') ? 'bg-secondary text-white border-r-4 border-blue-400' : 'text-gray-300 hover:bg-gray-700 hover:text-white transition-colors' }}">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a1.994 1.994 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                    </svg>
+                    Partner Types
+                    <span class="ml-auto bg-teal-500 text-xs px-2 py-1 rounded-full">{{ \App\Models\PartnerType::count() }}</span>
+                </a>
+                
                 <a href="{{ route('admin.jobs.index') }}" class="flex items-center px-6 py-3 {{ request()->routeIs('admin.jobs.*') ? 'bg-secondary text-white border-r-4 border-blue-400' : 'text-gray-300 hover:bg-gray-700 hover:text-white transition-colors' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>

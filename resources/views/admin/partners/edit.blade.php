@@ -56,10 +56,9 @@
                             <label class="block text-sm font-medium text-gray-700 mb-2">Partner Type *</label>
                             <select name="type" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <option value="">Select Type</option>
-                                <option value="technology" {{ old('type', $partner->type) === 'technology' ? 'selected' : '' }}>Technology</option>
-                                <option value="business" {{ old('type', $partner->type) === 'business' ? 'selected' : '' }}>Business</option>
-                                <option value="strategic" {{ old('type', $partner->type) === 'strategic' ? 'selected' : '' }}>Strategic</option>
-                                <option value="channel" {{ old('type', $partner->type) === 'channel' ? 'selected' : '' }}>Channel</option>
+                                @foreach(\App\Models\PartnerType::active()->ordered()->get() as $partnerType)
+                                    <option value="{{ $partnerType->slug }}" {{ old('type', $partner->type) === $partnerType->slug ? 'selected' : '' }}>{{ $partnerType->name }}</option>
+                                @endforeach
                             </select>
                             @error('type')
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>

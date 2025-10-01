@@ -247,6 +247,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [App\Http\Controllers\AdminCareerPageController::class, 'index'])->name('index');
         Route::put('/update', [App\Http\Controllers\AdminCareerPageController::class, 'update'])->name('update');
     });
+    
+    // Admin Partner Types Management
+    Route::prefix('admin/partner-types')->name('admin.partner-types.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminPartnerTypeController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminPartnerTypeController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminPartnerTypeController::class, 'store'])->name('store');
+        Route::get('/{partnerType}/edit', [App\Http\Controllers\AdminPartnerTypeController::class, 'edit'])->name('edit');
+        Route::put('/{partnerType}', [App\Http\Controllers\AdminPartnerTypeController::class, 'update'])->name('update');
+        Route::delete('/{partnerType}', [App\Http\Controllers\AdminPartnerTypeController::class, 'destroy'])->name('destroy');
+    });
 });
 
 require __DIR__.'/auth.php';
