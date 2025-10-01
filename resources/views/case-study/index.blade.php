@@ -8,15 +8,15 @@
 <section id="case-study-hero" class="hero sticked-header-offset" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 60vh; position: relative; overflow: hidden;">
   <div id="particles-js"></div>
   <div class="container position-relative">
-    <div class="row gy-5 align-items-center justify-content-center text-center" style="min-height: 60vh;">
+    <div class="text-center row gy-5 align-items-center justify-content-center" style="min-height: 60vh;">
       <div class="col-lg-8">
-        <h1 class="text-white mb-4" data-aos="fade-up" style="font-size: 3.5rem; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Case Studies</h1>
-        <p class="text-white-50 mb-4 fs-5" data-aos="fade-up" data-aos-delay="200">Discover how we've helped businesses achieve their goals through innovative solutions and strategic implementations.</p>
-        <div class="d-flex justify-content-center gap-3" data-aos="fade-up" data-aos-delay="400">
-          <a href="#case-studies" class="btn btn-light btn-lg px-4 py-3 rounded-pill">
+        <h1 class="mb-4 text-white" data-aos="fade-up" style="font-size: 3.5rem; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Case Studies</h1>
+        <p class="mb-4 text-white-50 fs-5" data-aos="fade-up" data-aos-delay="200">Discover how we've helped businesses achieve their goals through innovative solutions and strategic implementations.</p>
+        <div class="gap-3 d-flex justify-content-center" data-aos="fade-up" data-aos-delay="400">
+          <a href="#case-studies" class="px-4 py-3 btn btn-light btn-lg rounded-pill">
             <i class="bi bi-arrow-down me-2"></i>View Projects
           </a>
-          <a href="{{ route('contact.index') }}" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill">
+          <a href="{{ route('contact.index') }}" class="px-4 py-3 btn btn-outline-light btn-lg rounded-pill">
             <i class="bi bi-chat-dots me-2"></i>Discuss Your Project
           </a>
         </div>
@@ -31,37 +31,25 @@
 </section>
 
 <!-- Case Studies Section -->
-<section id="case-studies" class="portfolio py-5">
+<section id="case-studies" class="py-5 portfolio">
   <div class="container" data-aos="fade-up">
-    <div class="section-header text-center mb-5">
+    <div class="mb-5 text-center section-header">
       <h2 class="mb-3">Our Success Stories</h2>
       <p class="text-muted">Real projects, real results - see how we've transformed businesses</p>
     </div>
     
-    <div class="portfolio-isotope" data-portfolio-filter="*" data-portfolio-layout="masonry" data-portfolio-sort="original-order" data-aos="fade-up" data-aos-delay="100">
-      <div>
-        <ul class="portfolio-flters">
-          <li data-filter="*" class="filter-active">All</li>
-          @php
-            $portfolioCategories = App\Models\PortfolioCategory::active()->ordered()->get();
-          @endphp
-          @foreach($portfolioCategories as $category)
-            <li data-filter=".filter-{{ $category->slug }}">{{ $category->name }}</li>
-          @endforeach
-        </ul>
-      </div>
-      
+    <div class="portfolio-isotope" data-portfolio-filter="*" data-portfolio-layout="masonry" data-portfolio-sort="original-order" data-aos="fade-up" data-aos-delay="100">    
       <div class="row g-4">
         @forelse($caseStudies as $caseStudy)
         <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-          <div class="card h-100 shadow-sm border-0 portfolio-card">
-            <div class="card-img-top position-relative overflow-hidden" style="height: 250px;">
+          <div class="border-0 shadow-sm card h-100 portfolio-card">
+            <div class="overflow-hidden card-img-top position-relative" style="height: 250px;">
               @if($caseStudy->featured_image)
                 <img src="{{ asset('storage/' . $caseStudy->featured_image) }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $caseStudy->title }}">
               @else
                 <img src="{{ asset('assets/images/portfolio/product-' . (($loop->index % 6) + 1) . '.jpg') }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $caseStudy->title }}">
               @endif
-              <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center portfolio-overlay" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease;">
+              <div class="top-0 position-absolute start-0 w-100 h-100 d-flex align-items-center justify-content-center portfolio-overlay" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease;">
                 @if($caseStudy->project_url)
                   <a href="{{ $caseStudy->project_url }}" target="_blank" class="btn btn-light btn-sm me-2">
                     <i class="bi bi-link-45deg me-1"></i>Live Project
@@ -73,13 +61,13 @@
               </div>
             </div>
             <div class="card-body d-flex flex-column">
-              <div class="d-flex justify-content-between align-items-start mb-2">
+              <div class="mb-2 d-flex justify-content-between align-items-start">
                 <span class="badge bg-primary">{{ ucfirst($caseStudy->category) }}</span>
                 @if($caseStudy->client)
                   <small class="text-muted">{{ $caseStudy->client }}</small>
                 @endif
               </div>
-              <h5 class="card-title mb-2">{{ $caseStudy->title }}</h5>
+              <h5 class="mb-2 card-title">{{ $caseStudy->title }}</h5>
               <p class="card-text text-muted flex-grow-1">{{ Str::limit(strip_tags($caseStudy->description), 120) }}</p>
               <div class="mt-auto d-flex justify-content-between align-items-center">
                 @if($caseStudy->project_date)
@@ -91,7 +79,7 @@
           </div>
         </div>
         @empty
-        <div class="col-12 text-center py-5">
+        <div class="py-5 text-center col-12">
           <h3 class="text-muted">No case studies available</h3>
           <p class="text-muted">We're working on showcasing our projects. Check back soon!</p>
         </div>
@@ -106,13 +94,13 @@
   <div class="container text-center">
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <h2 class="text-white mb-4">Ready to Start Your Success Story?</h2>
-        <p class="text-white-50 mb-4 fs-5">Let's discuss how we can help transform your business with our proven expertise and innovative solutions.</p>
-        <div class="d-flex justify-content-center gap-3">
-          <a href="#contact" class="btn btn-light btn-lg px-4 py-3 rounded-pill">
+        <h2 class="mb-4 text-white">Ready to Start Your Success Story?</h2>
+        <p class="mb-4 text-white-50 fs-5">Let's discuss how we can help transform your business with our proven expertise and innovative solutions.</p>
+        <div class="gap-3 d-flex justify-content-center">
+          <a href="#contact" class="px-4 py-3 btn btn-light btn-lg rounded-pill">
             <i class="bi bi-chat-dots me-2"></i>Start a Conversation
           </a>
-          <a href="{{ route('home') }}#services" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill">
+          <a href="{{ route('home') }}#services" class="px-4 py-3 btn btn-outline-light btn-lg rounded-pill">
             <i class="bi bi-gear me-2"></i>View Our Services
           </a>
         </div>
