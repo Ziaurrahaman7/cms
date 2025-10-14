@@ -10,7 +10,7 @@ class AdminCaseStudyController extends Controller
 {
     public function index()
     {
-        $caseStudies = CaseStudyNew::ordered()->paginate(10);
+        $caseStudies = CaseStudyNew::with('service')->ordered()->paginate(10);
         return view('admin.case-studies.index', compact('caseStudies'));
     }
 
@@ -24,7 +24,7 @@ class AdminCaseStudyController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'category' => 'required|string'
+            'service_id' => 'required|exists:services,id'
         ]);
 
         $data = $request->except(['_token']);
@@ -87,7 +87,7 @@ class AdminCaseStudyController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'category' => 'required|string'
+            'service_id' => 'required|exists:services,id'
         ]);
 
         $data = $request->except(['_token', '_method']);

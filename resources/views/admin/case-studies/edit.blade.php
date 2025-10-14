@@ -37,8 +37,16 @@
                         <input type="text" name="title" value="{{ $caseStudy->title }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
-                        <input type="text" name="category" value="{{ $caseStudy->category }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Service *</label>
+                        <select name="service_id" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('service_id') border-red-500 @enderror" required>
+                            <option value="">Select a service</option>
+                            @foreach(App\Models\Service::orderBy('title')->get() as $service)
+                                <option value="{{ $service->id }}" {{ (old('service_id', $caseStudy->service_id) == $service->id) ? 'selected' : '' }}>{{ $service->title }}</option>
+                            @endforeach
+                        </select>
+                        @error('service_id')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Client</label>

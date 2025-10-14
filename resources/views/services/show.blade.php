@@ -320,6 +320,59 @@
 </section>
 @endif
 
+<!-- Related Case Studies Section -->
+@if($relatedCaseStudies && $relatedCaseStudies->count() > 0)
+<section class="py-5">
+  <div class="container">
+    <div class="mb-5 text-center">
+      <h2 class="mb-3">Our {{ $service->title }} Success Stories</h2>
+      <p class="text-muted">Real projects showcasing our expertise in {{ $service->title }}</p>
+    </div>
+    
+    <div class="row g-4">
+      @foreach($relatedCaseStudies as $caseStudy)
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+        <div class="border-0 shadow-sm card h-100 case-study-card">
+          <div class="overflow-hidden position-relative" style="height: 200px;">
+            @if($caseStudy->featured_image)
+              <img src="{{ asset('storage/' . $caseStudy->featured_image) }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $caseStudy->title }}">
+            @else
+              <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <i class="text-white bi bi-briefcase" style="font-size: 3rem;"></i>
+              </div>
+            @endif
+          </div>
+          <div class="card-body d-flex flex-column">
+            <div class="mb-2">
+              <span class="badge bg-primary">{{ $caseStudy->service ? $caseStudy->service->title : 'Case Study' }}</span>
+            </div>
+            <h5 class="mb-2 card-title">{{ $caseStudy->title }}</h5>
+            <p class="card-text text-muted flex-grow-1">{{ Str::limit(strip_tags($caseStudy->description), 100) }}</p>
+            <div class="mt-auto">
+              @if($caseStudy->client)
+                <p class="text-muted">{{ $caseStudy->client }}</p>
+              @endif
+              <a href="{{ route('case-study.show', $caseStudy->slug) }}" class="btn btn-sm">
+                <i class="bi bi-arrow-right me-1"></i>Details
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      @endforeach
+    </div>
+    
+    @if($relatedCaseStudies->count() >= 6)
+    <div class="mt-5 text-center">
+      <a href="{{ route('case-study.index') }}" class="px-4 py-3 btn btn-primary btn-lg rounded-pill">
+        <i class="bi bi-grid me-2"></i>View All Case Studies
+      </a>
+    </div>
+    @endif
+  </div>
+</section>
+@endif
+
 <!-- CTA Section -->
 <section class="py-5" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
   <div class="container">
@@ -358,7 +411,8 @@
 .service-box:hover,
 .feature-card:hover,
 .serve-box:hover,
-.portfolio-item:hover {
+.portfolio-item:hover,
+.case-study-card:hover {
   transform: translateY(-5px);
   transition: all 0.3s ease;
 }
@@ -370,7 +424,8 @@
 }
 
 .feature-card:hover .feature-image img,
-.portfolio-item:hover .portfolio-image img {
+.portfolio-item:hover .portfolio-image img,
+.case-study-card:hover img {
   transform: scale(1.05);
   transition: all 0.3s ease;
 }

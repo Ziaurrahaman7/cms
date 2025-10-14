@@ -14,6 +14,12 @@ class ServiceController extends Controller
             $query->where('is_active', true)->orderBy('sort_order');
         }]);
         
-        return view('services.show', compact('service'));
+        $relatedCaseStudies = \App\Models\CaseStudyNew::where('service_id', $service->id)
+            ->where('is_active', true)
+            ->orderBy('created_at', 'desc')
+            ->limit(6)
+            ->get();
+        
+        return view('services.show', compact('service', 'relatedCaseStudies'));
     }
 }

@@ -14,6 +14,7 @@ class CaseStudyNew extends Model
         'slug',
         'description',
         'category',
+        'service_id',
         'client',
         'project_url',
         'project_date',
@@ -57,6 +58,11 @@ class CaseStudyNew extends Model
     public function scopeOrdered($query)
     {
         return $query->orderBy('sort_order')->orderBy('created_at', 'desc');
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
     }
 
     public function getClientTestimonialAttribute($value)

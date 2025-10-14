@@ -62,7 +62,7 @@
             </div>
             <div class="card-body d-flex flex-column">
               <div class="mb-2 d-flex justify-content-between align-items-start">
-                <span class="badge bg-primary">{{ ucfirst($caseStudy->category) }}</span>
+                <span class="badge bg-primary">{{ $caseStudy->service ? $caseStudy->service->title : 'Service' }}</span>
                 @if($caseStudy->client)
                   <small class="text-muted">{{ $caseStudy->client }}</small>
                 @endif

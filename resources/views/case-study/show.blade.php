@@ -13,7 +13,7 @@
       <div class="col-lg-6">
         <div class="text-white hero-content">
 
-          <span class="px-3 py-2 mb-3 badge bg-warning text-dark">{{ ucfirst($caseStudy->category) }} Case Study</span>
+          <span class="px-3 py-2 mb-3 badge bg-warning text-dark">{{ $caseStudy->service ? $caseStudy->service->title : 'Service' }} Case Study</span>
           <h1 class="mb-4 display-4 fw-bold" data-aos="fade-up">{{ $caseStudy->title }}</h1>
           <p class="mb-4 fs-5 lead" data-aos="fade-up" data-aos-delay="200">{{ Str::limit(strip_tags($caseStudy->description), 200) }}</p>
           <div class="flex-wrap gap-3 d-flex" data-aos="fade-up" data-aos-delay="400">
@@ -75,8 +75,8 @@
                   </div>
                 </div>
                 <div>
-                  <small class="text-muted d-block">Category</small>
-                  <strong class="text-dark fs-6">{{ ucfirst($caseStudy->category) }}</strong>
+                  <small class="text-muted d-block">Service Category</small>
+                  <strong class="text-dark fs-6">{{ $caseStudy->service ? $caseStudy->service->title : 'N/A' }}</strong>
                 </div>
               </div>
             </div>

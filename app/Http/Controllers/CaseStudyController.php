@@ -9,14 +9,14 @@ class CaseStudyController extends Controller
 {
     public function index()
     {
-        $caseStudies = CaseStudyNew::active()->ordered()->get();
+        $caseStudies = CaseStudyNew::with('service')->active()->ordered()->get();
         
         return view('case-study.index', compact('caseStudies'));
     }
     
     public function show($slug)
     {
-        $caseStudy = CaseStudyNew::where('slug', $slug)->where('is_active', true)->firstOrFail();
+        $caseStudy = CaseStudyNew::with('service')->where('slug', $slug)->where('is_active', true)->firstOrFail();
         
         return view('case-study.show', compact('caseStudy'));
     }

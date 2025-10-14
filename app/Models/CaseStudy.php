@@ -16,6 +16,7 @@ class CaseStudy extends Model
         'content',
         'image',
         'category',
+        'service_id',
         'client_name',
         'project_duration',
         'technologies',
@@ -45,6 +46,11 @@ class CaseStudy extends Model
     public function scopeOrdered($query)
     {
         return $query->orderBy('sort_order')->orderBy('created_at', 'desc');
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
     }
 
     public function getRouteKeyName()
