@@ -49,7 +49,7 @@
               @else
                 <img src="{{ asset('assets/images/portfolio/product-' . (($loop->index % 6) + 1) . '.jpg') }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $caseStudy->title }}">
               @endif
-              <div class="top-0 position-absolute start-0 w-100 h-100 d-flex align-items-center justify-content-center portfolio-overlay" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease;">
+              {{-- <div class="top-0 position-absolute start-0 w-100 h-100 d-flex align-items-center justify-content-center portfolio-overlay" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease;">
                 @if($caseStudy->project_url)
                   <a href="{{ $caseStudy->project_url }}" target="_blank" class="btn btn-light btn-sm me-2">
                     <i class="bi bi-link-45deg me-1"></i>Live Project
@@ -58,7 +58,7 @@
                 <a href="{{ route('case-study.show', $caseStudy->slug) }}" class="btn btn-warning btn-sm">
                   <i class="bi bi-eye me-1"></i>Case Study
                 </a>
-              </div>
+              </div> --}}
             </div>
             <div class="card-body d-flex flex-column">
               <div class="mb-2 d-flex justify-content-between align-items-start">
@@ -73,7 +73,7 @@
                 @if($caseStudy->project_date)
                   <small class="text-muted">{{ $caseStudy->project_date->format('M Y') }}</small>
                 @endif
-                <a href="{{ route('case-study.show', $caseStudy->slug) }}" class="btn btn-outline-primary btn-sm">View Case Study</a>
+                <a href="{{ route('case-study.show', $caseStudy->slug) }}" class="btn btn-sm">View Case Study</a>
               </div>
             </div>
           </div>

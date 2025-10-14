@@ -17,14 +17,17 @@
           <h1 class="mb-4 display-4 fw-bold" data-aos="fade-up">{{ $caseStudy->title }}</h1>
           <p class="mb-4 fs-5 lead" data-aos="fade-up" data-aos-delay="200">{{ Str::limit(strip_tags($caseStudy->description), 200) }}</p>
           <div class="flex-wrap gap-3 d-flex" data-aos="fade-up" data-aos-delay="400">
-            @if($caseStudy->project_url)
+            {{-- @if($caseStudy->project_url)
               <a href="{{ $caseStudy->project_url }}" target="_blank" class="px-4 py-3 btn btn-warning btn-lg rounded-pill fw-bold">
                 <i class="bi bi-link-45deg me-2"></i>View Live Project
               </a>
             @endif
             <a href="#case-study-details" class="px-4 py-3 btn btn-outline-light btn-lg rounded-pill fw-bold">
               <i class="bi bi-arrow-down me-2"></i>Read Case Study
-            </a>
+            </a> --}}
+            <button type="button" class="px-4 py-3 btn btn-warning btn-lg rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#contactModal">
+              <i class="bi bi-envelope me-2"></i>Contact Us
+            </button>
           </div>
         </div>
       </div>
@@ -385,6 +388,71 @@
     </div>
   </div>
 </section>
+
+<!-- Contact Modal -->
+<div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="contactModalLabel">Send Us a Message</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <form id="contactForm" method="POST" action="{{ route('contact.store') }}">
+          @csrf
+          <div class="row g-4">
+            <div class="col-md-6">
+              <label for="name" class="form-label fw-medium">Full Name *</label>
+              <input type="text" class="form-control form-control-lg @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
+              @error('name')
+                <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+            </div>
+            <div class="col-md-6">
+              <label for="email" class="form-label fw-medium">Email Address *</label>
+              <input type="email" class="form-control form-control-lg @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required>
+              @error('email')
+                <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+            </div>
+            <div class="col-md-6">
+              <label for="phone" class="form-label fw-medium">Phone Number</label>
+              <input type="tel" class="form-control form-control-lg" id="phone" name="phone" value="{{ old('phone') }}">
+            </div>
+            <div class="col-md-6">
+              <label for="company" class="form-label fw-medium">Company</label>
+              <input type="text" class="form-control form-control-lg" id="company" name="company" value="{{ old('company') }}">
+            </div>
+            <div class="col-12">
+              <label for="service" class="form-label fw-medium">Case Study Interested In</label>
+              <select class="form-control form-control-lg" id="service" name="service">
+                @php
+                  $allCaseStudies = App\Models\CaseStudy::orderBy('title')->get();
+                @endphp
+                @foreach($allCaseStudies as $cs)
+                  <option value="{{ $cs->title }}" {{ $cs->id === $caseStudy->id ? 'selected' : '' }}>{{ $cs->title }}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="col-12">
+              <label for="message" class="form-label fw-medium">Project Details *</label>
+              <textarea class="form-control form-control-lg @error('message') is-invalid @enderror" id="message" name="message" rows="6" placeholder="Tell us about your project requirements, timeline, and budget..." required>{{ old('message') }}</textarea>
+              @error('message')
+                <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" form="contactForm" class="px-4 py-2 btn btn-primary fw-bold" style="background: linear-gradient(45deg, #667eea, #764ba2); border: none;">
+          <i class="bi bi-send me-2"></i>Send Message
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <style>
 .hover-lift {
