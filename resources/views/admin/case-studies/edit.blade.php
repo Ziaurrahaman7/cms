@@ -37,6 +37,10 @@
                         <input type="text" name="title" value="{{ $caseStudy->title }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                     </div>
                     <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
+                        <input type="text" name="slug" value="{{ $caseStudy->slug }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Service *</label>
                         <select name="service_id" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('service_id') border-red-500 @enderror" required>
                             <option value="">Select a service</option>
@@ -357,11 +361,114 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     });
 });
 
+// Add section functionality
+let sectionCount = {{ $caseStudy->sections ? count($caseStudy->sections) : 0 }};
+document.getElementById('add-section').addEventListener('click', function() {
+    const container = document.getElementById('sections-container');
+    const sectionHtml = `
+        <div class="section-item border border-gray-200 rounded-md p-4 mb-4">
+            <div class="flex justify-between items-center mb-4">
+                <h4 class="font-medium">Section ${sectionCount + 1}</h4>
+                <button type="button" class="remove-section text-red-600 hover:text-red-800">Remove</button>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Section Title</label>
+                <input type="text" name="sections[${sectionCount}][title]" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Section Image</label>
+                <input type="file" name="sections[${sectionCount}][image]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+            </div>
+            <div class="mt-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Section Content</label>
+                <textarea name="sections[${sectionCount}][content]" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+            </div>
+        </div>
+    `;
+    container.insertAdjacentHTML('beforeend', sectionHtml);
+    sectionCount++;
+});
+
+// Add process functionality
+let processCount = {{ $caseStudy->work_process ? count($caseStudy->work_process) : 0 }};
+document.getElementById('add-process').addEventListener('click', function() {
+    const container = document.getElementById('process-container');
+    const processHtml = `
+        <div class="process-item border border-gray-200 rounded-md p-4 mb-4">
+            <div class="flex justify-between items-center mb-4">
+                <h4 class="font-medium">Process Step ${processCount + 1}</h4>
+                <button type="button" class="remove-process text-red-600 hover:text-red-800">Remove</button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Step Title</label>
+                    <input type="text" name="work_process[${processCount}][title]" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Step Order</label>
+                    <input type="number" name="work_process[${processCount}][order]" value="${processCount + 1}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                </div>
+            </div>
+            <div class="mt-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Step Description</label>
+                <textarea name="work_process[${processCount}][description]" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+            </div>
+        </div>
+    `;
+    container.insertAdjacentHTML('beforeend', processHtml);
+    processCount++;
+});
+
+// Add technology functionality
+let technologyCount = {{ $caseStudy->technologies ? count($caseStudy->technologies) : 0 }};
+document.getElementById('add-technology').addEventListener('click', function() {
+    const container = document.getElementById('technologies-container');
+    const technologyHtml = `
+        <div class="technology-item border border-gray-200 rounded-md p-4 mb-4">
+            <div class="flex justify-between items-center mb-4">
+                <h4 class="font-medium">Technology ${technologyCount + 1}</h4>
+                <button type="button" class="remove-technology text-red-600 hover:text-red-800">
+                    <i class="bi bi-x-circle"></i> Remove
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Technology Name</label>
+                    <input type="text" name="technologies[${technologyCount}][name]" class="w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="e.g., Laravel">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
+                    <input type="text" name="technologies[${technologyCount}][icon]" class="w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="e.g., bi bi-code-slash">
+                </div>
+            </div>
+        </div>
+    `;
+    container.insertAdjacentHTML('beforeend', technologyHtml);
+    technologyCount++;
+});
+
 // Remove functionality
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('remove-section')) {
         e.target.closest('.section-item').remove();
     }
+    if (e.target.classList.contains('remove-process')) {
+        e.target.closest('.process-item').remove();
+    }
+    if (e.target.classList.contains('remove-technology') || e.target.closest('.remove-technology')) {
+        e.target.closest('.technology-item').remove();
+    }
+});
+
+// Auto-generate slug from title
+document.querySelector('input[name="title"]').addEventListener('input', function() {
+    const title = this.value;
+    const slug = title.toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .trim('-');
+    document.querySelector('input[name="slug"]').value = slug;
 });
 </script>
 @endsection

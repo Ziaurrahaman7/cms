@@ -36,6 +36,10 @@
                         <input type="text" name="title" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                     </div>
                     <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Slug</label>
+                        <input type="text" name="slug" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Leave empty to auto-generate from title">
+                    </div>
+                    <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Service *</label>
                         <select name="service_id" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('service_id') border-red-500 @enderror" required>
                             <option value="">Select a service</option>
@@ -356,6 +360,17 @@ document.addEventListener('click', function(e) {
     if (e.target.classList.contains('remove-technology') || e.target.closest('.remove-technology')) {
         e.target.closest('.technology-item').remove();
     }
+});
+
+// Auto-generate slug from title
+document.querySelector('input[name="title"]').addEventListener('input', function() {
+    const title = this.value;
+    const slug = title.toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .trim('-');
+    document.querySelector('input[name="slug"]').value = slug;
 });
 </script>
 @endsection
