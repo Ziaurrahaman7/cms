@@ -228,13 +228,12 @@
                 @endif
               </div>
             </div>
-            <div class="card-body d-flex flex-column">
+            <div class="card-body">
               <h5 class="mb-2 card-title">{{ $portfolio->title }}</h5>
-              <p class="card-text text-muted flex-grow-1">{{ Str::limit($portfolio->description, 120) }}</p>
-              <div class="mt-auto d-flex justify-content-between align-items-center">
-                <span class="badge bg-primary">{{ ucfirst($portfolio->category) }}</span>
-                <a href="{{ route('case-study.show', $portfolio) }}" class="btn btn-sm">View Details</a>
-              </div>
+              <p class="card-text text-muted">{{ Str::limit($portfolio->description, 120) }}</p>
+              <span class="mb-2 badge bg-primary">{{ ucfirst($portfolio->category) }}</span>
+              <br>
+              <a href="{{ route('portfolio.show', $portfolio) }}" class="btn btn-sm" style="border: 2px solid #007bff; color: #007bff; background: transparent; font-size: 12px; padding: 6px 12px;">View Details</a>
             </div>
           </div>
         </div>
@@ -244,13 +243,12 @@
             <div class="card-img-top" style="height: 250px; background: linear-gradient(45deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center;">
               <i class="text-white bi bi-trophy" style="font-size: 3rem;"></i>
             </div>
-            <div class="card-body d-flex flex-column">
+            <div class="card-body">
               <h5 class="mb-2 card-title">Digital Transformation</h5>
-              <p class="card-text text-muted flex-grow-1">How we helped a leading company modernize their operations and increase efficiency by 40%.</p>
-              <div class="mt-auto d-flex justify-content-between align-items-center">
-                <span class="badge bg-primary">Success</span>
-                <a href="{{ route('case-study.index') }}" class="btn btn-outline-primary btn-sm">View Details</a>
-              </div>
+              <p class="card-text text-muted">How we helped a leading company modernize their operations and increase efficiency by 40%.</p>
+              <span class="mb-2 badge bg-primary">Success</span>
+              <br>
+              <a href="{{ route('portfolio.index') }}" class="btn btn-sm" style="border: 2px solid #007bff; color: #007bff; background: transparent; font-size: 12px; padding: 6px 12px;">View Details</a>
             </div>
           </div>
         </div>

@@ -49,7 +49,7 @@
       <div class="col-lg-6" data-aos="fade-left">
         <div class="about-content">
           <h2 class="mb-4">About {{ $product->title }}</h2>
-          <p class="mb-4 text-muted">{{ $product->description }}</p>
+          {{-- <p class="mb-4 text-muted">{{ $product->description }}</p> --}}
           <p class="text-muted">{!! $product->content ?: 'Our ' . $product->title . ' solution is designed to meet the evolving needs of modern businesses. With cutting-edge technology and user-friendly interfaces, we deliver exceptional performance and reliability that you can count on.' !!}</p>
         </div>
       </div>

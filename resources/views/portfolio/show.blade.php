@@ -241,6 +241,15 @@
   </div>
 </section>
 
+@php
+  $relatedPortfolios = \App\Models\Portfolio::active()
+    ->where('category', $portfolio->category)
+    ->where('id', '!=', $portfolio->id)
+    ->take(3)
+    ->get();
+@endphp
+
+@if($relatedPortfolios->count() > 0)
 <!-- Related Projects Section -->
 <section class="py-5" style="background: #f8f9fa;">
   <div class="container">
@@ -250,15 +259,7 @@
     </div>
     
     <div class="row g-4">
-      @php
-        $relatedPortfolios = \App\Models\Portfolio::active()
-          ->where('category', $portfolio->category)
-          ->where('id', '!=', $portfolio->id)
-          ->take(3)
-          ->get();
-      @endphp
-      
-      @forelse($relatedPortfolios as $related)
+      @foreach($relatedPortfolios as $related)
       <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
         <div class="border-0 shadow-sm card h-100 hover-lift" style="transition: all 0.3s ease;">
           <div class="overflow-hidden card-img-top position-relative" style="height: 250px;">
@@ -285,16 +286,11 @@
           </div>
         </div>
       </div>
-      @empty
-      <div class="py-5 text-center col-12">
-        <h4 class="text-muted">No related projects found</h4>
-        <p class="text-muted">Check out our other amazing projects</p>
-        <a href="{{ route('portfolio.index') }}" class="px-4 btn btn-primary rounded-pill">View All Projects</a>
-      </div>
-      @endforelse
+      @endforeach
     </div>
   </div>
 </section>
+@endif
 
 <!-- Client Reviews Section -->
 @if(isset($portfolio->client_reviews) && is_array($portfolio->client_reviews) && count($portfolio->client_reviews) > 0)
