@@ -37,7 +37,7 @@
 <section class="py-5">
   <div class="container">
     <div class="row align-items-center">
-      <div class="col-lg-6" data-aos="fade-right">
+      <div class="col-lg-6 order-2 order-lg-0 mb-4 mb-lg-0" data-aos="fade-right">
         <div class="about-image">
           @if($product->image)
           <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}" class="rounded shadow img-fluid">
@@ -46,7 +46,7 @@
           @endif
         </div>
       </div>
-      <div class="col-lg-6" data-aos="fade-left">
+      <div class="col-lg-6 order-1 order-lg-1" data-aos="fade-left">
         <div class="about-content">
           <h2 class="mb-4">About {{ $product->title }}</h2>
           {{-- <p class="mb-4 text-muted">{{ $product->description }}</p> --}}
