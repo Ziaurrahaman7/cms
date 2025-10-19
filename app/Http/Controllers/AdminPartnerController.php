@@ -22,9 +22,10 @@ class AdminPartnerController extends Controller
 
     public function store(Request $request)
     {
+        $validTypes = \App\Models\PartnerType::active()->pluck('slug')->toArray();
         $request->validate([
             'name' => 'required|string|max:255',
-            'type' => 'required|in:technology,business,strategic,channel',
+            'type' => 'required|in:' . implode(',', $validTypes),
             'description' => 'required|string',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'sort_order' => 'nullable|integer',
@@ -67,9 +68,10 @@ class AdminPartnerController extends Controller
 
     public function update(Request $request, Partner $partner)
     {
+        $validTypes = \App\Models\PartnerType::active()->pluck('slug')->toArray();
         $request->validate([
             'name' => 'required|string|max:255',
-            'type' => 'required|in:technology,business,strategic,channel',
+            'type' => 'required|in:' . implode(',', $validTypes),
             'description' => 'required|string',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'sort_order' => 'nullable|integer'
