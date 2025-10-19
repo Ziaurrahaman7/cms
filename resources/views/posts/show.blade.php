@@ -15,7 +15,7 @@
       <div class="col-lg-8 mx-auto text-center">
         <div class="hero-content text-white">
           <span class="badge bg-light text-dark px-3 py-2 mb-3" style="font-size: 14px; border-radius: 20px;">{{ $post->created_at->format('M d, Y') }}</span>
-          <h1 class="display-4 fw-bold mb-4" style="line-height: 1.2;">{{ $post->title }}</h1>
+          <h1 class="display-4 fw-bold mb-4 text-white" style="line-height: 1.2; color: white !important;">{{ $post->title }}</h1>
           <p class="lead mb-4" style="font-size: 1.2rem; opacity: 0.9;">{{ $post->meta_description ?? 'Discover insights and knowledge in this comprehensive article.' }}</p>
           <div class="hero-meta d-flex justify-content-center align-items-center gap-4">
             <div class="d-flex align-items-center">
