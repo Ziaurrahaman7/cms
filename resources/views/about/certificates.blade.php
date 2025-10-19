@@ -25,7 +25,7 @@
         <div class="p-4 text-center bg-white shadow-sm achievement-card rounded-4 h-100">
           <div class="mb-3 achievement-icon">
             @if($achievement->image && file_exists(public_path('storage/achievements/' . $achievement->image)))
-              <img src="{{ asset('storage/achievements/' . $achievement->image) }}" alt="{{ $achievement->title }}" class="img-fluid rounded-3" style="width: 100%; height: 200px; object-fit: cover;">
+              <img src="{{ asset('storage/achievements/' . $achievement->image) }}" alt="{{ $achievement->title }}" class="img-fluid rounded-3" style="width: 100%; height: 200px; object-fit: contain;">
             @else
               <div class="mx-auto rounded-3" style="width: 100%; height: 200px; background: linear-gradient(45deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center;">
                 <i class="text-white bi bi-award" style="font-size: 3rem;"></i>
