@@ -12,13 +12,11 @@
         <div class="hero-content">
           <h1 class="mb-4 text-white" data-aos="fade-up">{{ $partner->name }}</h1>
           <p class="mb-5 fs-5 lead text-white-50" data-aos="fade-up" data-aos-delay="200">{{ $partner->description }}</p>
-          @if($partner->website)
-            <div class="flex-wrap gap-3 d-flex" data-aos="fade-up" data-aos-delay="400">
-              <a href="{{ $partner->website }}" target="_blank" class="px-5 py-3 btn btn-warning btn-lg rounded-pill fw-bold">
-                <i class="bi bi-globe me-2"></i>Visit Website
-              </a>
-            </div>
-          @endif
+          <div class="flex-wrap gap-3 d-flex" data-aos="fade-up" data-aos-delay="400">
+            <button type="button" class="px-5 py-3 btn btn-warning btn-lg rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#partnerModal">
+              <i class="bi bi-handshake me-2"></i>Become a Partner
+            </button>
+          </div>
         </div>
       </div>
       @if($partner->logo)
@@ -122,4 +120,53 @@
     </div>
   </div>
 </section>
+
+<!-- Partner Contact Modal -->
+<div class="modal fade" id="partnerModal" tabindex="-1" aria-labelledby="partnerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="partnerModalLabel">Become a Partner</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <form id="partnerForm" action="{{ route('contact.store') }}" method="POST">
+          @csrf
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="modal_name" class="form-label">Name *</label>
+              <input type="text" class="form-control" id="modal_name" name="name" required>
+            </div>
+            <div class="col-md-6">
+              <label for="modal_email" class="form-label">Email *</label>
+              <input type="email" class="form-control" id="modal_email" name="email" required>
+            </div>
+            <div class="col-md-6">
+              <label for="modal_phone" class="form-label">Phone</label>
+              <input type="tel" class="form-control" id="modal_phone" name="phone">
+            </div>
+            <div class="col-md-6">
+              <label for="modal_company" class="form-label">Company</label>
+              <input type="text" class="form-control" id="modal_company" name="company">
+            </div>
+            <div class="col-12">
+              <label for="modal_subject" class="form-label">Subject *</label>
+              <input type="text" class="form-control" id="modal_subject" name="subject" value="Partnership Inquiry - {{ $partner->name }}" required>
+            </div>
+            <div class="col-12">
+              <label for="modal_message" class="form-label">Message *</label>
+              <textarea class="form-control" id="modal_message" name="message" rows="4" placeholder="Tell us about your partnership interest and how we can work together..." required></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" form="partnerForm" class="btn btn-primary">
+          <i class="bi bi-send me-2"></i>Send Message
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
