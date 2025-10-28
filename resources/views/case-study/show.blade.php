@@ -105,15 +105,15 @@
 <section class="py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
   <div class="container">
     <div class="mb-5 text-center">
-      <h2 class="mb-3 display-6 fw-bold text-white">Our Work Process</h2>
+      <h2 class="mb-3 text-white display-6 fw-bold">Our Work Process</h2>
       <p class="text-white-50 fs-5">Step by step approach to deliver excellence</p>
     </div>
     
     <div class="row g-4">
       @foreach($caseStudy->work_process as $index => $process)
       <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
-        <div class="card border-0 shadow-lg h-100 process-card" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);">
-          <div class="card-body text-center p-4">
+        <div class="border-0 shadow-lg card h-100 process-card" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);">
+          <div class="p-4 text-center card-body">
             <div class="mb-4 process-number position-relative">
               <div class="d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background: linear-gradient(45deg, #ffd700, #ff6b6b); border-radius: 50%; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
                 <span class="text-white fw-bold" style="font-size: 1.8rem;">{{ is_array($process) ? ($process['order'] ?? $index + 1) : $index + 1 }}</span>
@@ -122,13 +122,13 @@
             
             <div class="process-content">
               <h4 class="mb-3 fw-bold text-dark">{{ is_array($process) ? ($process['title'] ?? 'Process Step ' . ($index + 1)) : 'Process Step ' . ($index + 1) }}</h4>
-              <p class="text-muted mb-0 lh-lg">{{ is_array($process) ? ($process['description'] ?? 'Process description will be added here.') : 'Process description will be added here.' }}</p>
+              <p class="mb-0 text-muted lh-lg">{{ is_array($process) ? ($process['description'] ?? 'Process description will be added here.') : 'Process description will be added here.' }}</p>
             </div>
           </div>
           
-          <div class="card-footer bg-transparent border-0 text-center">
+          <div class="text-center bg-transparent border-0 card-footer">
             <div class="d-inline-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%;">
-              <i class="bi bi-check2 text-white fw-bold"></i>
+              <i class="text-white bi bi-check2 fw-bold"></i>
             </div>
           </div>
         </div>
@@ -154,12 +154,12 @@
       @if(is_array($caseStudy->technologies))
         @foreach($caseStudy->technologies as $index => $tech)
         <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
-          <div class="card border-0 shadow-sm h-100 hover-lift text-center">
-            <div class="card-body p-4">
+          <div class="text-center border-0 shadow-sm card h-100 hover-lift">
+            <div class="p-4 card-body">
               @if(is_array($tech) && isset($tech['icon']))
                 <i class="{{ $tech['icon'] }} text-primary mb-3" style="font-size: 3rem;"></i>
               @else
-                <i class="bi bi-code-slash text-primary mb-3" style="font-size: 3rem;"></i>
+                <i class="mb-3 bi bi-code-slash text-primary" style="font-size: 3rem;"></i>
               @endif
               <h5 class="mb-0 fw-bold">{{ is_array($tech) ? ($tech['name'] ?? 'Technology') : $tech }}</h5>
             </div>
@@ -169,9 +169,9 @@
       @else
         @foreach(explode(',', $caseStudy->technologies) as $index => $tech)
         <div class="col-lg-3 col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
-          <div class="card border-0 shadow-sm h-100 hover-lift text-center">
-            <div class="card-body p-4">
-              <i class="bi bi-code-slash text-primary mb-3" style="font-size: 3rem;"></i>
+          <div class="text-center border-0 shadow-sm card h-100 hover-lift">
+            <div class="p-4 card-body">
+              <i class="mb-3 bi bi-code-slash text-primary" style="font-size: 3rem;"></i>
               <h5 class="mb-0 fw-bold">{{ trim($tech) }}</h5>
             </div>
           </div>
@@ -227,14 +227,14 @@
     </div>
     <div class="row align-items-center">
       @if($caseStudy->challenges_image)
-      <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
-        <img src="{{ asset('storage/' . $caseStudy->challenges_image) }}" alt="Challenges" class="img-fluid rounded-3 shadow">
+      <div class="mb-4 col-lg-6 mb-lg-0" data-aos="fade-right">
+        <img src="{{ asset('storage/' . $caseStudy->challenges_image) }}" alt="Challenges" class="shadow img-fluid rounded-3">
       </div>
       <div class="col-lg-6" data-aos="fade-left">
       @else
       <div class="col-12" data-aos="fade-up">
       @endif
-        <div class="p-4 bg-white rounded-3 border-start border-danger border-4 shadow-sm">
+        <div class="p-4 bg-white border-4 shadow-sm rounded-3 border-start border-danger">
           <div class="content fs-5 text-muted lh-lg">
             {!! nl2br(e($caseStudy->challenges)) !!}
           </div>
@@ -259,18 +259,18 @@
     <div class="row align-items-center">
       @if($caseStudy->solutions_image)
       <div class="col-lg-6" data-aos="fade-left">
-        <div class="p-4 bg-light rounded-3 border-start border-success border-4 shadow-sm">
+        <div class="p-4 border-4 shadow-sm bg-light rounded-3 border-start border-success">
           <div class="content fs-5 text-muted lh-lg">
             {!! nl2br(e($caseStudy->solutions)) !!}
           </div>
         </div>
       </div>
-      <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
-        <img src="{{ asset('storage/' . $caseStudy->solutions_image) }}" alt="Solutions" class="img-fluid rounded-3 shadow">
+      <div class="mb-4 col-lg-6 mb-lg-0" data-aos="fade-right">
+        <img src="{{ asset('storage/' . $caseStudy->solutions_image) }}" alt="Solutions" class="shadow img-fluid rounded-3">
       </div>
       @else
       <div class="col-12" data-aos="fade-up">
-        <div class="p-4 bg-light rounded-3 border-start border-success border-4 shadow-sm">
+        <div class="p-4 border-4 shadow-sm bg-light rounded-3 border-start border-success">
           <div class="content fs-5 text-muted lh-lg">
             {!! nl2br(e($caseStudy->solutions)) !!}
           </div>
@@ -285,19 +285,19 @@
 
 <!-- Results -->
 @if($caseStudy->results)
-<section class="py-5 position-relative overflow-hidden" @if($caseStudy->results_image) style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{{ asset('storage/' . $caseStudy->results_image) }}') center/cover no-repeat; min-height: 60vh;" @else style="background: linear-gradient(135deg, #ffd700 0%, #ff6b6b 100%); min-height: 60vh;" @endif>
+<section class="py-5 overflow-hidden position-relative" @if($caseStudy->results_image) style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{{ asset('storage/' . $caseStudy->results_image) }}') center/cover no-repeat; min-height: 60vh;" @else style="background: linear-gradient(135deg, #ffd700 0%, #ff6b6b 100%); min-height: 60vh;" @endif>
   <div class="container position-relative h-100 d-flex align-items-center" style="z-index: 2;">
     <div class="row w-100">
-      <div class="col-lg-8 mx-auto text-center">
+      <div class="mx-auto text-center col-lg-8">
         <div class="mb-5">
-          <h2 class="mb-3 display-6 fw-bold text-white d-flex align-items-center justify-content-center" data-aos="fade-up">
+          <h2 class="mb-3 text-white display-6 fw-bold d-flex align-items-center justify-content-center" data-aos="fade-up">
             <i class="bi bi-trophy-fill me-3" style="font-size: 2rem;"></i>
             Project Results & Outcomes
           </h2>
           <p class="text-white-50 fs-5" data-aos="fade-up" data-aos-delay="200">Measurable impact and achievements from our solution</p>
         </div>
         
-        <div class="p-5 rounded-4 shadow-lg" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);" data-aos="fade-up" data-aos-delay="400">
+        <div class="p-5 shadow-lg rounded-4" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);" data-aos="fade-up" data-aos-delay="400">
           <div class="content fs-5 text-dark lh-lg">
             {!! nl2br(e($caseStudy->results)) !!}
           </div>
@@ -310,11 +310,11 @@
 
 <!-- Client Testimonial -->
 @if($caseStudy->client_testimonial && is_array($caseStudy->client_testimonial))
-<section class="py-5 position-relative overflow-hidden" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+<section class="py-5 overflow-hidden position-relative" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
   <div class="container position-relative">
     <div class="row justify-content-center">
       <div class="col-lg-10">
-        <div class="text-center mb-5">
+        <div class="mb-5 text-center">
           <div class="mb-4 d-inline-flex align-items-center justify-content-center" style="width: 100px; height: 100px; background: rgba(255,255,255,0.2); border-radius: 50%;" data-aos="zoom-in">
             <i class="text-white bi bi-chat-heart-fill" style="font-size: 2.5rem;"></i>
           </div>
@@ -322,28 +322,28 @@
           <p class="text-white-50 fs-5" data-aos="fade-up" data-aos-delay="200">Real feedback from our valued client</p>
         </div>
         
-        <div class="card border-0 shadow-lg" style="border-radius: 25px; background: rgba(255,255,255,0.98);" data-aos="fade-up" data-aos-delay="400">
-          <div class="card-body p-5">
+        <div class="border-0 shadow-lg card" style="border-radius: 25px; background: rgba(255,255,255,0.98);" data-aos="fade-up" data-aos-delay="400">
+          <div class="p-5 card-body">
             <div class="row align-items-center">
               @if(isset($caseStudy->client_testimonial['image']) && $caseStudy->client_testimonial['image'])
-              <div class="col-lg-4 text-center mb-4 mb-lg-0">
+              <div class="mb-4 text-center col-lg-4 mb-lg-0">
                 <div class="position-relative d-inline-block">
-                  <img src="{{ asset('storage/' . $caseStudy->client_testimonial['image']) }}" alt="{{ $caseStudy->client_testimonial['name'] ?? 'Client' }}" class="rounded-circle shadow" style="width: 150px; height: 150px; object-fit: cover; border: 5px solid #fff;">
-                  <div class="position-absolute top-0 end-0" style="background: linear-gradient(45deg, #ffd700, #ff6b6b); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                    <i class="bi bi-quote text-white fw-bold"></i>
+                  <img src="{{ asset('storage/' . $caseStudy->client_testimonial['image']) }}" alt="{{ $caseStudy->client_testimonial['name'] ?? 'Client' }}" class="shadow rounded-circle" style="width: 150px; height: 150px; object-fit: cover; border: 5px solid #fff;">
+                  <div class="top-0 position-absolute end-0" style="background: linear-gradient(45deg, #ffd700, #ff6b6b); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    <i class="text-white bi bi-quote fw-bold"></i>
                   </div>
                 </div>
               </div>
               <div class="col-lg-8">
               @else
-              <div class="col-12 text-center">
+              <div class="text-center col-12">
               @endif
                 <blockquote class="mb-4">
-                  <p class="fs-4 text-dark lh-lg mb-0" style="font-style: italic; font-weight: 300;">"{{ $caseStudy->client_testimonial['message'] ?? 'Outstanding work! The team exceeded our expectations and delivered exceptional results.' }}"</p>
+                  <p class="mb-0 fs-4 text-dark lh-lg" style="font-style: italic; font-weight: 300;">"{{ $caseStudy->client_testimonial['message'] ?? 'Outstanding work! The team exceeded our expectations and delivered exceptional results.' }}"</p>
                 </blockquote>
                 
                 <div class="client-info {{ isset($caseStudy->client_testimonial['image']) ? 'text-start' : 'text-center' }}">
-                  <div class="stars mb-3">
+                  <div class="mb-3 stars">
                     @for($i = 1; $i <= ($caseStudy->client_testimonial['rating'] ?? 5); $i++)
                       <i class="bi bi-star-fill" style="color: #ffd700; font-size: 1.3rem;"></i>
                     @endfor
@@ -353,7 +353,7 @@
                   </div>
                   
                   <h4 class="mb-1 fw-bold text-primary">{{ $caseStudy->client_testimonial['name'] ?? $caseStudy->client ?? 'Satisfied Client' }}</h4>
-                  <p class="text-muted mb-0 fs-6">{{ $caseStudy->client_testimonial['position'] ?? 'Client' }}</p>
+                  <p class="mb-0 text-muted fs-6">{{ $caseStudy->client_testimonial['position'] ?? 'Client' }}</p>
                 </div>
               </div>
             </div>
@@ -370,15 +370,15 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <div class="card border-0 shadow-lg" data-aos="fade-up">
-          <div class="card-body p-5 text-center">
+        <div class="border-0 shadow-lg card" data-aos="fade-up">
+          <div class="p-5 text-center card-body">
             <h2 class="mb-4 display-5 fw-bold text-dark">Ready to Start Your Project?</h2>
             <p class="mb-4 fs-5 lh-lg text-muted">Let's discuss how we can help you achieve similar results for your business. Our team is ready to bring your vision to life.</p>
-            <div class="d-flex flex-wrap gap-3 justify-content-center">
-              <a href="{{ route('contact.index') }}" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold shadow">
+            <div class="flex-wrap gap-3 d-flex justify-content-center">
+              <a href="{{ route('contact.index') }}" class="px-5 py-3 text-white shadow btn btn-primary btn-lg rounded-pill fw-bold">
                 <i class="bi bi-chat-dots me-2"></i>Get In Touch
               </a>
-              <a href="{{ route('case-study.index') }}" class="btn btn-outline-primary btn-lg px-5 py-3 rounded-pill fw-bold">
+              <a href="{{ route('case-study.index') }}" class="px-5 py-3 btn btn-lg rounded-pill fw-bold">
                 <i class="bi bi-grid me-2"></i>View More Projects
               </a>
             </div>
@@ -397,7 +397,7 @@
         <h5 class="modal-title" id="contactModalLabel">Send Us a Message</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body p-4">
+      <div class="p-4 modal-body">
         <form id="contactForm" method="POST" action="{{ route('contact.store') }}">
           @csrf
           <div class="row g-4">

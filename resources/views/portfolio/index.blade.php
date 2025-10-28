@@ -43,19 +43,19 @@
         <ul class="portfolio-flters">
           <li data-filter="*" class="filter-active">All</li>
           @php
-            $portfolioCategories = App\Models\PortfolioCategory::active()->ordered()->get();
+            $usedCategories = $portfolios->pluck('category')->unique()->filter();
           @endphp
-          @foreach($portfolioCategories as $category)
-            <li data-filter=".filter-{{ $category->slug }}">{{ $category->name }}</li>
+          @foreach($usedCategories as $category)
+            <li data-filter=".filter-{{ Str::slug($category) }}">{{ ucfirst($category) }}</li>
           @endforeach
         </ul>
       </div>
       
       <div class="row g-4">
         @forelse($portfolios as $portfolio)
-        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-          <div class="card h-100 shadow-sm border-0 portfolio-card">
-            <div class="card-img-top position-relative overflow-hidden" style="height: 250px;">
+        <div class="col-lg-4 col-md-6 portfolio-item filter-{{ Str::slug($portfolio->category) }}" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+          <div class="card shadow-sm border-0 portfolio-card" style="height: 550px; display: flex; flex-direction: column;">
+            <div class="card-img-top position-relative overflow-hidden" style="height: 250px; flex-shrink: 0;">
               @if($portfolio->image && file_exists(public_path('storage/portfolios/' . $portfolio->image)))
                 <img src="{{ asset('storage/portfolios/' . $portfolio->image) }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $portfolio->title }}">
               @else
@@ -69,12 +69,11 @@
                 @endif
               </div>
             </div>
-            <div class="card-body">
-              <h5 class="card-title mb-2">{{ $portfolio->title }}</h5>
-              <p class="card-text text-muted">{{ Str::limit($portfolio->description, 120) }}</p>
-              <span class="badge bg-primary mb-2">{{ ucfirst($portfolio->category) }}</span>
-              <br>
-              <a href="{{ route('portfolio.show', $portfolio->id) }}" class="btn btn-sm" style="border: 2px solid #007bff; color: #007bff; background: transparent; font-size: 12px; padding: 6px 12px;">View Details</a>
+            <div class="card-body d-flex flex-column" style="flex: 1;">
+              <h5 class="card-title mb-2" style="height: 50px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $portfolio->title }}</h5>
+              <p class="card-text text-muted mb-3" style="flex: 1; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">{{ $portfolio->description }}</p>
+              <div class="text-center mb-3"><span class="badge bg-primary">{{ ucfirst($portfolio->category) }}</span></div>
+              <a href="{{ route('portfolio.show', $portfolio->id) }}" class="btn btn-sm" style="border: 2px solid #007bff; color: #007bff; background: transparent; font-size: 12px; padding: 6px 12px; margin-top: auto;">View Details</a>
             </div>
           </div>
         </div>
@@ -127,5 +126,70 @@
 .portfolio-card:hover .portfolio-overlay {
   opacity: 1 !important;
 }
+
+.portfolio-flters {
+  padding: 0;
+  margin: 0 auto 35px auto;
+  list-style: none;
+  text-align: center;
+  border-radius: 50px;
+  padding: 2px 15px;
+}
+
+.portfolio-flters li {
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px 15px 8px 15px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #272829;
+  margin-bottom: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.portfolio-flters li:hover,
+.portfolio-flters li.filter-active {
+  color: #149ddd;
+}
+
+.portfolio-item {
+  transition: all 0.3s ease-in-out;
+}
+
+.portfolio-item.hidden {
+  opacity: 0;
+  transform: scale(0.8);
+  display: none;
+}
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const filterButtons = document.querySelectorAll('.portfolio-flters li');
+  const portfolioItems = document.querySelectorAll('.portfolio-item');
+  
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const filter = this.getAttribute('data-filter');
+      
+      filterButtons.forEach(btn => btn.classList.remove('filter-active'));
+      this.classList.add('filter-active');
+      
+      portfolioItems.forEach(item => {
+        if (filter === '*' || item.classList.contains(filter.substring(1))) {
+          item.classList.remove('hidden');
+          item.style.display = 'block';
+        } else {
+          item.classList.add('hidden');
+          setTimeout(() => {
+            item.style.display = 'none';
+          }, 300);
+        }
+      });
+    });
+  });
+});
+</script>
 @endsection
