@@ -60,19 +60,21 @@
                 </a>
               </div> --}}
             </div>
-            <div class="card-body d-flex flex-column">
-              <div class="mb-2 d-flex justify-content-between align-items-start">
+            <div class="card-body d-flex flex-column text-center">
+              <div class="mb-2">
                 <span class="badge bg-primary">{{ $caseStudy->service ? $caseStudy->service->title : 'Service' }}</span>
-                @if($caseStudy->client)
-                  <small class="text-muted">{{ $caseStudy->client }}</small>
-                @endif
               </div>
               <h5 class="mb-2 card-title">{{ $caseStudy->title }}</h5>
+              @if($caseStudy->client)
+                <div class="mb-1">
+                  <small class="text-muted fw-bold">{{ $caseStudy->client }}</small>
+                  @if($caseStudy->project_date)
+                    <small class="text-muted"> - {{ $caseStudy->project_date->format('M Y') }}</small>
+                  @endif
+                </div>
+              @endif
               <p class="card-text text-muted flex-grow-1">{{ Str::limit(strip_tags($caseStudy->description), 120) }}</p>
-              <div class="mt-auto d-flex justify-content-between align-items-center">
-                @if($caseStudy->project_date)
-                  <small class="text-muted">{{ $caseStudy->project_date->format('M Y') }}</small>
-                @endif
+              <div class="mt-auto">
                 <a href="{{ route('case-study.show', $caseStudy->slug) }}" class="btn btn-sm">View Case Study</a>
               </div>
             </div>
