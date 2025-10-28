@@ -61,8 +61,8 @@
     <div class="row g-4">
       @forelse($services as $service)
       <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
-        <div class="overflow-hidden bg-white shadow-lg service-card h-100 rounded-4" style="transition: all 0.3s ease; border: none;">
-          <div class="service-image position-relative" style="height: 250px; overflow: hidden;">
+        <div class="overflow-hidden bg-white shadow-lg service-card rounded-4" style="transition: all 0.3s ease; border: none; height: 500px; display: flex; flex-direction: column;">
+          <div class="service-image position-relative" style="height: 250px; overflow: hidden; flex-shrink: 0;">
             @if($service->image && file_exists(public_path('storage/services/' . $service->image)))
               <img src="{{ asset('storage/services/' . $service->image) }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="{{ $service->title }}">
             @else
@@ -81,14 +81,14 @@
             </div>
           </div>
           
-          <div class="p-4 card-body">
-            <h4 class="mb-3 card-title fw-bold" style="color: #2c3e50;">{{ $service->title }}</h4>
-            <p class="mb-4 card-text text-muted">{{ $service->description }}</p>
-            <div class="d-flex align-items-center justify-content-between">
+          <div class="p-4 d-flex flex-column" style="flex: 1;">
+            <h4 class="mb-3 fw-bold" style="color: #2c3e50; height: 60px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $service->title }}</h4>
+            <p class="mb-4 text-muted" style="flex: 1; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">{{ $service->description }}</p>
+            <div class="d-flex align-items-center justify-content-between" style="margin-top: auto;">
               <a href="{{ route('services.show', $service->slug) }}" class="px-4 py-2 btn btn-primary btn-sm rounded-pill" style="background: linear-gradient(45deg, #667eea, #764ba2); border: none;">
                 Learn More
               </a>
-              <div class="service-number text-muted fw-bold" style="font-size: 2rem; opacity: 0.1;">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</div>
+              <div class="text-muted fw-bold" style="font-size: 2rem; opacity: 0.1;">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</div>
             </div>
           </div>
         </div>
