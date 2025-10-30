@@ -43,6 +43,7 @@ class AdminTestimonialController extends Controller
         $request->validate([
             'name' => 'required|max:255',
             'position' => 'required|max:255',
+            'organization' => 'nullable|max:255',
             'message' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'rating' => 'required|integer|min:1|max:5',
@@ -73,6 +74,7 @@ class AdminTestimonialController extends Controller
         $request->validate([
             'name' => 'required|max:255',
             'position' => 'required|max:255',
+            'organization' => 'nullable|max:255',
             'message' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'rating' => 'required|integer|min:1|max:5',

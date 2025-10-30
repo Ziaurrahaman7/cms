@@ -40,6 +40,15 @@
                 </div>
                 
                 <div class="mt-6">
+                    <label for="organization" class="block text-sm font-medium text-gray-700 mb-2">Organization</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('organization') border-red-500 @enderror" 
+                           id="organization" name="organization" value="{{ old('organization') }}">
+                    @error('organization')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+                
+                <div class="mt-6">
                     <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message *</label>
                     <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('message') border-red-500 @enderror" 
                               id="message" name="message" rows="4" required>{{ old('message') }}</textarea>

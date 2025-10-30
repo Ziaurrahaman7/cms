@@ -422,9 +422,9 @@
                 @else
                   <img src="{{ asset('assets/images/testimonials/testimonial-' . (($loop->index % 4) + 1) . '.jpg') }}" class="flex-shrink-0 testimonial-img" alt="{{ $testimonial->name }}">
                 @endif
-                <div>
+                <div class="text-center">
                   <h3>{{ $testimonial->name }}</h3>
-                  <h4>{{ $testimonial->position }}</h4>
+                  <h4>{{ $testimonial->position }}@if($testimonial->organization), {{ $testimonial->organization }}@endif</h4>
                   <div class="stars">
                     @for($i = 1; $i <= 5; $i++)
                       <i class="bi bi-star{{ $i <= $testimonial->rating ? '-fill' : '' }}"></i>
@@ -434,7 +434,15 @@
               </div>
               <p>
                 <i class="bi bi-quote quote-icon-left"></i>
-                {{ Str::limit($testimonial->message, 150) }}
+                <span class="testimonial-text" data-full-text="{{ $testimonial->message }}">
+                  @if(strlen($testimonial->message) > 80)
+                    <span class="short-text">{{ Str::limit($testimonial->message, 80, '') }}</span>
+                    <span class="full-text" style="display: none;">{{ $testimonial->message }}</span>
+                    <a href="#" class="see-more-btn text-primary fw-bold" onclick="toggleTestimonial(this); return false;">... See More</a>
+                  @else
+                    {{ $testimonial->message }}
+                  @endif
+                </span>
                 <i class="bi bi-quote quote-icon-right"></i>
               </p>
             </div>
@@ -666,6 +674,30 @@
   color: #007bff;
   background-color: #f8f9fa;
 }
+
+.testimonial-wrap {
+  height: 350px;
+}
+
+.testimonial-item {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial-item p {
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.testimonials .testimonial-item .testimonial-img {
+  width: 90px;
+  border-radius: 50px;
+  margin-right: 15px;
+  height: 90px;
+}
 </style>
 
 
@@ -877,4 +909,22 @@
 </div>
 
 </main>
+
+<script>
+function toggleTestimonial(btn) {
+  const container = btn.closest('.testimonial-text');
+  const shortText = container.querySelector('.short-text');
+  const fullText = container.querySelector('.full-text');
+  
+  if (fullText.style.display === 'none') {
+    shortText.style.display = 'none';
+    fullText.style.display = 'inline';
+    btn.textContent = ' See Less';
+  } else {
+    shortText.style.display = 'inline';
+    fullText.style.display = 'none';
+    btn.textContent = '... See More';
+  }
+}
+</script>
 @endsection
