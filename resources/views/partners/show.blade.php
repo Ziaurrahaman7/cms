@@ -169,4 +169,23 @@
     </div>
   </div>
 </div>
+
+<style>
+/* Override list-style:none for rich text editor content */
+.text-muted ul {
+  list-style: disc !important;
+  margin-left: 20px !important;
+  padding-left: 0 !important;
+}
+
+.text-muted ol {
+  list-style: decimal !important;
+  margin-left: 20px !important;
+  padding-left: 0 !important;
+}
+
+.text-muted li {
+  margin-bottom: 5px !important;
+}
+</style>
 @endsection
