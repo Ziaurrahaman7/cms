@@ -18,6 +18,9 @@
         }
     </script>
     
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
     <!-- Summernote CSS -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     
@@ -205,6 +208,35 @@
                     Features
                     <span class="ml-auto bg-teal-500 text-xs px-2 py-1 rounded-full">{{ \App\Models\Feature::count() }}</span>
                 </a>
+                
+                <!-- Technology Dropdown -->
+                <div class="relative" x-data="{ open: false }">
+                    <button @click="open = !open" class="flex items-center w-full px-6 py-3 {{ request()->routeIs('admin.technology-categories.*') || request()->routeIs('admin.technologies.*') ? 'bg-secondary text-white border-r-4 border-blue-400' : 'text-gray-300 hover:bg-gray-700 hover:text-white transition-colors' }}">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        Technologies
+                        <svg class="w-4 h-4 ml-auto transition-transform" :class="{'rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div x-show="open" x-transition class="bg-gray-900">
+                        <a href="{{ route('admin.technology-categories.index') }}" class="flex items-center px-12 py-2 {{ request()->routeIs('admin.technology-categories.*') ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-700 hover:text-white transition-colors' }}">
+                            <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a1.994 1.994 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                            </svg>
+                            Categories
+                            <span class="ml-auto bg-blue-500 text-xs px-2 py-1 rounded-full">{{ \App\Models\TechnologyCategory::count() }}</span>
+                        </a>
+                        <a href="{{ route('admin.technologies.index') }}" class="flex items-center px-12 py-2 {{ request()->routeIs('admin.technologies.*') ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-700 hover:text-white transition-colors' }}">
+                            <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            Technologies
+                            <span class="ml-auto bg-green-500 text-xs px-2 py-1 rounded-full">{{ \App\Models\Technology::count() }}</span>
+                        </a>
+                    </div>
+                </div>
                 
                 <a href="{{ route('admin.contacts.index') }}" class="flex items-center px-6 py-3 {{ request()->routeIs('admin.contacts.*') ? 'bg-secondary text-white border-r-4 border-blue-400' : 'text-gray-300 hover:bg-gray-700 hover:text-white transition-colors' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

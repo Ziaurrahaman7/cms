@@ -277,6 +277,26 @@ Route::middleware('auth')->group(function () {
         Route::put('/{caseStudy}', [App\Http\Controllers\AdminCaseStudyController::class, 'update'])->name('update');
         Route::delete('/{caseStudy}', [App\Http\Controllers\AdminCaseStudyController::class, 'destroy'])->name('destroy');
     });
+    
+    // Admin Technology Categories Management
+    Route::prefix('admin/technology-categories')->name('admin.technology-categories.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminTechnologyCategoryController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminTechnologyCategoryController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminTechnologyCategoryController::class, 'store'])->name('store');
+        Route::get('/{technologyCategory}/edit', [App\Http\Controllers\AdminTechnologyCategoryController::class, 'edit'])->name('edit');
+        Route::put('/{technologyCategory}', [App\Http\Controllers\AdminTechnologyCategoryController::class, 'update'])->name('update');
+        Route::delete('/{technologyCategory}', [App\Http\Controllers\AdminTechnologyCategoryController::class, 'destroy'])->name('destroy');
+    });
+    
+    // Admin Technologies Management
+    Route::prefix('admin/technologies')->name('admin.technologies.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminTechnologyController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminTechnologyController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminTechnologyController::class, 'store'])->name('store');
+        Route::get('/{technology}/edit', [App\Http\Controllers\AdminTechnologyController::class, 'edit'])->name('edit');
+        Route::put('/{technology}', [App\Http\Controllers\AdminTechnologyController::class, 'update'])->name('update');
+        Route::delete('/{technology}', [App\Http\Controllers\AdminTechnologyController::class, 'destroy'])->name('destroy');
+    });
 });
 
 require __DIR__.'/auth.php';

@@ -399,6 +399,108 @@
 
 
 
+<!-- Technologies We Use Section -->
+<section id="technologies" class="py-5" style="background: #f8f9fa;">
+  <div class="container" data-aos="fade-up">
+    <div class="text-center section-header">
+      <h2 class="mb-3">Technologies We Use</h2>
+      <p class="text-muted">Cutting-edge technologies that power our solutions</p>
+    </div>
+    
+    @php
+      $techCategories = App\Models\TechnologyCategory::active()->ordered()->with(['technologies' => function($query) {
+        $query->active()->ordered();
+      }])->get();
+    @endphp
+    
+    @if($techCategories->count() > 0)
+    <div class="technology-tabs">
+      <ul class="mb-4 nav nav-tabs justify-content-center" id="techTabs" role="tablist">
+        @foreach($techCategories as $category)
+        <li class="nav-item" role="presentation">
+          <button class="nav-link {{ $loop->first ? 'active' : '' }}" id="tech-{{ $category->slug }}-tab" data-bs-toggle="tab" data-bs-target="#tech-{{ $category->slug }}" type="button" role="tab">{{ $category->name }}</button>
+        </li>
+        @endforeach
+      </ul>
+      
+      <div class="tab-content" id="techTabsContent">
+        @foreach($techCategories as $category)
+        <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="tech-{{ $category->slug }}" role="tabpanel">
+          <div class="row g-4">
+            @forelse($category->technologies as $tech)
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 50 }}">
+              <div class="text-center bg-white shadow-sm tech-card rounded-3 p-3" style="transition: all 0.3s ease; height: 120px; display: flex; flex-direction: column; justify-content: center;">
+                @if($tech->icon && file_exists(public_path('storage/technologies/' . $tech->icon)))
+                  <img src="{{ asset('storage/technologies/' . $tech->icon) }}" alt="{{ $tech->name }}" class="mx-auto mb-2" style="height: 40px; width: 40px; object-fit: contain;">
+                @else
+                  <div class="mx-auto mb-2 d-flex align-items-center justify-content-center" style="height: 40px; width: 40px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 8px;">
+                    <i class="text-white bi bi-code-slash" style="font-size: 1.2rem;"></i>
+                  </div>
+                @endif
+                <h6 class="mb-0" style="font-size: 0.85rem; font-weight: 600;">{{ $tech->name }}</h6>
+              </div>
+            </div>
+            @empty
+            <div class="col-12 text-center py-4">
+              <p class="text-muted">No technologies available in this category.</p>
+            </div>
+            @endforelse
+          </div>
+        </div>
+        @endforeach
+      </div>
+    </div>
+    @else
+    <div class="row g-4">
+      <div class="col-lg-2 col-md-3 col-sm-4 col-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="text-center bg-white shadow-sm tech-card rounded-3 p-3" style="height: 120px; display: flex; flex-direction: column; justify-content: center;">
+          <div class="mx-auto mb-2 d-flex align-items-center justify-content-center" style="height: 40px; width: 40px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 8px;">
+            <i class="text-white bi bi-code-slash" style="font-size: 1.2rem;"></i>
+          </div>
+          <h6 class="mb-0" style="font-size: 0.85rem; font-weight: 600;">React</h6>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-3 col-sm-4 col-6" data-aos="fade-up" data-aos-delay="150">
+        <div class="text-center bg-white shadow-sm tech-card rounded-3 p-3" style="height: 120px; display: flex; flex-direction: column; justify-content: center;">
+          <div class="mx-auto mb-2 d-flex align-items-center justify-content-center" style="height: 40px; width: 40px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 8px;">
+            <i class="text-white bi bi-code-slash" style="font-size: 1.2rem;"></i>
+          </div>
+          <h6 class="mb-0" style="font-size: 0.85rem; font-weight: 600;">Laravel</h6>
+        </div>
+      </div>
+    </div>
+    @endif
+  </div>
+</section>
+
+<style>
+.technology-tabs .nav-tabs {
+  border-bottom: 0px;
+}
+.technology-tabs .nav-link {
+  color: #6c757d;
+  border: none;
+  padding: 12px 24px;
+  font-weight: 500;
+  border-radius: 25px;
+  margin: 0 5px;
+  transition: all 0.3s ease;
+}
+.technology-tabs .nav-link.active {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+}
+.technology-tabs .nav-link:hover {
+  color: #667eea;
+  background-color: #f8f9fa;
+}
+.tech-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+}
+</style>
+
 <!--  Testimonials Section  -->
 <section id="testimonials" class="testimonials">
   <div class="container" data-aos="fade-up">
