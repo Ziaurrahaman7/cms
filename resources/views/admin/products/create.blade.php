@@ -495,7 +495,7 @@ function addSection() {
             </div>
             <div class="md:col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Section Description</label>
-                <textarea name="sections[${sectionIndex}][description]" rows="3" placeholder="Section description" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                <textarea name="sections[${sectionIndex}][description]" rows="3" placeholder="Section description" class="summernote-new w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
             </div>
             <div class="md:col-span-2">
                 <button type="button" onclick="this.closest('.section-item').remove()" class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200">Remove</button>
@@ -503,6 +503,21 @@ function addSection() {
         </div>
     `;
     container.appendChild(newItem);
+    
+    // Initialize Summernote for the new textarea
+    $(newItem).find('.summernote-new').summernote({
+        height: 200,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    }).removeClass('summernote-new');
+    
     sectionIndex++;
 }
 
@@ -559,10 +574,13 @@ $(document).ready(function() {
     $('.summernote').summernote({
         height: 200,
         toolbar: [
+            ['style', ['style']],
             ['font', ['bold', 'underline', 'clear']],
             ['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
-            ['insert', ['link']]
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
         ]
     });
     

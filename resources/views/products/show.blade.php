@@ -93,42 +93,34 @@
     <div class="row align-items-center">
       @if($index % 2 == 0)
       <!-- Image Left, Content Right -->
+      @if(isset($section['image']) && $section['image'])
       <div class="col-lg-6" data-aos="fade-right">
         <div class="section-image">
-          @if(isset($section['image']) && $section['image'])
           <img src="{{ asset('storage/' . $section['image']) }}" alt="{{ $section['title'] }}" class="rounded shadow img-fluid">
-          @else
-          <div class="rounded bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
-            <i class="{{ $section['icon'] ?? 'bi bi-star' }} text-muted" style="font-size: 4rem;"></i>
-          </div>
-          @endif
         </div>
       </div>
-      <div class="col-lg-6" data-aos="fade-left">
-        <div class="section-content ps-lg-4">
+      @endif
+      <div class="{{ isset($section['image']) && $section['image'] ? 'col-lg-6' : 'col-lg-12' }}" data-aos="fade-left">
+        <div class="section-content {{ isset($section['image']) && $section['image'] ? 'ps-lg-4' : 'text-center' }}">
           <h3 class="mb-4">{{ $section['title'] }}</h3>
-          <p class="text-muted fs-5">{{ $section['description'] }}</p>
+          <div class="text-muted fs-5">{!! $section['description'] !!}</div>
         </div>
       </div>
       @else
       <!-- Content Left, Image Right -->
-      <div class="col-lg-6" data-aos="fade-right">
-        <div class="section-content pe-lg-4">
+      <div class="{{ isset($section['image']) && $section['image'] ? 'col-lg-6' : 'col-lg-12' }}" data-aos="fade-right">
+        <div class="section-content {{ isset($section['image']) && $section['image'] ? 'pe-lg-4' : 'text-center' }}">
           <h3 class="mb-4">{{ $section['title'] }}</h3>
-          <p class="text-muted fs-5">{{ $section['description'] }}</p>
+          <div class="text-muted fs-5">{!! $section['description'] !!}</div>
         </div>
       </div>
+      @if(isset($section['image']) && $section['image'])
       <div class="col-lg-6" data-aos="fade-left">
         <div class="section-image">
-          @if(isset($section['image']) && $section['image'])
           <img src="{{ asset('storage/' . $section['image']) }}" alt="{{ $section['title'] }}" class="rounded shadow img-fluid">
-          @else
-          <div class="rounded bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
-            <i class="{{ $section['icon'] ?? 'bi bi-star' }} text-muted" style="font-size: 4rem;"></i>
-          </div>
-          @endif
         </div>
       </div>
+      @endif
       @endif
     </div>
   </div>
