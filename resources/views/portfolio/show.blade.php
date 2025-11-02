@@ -271,7 +271,7 @@
               </div>
             @endif
             <div class="top-0 position-absolute start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.7); opacity: 0; transition: all 0.3s ease;">
-              <a href="{{ route('portfolio.show', $related->id) }}" class="btn btn-light btn-lg rounded-pill">
+              <a href="{{ route('portfolio.show', $related->slug) }}" class="btn btn-light btn-lg rounded-pill">
                 <i class="bi bi-arrow-right me-2"></i>View Project
               </a>
             </div>
@@ -280,7 +280,7 @@
             <span class="mb-2 badge bg-primary">{{ ucfirst($related->category) }}</span>
             <h5 class="mb-3 card-title fw-bold">{{ $related->title }}</h5>
             <p class="mb-3 card-text text-muted">{{ Str::limit($related->description, 100) }}</p>
-            <a href="{{ route('portfolio.show', $related->id) }}" class="btn btn-outline-primary btn-sm rounded-pill">
+            <a href="{{ route('portfolio.show', $related->slug) }}" class="btn btn-outline-primary btn-sm rounded-pill">
               View Details <i class="bi bi-arrow-right ms-1"></i>
             </a>
           </div>

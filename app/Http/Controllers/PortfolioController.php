@@ -15,9 +15,9 @@ class PortfolioController extends Controller
         return view('portfolio.index', compact('portfolios', 'categories'));
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $portfolio = Portfolio::where('id', $id)->where('is_active', true)->firstOrFail();
+        $portfolio = Portfolio::where('slug', $slug)->where('is_active', true)->firstOrFail();
         
         return view('portfolio.show', compact('portfolio'));
     }

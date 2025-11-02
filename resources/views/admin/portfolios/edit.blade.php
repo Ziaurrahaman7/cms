@@ -17,7 +17,7 @@
             <h3 class="text-lg font-semibold text-gray-800">Edit Portfolio</h3>
         </div>
         <div class="p-6">
-            <form action="{{ route('admin.portfolios.update', $portfolio->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.portfolios.update', $portfolio->slug) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 
@@ -49,6 +49,13 @@
                             <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Title *</label>
                             <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
                                    id="title" name="title" value="{{ old('title', $portfolio->title) }}" required>
+                        </div>
+                        
+                        <div>
+                            <label for="slug" class="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                   id="slug" name="slug" value="{{ old('slug', $portfolio->slug) }}" required>
+                            <p class="text-xs text-gray-500 mt-1">URL-friendly version of the title</p>
                         </div>
                         
                         <div>
@@ -387,6 +394,20 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Auto-generate slug from title
+    const titleInput = document.getElementById('title');
+    const slugInput = document.getElementById('slug');
+    
+    titleInput.addEventListener('input', function() {
+        const title = this.value;
+        const slug = title.toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .trim('-');
+        slugInput.value = slug;
+    });
+    
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
     

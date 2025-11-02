@@ -8,6 +8,7 @@ class Portfolio extends Model
 {
     protected $fillable = [
         'title',
+        'slug',
         'description',
         'category',
         'image',
@@ -49,6 +50,6 @@ class Portfolio extends Model
     
     public function getRouteKeyName()
     {
-        return 'id';
+        return 'slug';
     }
 }

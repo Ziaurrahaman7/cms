@@ -49,6 +49,7 @@ class AdminPortfolioController extends Controller
     {
         $request->validate([
             'title' => 'required|max:255',
+            'slug' => 'required|max:255|unique:portfolios,slug',
             'description' => 'required',
             'category' => 'required|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -133,6 +134,7 @@ class AdminPortfolioController extends Controller
     {
         $request->validate([
             'title' => 'required|max:255',
+            'slug' => 'required|max:255|unique:portfolios,slug,' . $portfolio->id,
             'description' => 'required',
             'category' => 'required|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

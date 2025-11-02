@@ -83,6 +83,16 @@
                         </div>
                         
                         <div>
+                            <label for="slug" class="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('slug') border-red-500 @enderror" 
+                                   id="slug" name="slug" value="{{ old('slug') }}" required>
+                            <p class="text-xs text-gray-500 mt-1">URL-friendly version of the title</p>
+                            @error('slug')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        
+                        <div>
                             <label for="category" class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
                             <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('category') border-red-500 @enderror" 
                                     id="category" name="category" required>
@@ -298,6 +308,20 @@
 <script>
 // Tab functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Auto-generate slug from title
+    const titleInput = document.getElementById('title');
+    const slugInput = document.getElementById('slug');
+    
+    titleInput.addEventListener('input', function() {
+        const title = this.value;
+        const slug = title.toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .trim('-');
+        slugInput.value = slug;
+    });
+    
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
     
