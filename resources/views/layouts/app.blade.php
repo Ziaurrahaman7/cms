@@ -7,6 +7,7 @@
   <meta name="description" content="@yield('description', App\Models\SiteSetting::get('meta_description', 'Professional IT Solutions and Business Services for your company'))">
   <meta name="keywords" content="@yield('keywords', App\Models\SiteSetting::get('meta_keywords', 'IT solutions, web development, business services'))">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="canonical" href="{{ url()->current() }}">
 
   <!-- Favicons -->
   @php
