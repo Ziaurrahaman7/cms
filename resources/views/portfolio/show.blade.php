@@ -115,11 +115,7 @@
             </div>
           </div>
           
-          @if(isset($process['image']) && !empty($process['image']))
-          <div class="mb-4 process-image">
-            <img src="{{ asset('storage/portfolios/' . $process['image']) }}" alt="{{ $process['title'] ?? 'Process Step' }}" class="img-fluid rounded-3" style="max-height: 200px; width: 100%; object-fit: cover;">
-          </div>
-          @endif
+
           
           <div class="process-content">
             <h4 class="mb-3 fw-bold">{{ $process['title'] ?? 'Process Step ' . ($index + 1) }}</h4>

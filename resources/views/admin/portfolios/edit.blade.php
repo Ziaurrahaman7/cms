@@ -136,21 +136,9 @@
                                             </svg>
                                         </button>
                                     </div>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-2">Title</label>
-                                            <input type="text" name="work_process[{{ $index }}][title]" value="{{ old('work_process.'.$index.'.title', $process['title'] ?? '') }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-2">Image</label>
-                                            <input type="file" name="work_process[{{ $index }}][image]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md">
-                                            @if(isset($process['image']) && !empty($process['image']))
-                                                <div class="mt-2">
-                                                    <img src="{{ asset('storage/portfolios/' . $process['image']) }}" alt="Current image" class="w-20 h-20 object-cover rounded">
-                                                    <p class="text-xs text-gray-500 mt-1">Current image</p>
-                                                </div>
-                                            @endif
-                                        </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                                        <input type="text" name="work_process[{{ $index }}][title]" value="{{ old('work_process.'.$index.'.title', $process['title'] ?? '') }}" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                     </div>
                                     <div class="mt-4">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
@@ -168,15 +156,9 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Title</label>
-                                        <input type="text" name="work_process[0][title]" class="w-full px-3 py-2 border border-gray-300 rounded-md">
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Image</label>
-                                        <input type="file" name="work_process[0][image]" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-md">
-                                    </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                                    <input type="text" name="work_process[0][title]" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                                 </div>
                                 <div class="mt-4">
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
