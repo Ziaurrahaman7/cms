@@ -151,7 +151,7 @@
     
     <div class="row g-4">
       @foreach($service->service_overview as $index => $overview)
-      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="{{ $index * 200 }}">
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $index * 200 }}">
         <div class="p-4 text-center feature-box h-100">
           <div class="mb-3 feature-icon" style="width: 80px; height: 80px; background: linear-gradient(45deg, #ff6b6b, #ee5a24); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
             <i class="text-white {{ $overview['icon'] ?? 'bi bi-lightning' }}" style="font-size: 2rem;"></i>

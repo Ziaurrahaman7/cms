@@ -750,6 +750,7 @@
   max-height: 80px;
   filter: grayscale(100%);
   transition: all 0.3s ease;
+  padding: 10px;
 }
 .client-logo:hover {
   filter: grayscale(0%) !important;
