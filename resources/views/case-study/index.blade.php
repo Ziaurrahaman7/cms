@@ -60,7 +60,7 @@
                 </a>
               </div> --}}
             </div>
-            <div class="card-body d-flex flex-column text-center">
+            <div class="text-center card-body d-flex flex-column">
               <div class="mb-2">
                 <span class="badge bg-primary">{{ $caseStudy->service ? $caseStudy->service->title : 'Service' }}</span>
               </div>
@@ -128,6 +128,13 @@
 
 .portfolio-card:hover .portfolio-overlay {
   opacity: 1 !important;
+}
+
+.portfolio-card .card-body a.btn:hover {
+  background: white !important;
+  border: 2px solid #007bff !important;
+  color: #007bff !important;
+  transition: all 0.3s ease !important;
 }
 </style>
 @endsection
