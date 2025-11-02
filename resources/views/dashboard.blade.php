@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - TechnoIT</title>
+    <title>Admin Dashboard - {{ App\Models\SiteSetting::get('site_name', 'TechnoIT') }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -35,7 +35,7 @@
         <!-- Sidebar -->
         <div class="w-64 bg-primary text-white shadow-lg flex flex-col h-screen">
             <div class="p-6 border-b border-gray-700 flex-shrink-0">
-                <h2 class="text-2xl font-bold text-center">TechnoIT</h2>
+                <h2 class="text-2xl font-bold text-center">{{ App\Models\SiteSetting::get('site_name', 'TechnoIT') }}</h2>
                 <p class="text-gray-300 text-sm text-center mt-1">Admin Panel</p>
             </div>
             
