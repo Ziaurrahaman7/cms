@@ -138,14 +138,9 @@
           </div>
           <div class="card-body p-4">
             <small class="text-muted">{{ $relatedPost->created_at->format('M d, Y') }}</small>
-            <h5 class="card-title mt-2 mb-3"><a href="{{ route('posts.show', $relatedPost) }}" class="text-decoration-none text-dark">{{ Str::limit($relatedPost->title, 60) }}</a></h5>
+            <h5 class="card-title mt-2 mb-3 related-card-title"><a href="{{ route('posts.show', $relatedPost) }}" class="text-decoration-none text-dark related-title-link">{{ Str::limit($relatedPost->title, 60) }}</a></h5>
             <p class="card-text text-muted">{{ Str::limit(strip_tags($relatedPost->content), 100) }}</p>
-            <a href="{{ route('posts.show', $relatedPost) }}" class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center">
-              Read More
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="ms-2">
-                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-              </svg>
-            </a>
+
           </div>
         </div>
       </div>
@@ -285,6 +280,43 @@
 
 ..linkedin:hover {
   background: linear-gradient(45deg, #005885, #0277bd);
+}
+
+.related-posts .related-btn {
+  background: none !important;
+  background-color: transparent !important;
+  border: 2px solid #007bff !important;
+  color: #007bff !important;
+  padding: 8px 16px !important;
+  border-radius: 6px !important;
+  font-size: 14px !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s ease !important;
+}
+
+.related-posts .related-btn:hover {
+  background: white !important;
+  color: #007bff !important;
+  border-color: #007bff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0,123,255,0.3) !important;
+}
+
+.related-card-title {
+  background: none !important;
+  background-color: transparent !important;
+}
+
+.related-posts .card a:not(.related-btn) {
+  background: none !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  color: inherit !important;
 }
 </style>
 @endsection
