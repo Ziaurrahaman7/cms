@@ -162,21 +162,40 @@
                     <span class="ml-auto bg-purple-500 text-xs px-2 py-1 rounded-full">{{ \App\Models\Client::count() }}</span>
                 </a>
                 
-                <a href="{{ route('admin.partners.index') }}" class="flex items-center px-6 py-3 {{ request()->routeIs('admin.partners.*') ? 'bg-secondary text-white border-r-4 border-blue-400' : 'text-gray-300 hover:bg-gray-700 hover:text-white transition-colors' }}">
-                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                    </svg>
-                    Partners
-                    <span class="ml-auto bg-indigo-500 text-xs px-2 py-1 rounded-full">{{ \App\Models\Partner::count() }}</span>
-                </a>
-                
-                <a href="{{ route('admin.partner-types.index') }}" class="flex items-center px-6 py-3 {{ request()->routeIs('admin.partner-types.*') ? 'bg-secondary text-white border-r-4 border-blue-400' : 'text-gray-300 hover:bg-gray-700 hover:text-white transition-colors' }}">
-                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a1.994 1.994 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-                    </svg>
-                    Partner Types
-                    <span class="ml-auto bg-teal-500 text-xs px-2 py-1 rounded-full">{{ \App\Models\PartnerType::count() }}</span>
-                </a>
+                <!-- Partner Dropdown -->
+                <div class="relative" x-data="{ open: false }">
+                    <button @click="open = !open" class="flex items-center w-full px-6 py-3 {{ request()->routeIs('admin.partners.*') || request()->routeIs('admin.partner-types.*') || request()->routeIs('admin.partner-hero-sections.*') ? 'bg-secondary text-white border-r-4 border-blue-400' : 'text-gray-300 hover:bg-gray-700 hover:text-white transition-colors' }}">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        Partner
+                        <svg class="w-4 h-4 ml-auto transition-transform" :class="{'rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div x-show="open" x-transition class="bg-gray-900">
+                        <a href="{{ route('admin.partners.index') }}" class="flex items-center px-12 py-2 {{ request()->routeIs('admin.partners.*') ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-700 hover:text-white transition-colors' }}">
+                            <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                            Partners
+                            <span class="ml-auto bg-indigo-500 text-xs px-2 py-1 rounded-full">{{ \App\Models\Partner::count() }}</span>
+                        </a>
+                        <a href="{{ route('admin.partner-types.index') }}" class="flex items-center px-12 py-2 {{ request()->routeIs('admin.partner-types.*') ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-700 hover:text-white transition-colors' }}">
+                            <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a1.994 1.994 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                            </svg>
+                            Partner Types
+                            <span class="ml-auto bg-teal-500 text-xs px-2 py-1 rounded-full">{{ \App\Models\PartnerType::count() }}</span>
+                        </a>
+                        <a href="{{ route('admin.partner-hero-sections.index') }}" class="flex items-center px-12 py-2 {{ request()->routeIs('admin.partner-hero-sections.*') ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-700 hover:text-white transition-colors' }}">
+                            <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h4a1 1 0 011 1v2m-6 0h8m-8 0a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V6a2 2 0 00-2-2"></path>
+                            </svg>
+                            Hero Section
+                        </a>
+                    </div>
+                </div>
                 
                 <a href="{{ route('admin.jobs.index') }}" class="flex items-center px-6 py-3 {{ request()->routeIs('admin.jobs.*') ? 'bg-secondary text-white border-r-4 border-blue-400' : 'text-gray-300 hover:bg-gray-700 hover:text-white transition-colors' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -245,6 +264,8 @@
                     Contact Forms
                     <span class="ml-auto bg-red-500 text-xs px-2 py-1 rounded-full">{{ \App\Models\ContactForm::where('status', 'new')->count() }}</span>
                 </a>
+                
+
                 
                 <a href="{{ route('admin.site-settings.index') }}" class="flex items-center px-6 py-3 {{ request()->routeIs('admin.site-settings.*') ? 'bg-secondary text-white border-r-4 border-blue-400' : 'text-gray-300 hover:bg-gray-700 hover:text-white transition-colors' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

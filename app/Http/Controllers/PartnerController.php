@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Partner;
 use App\Models\PartnerType;
+use App\Models\PartnerHeroSection;
 use Illuminate\Http\Request;
 
 class PartnerController extends Controller
@@ -12,7 +13,8 @@ class PartnerController extends Controller
     {
         $allPartners = Partner::where('is_active', true)->ordered()->get();
         $partnerTypes = PartnerType::active()->ordered()->get();
-        return view('partners.index', compact('allPartners', 'partnerTypes'));
+        $heroSection = PartnerHeroSection::first();
+        return view('partners.index', compact('allPartners', 'partnerTypes', 'heroSection'));
     }
 
     public function show(Partner $partner)

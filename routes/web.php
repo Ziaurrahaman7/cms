@@ -299,6 +299,15 @@ Route::middleware('auth')->group(function () {
         Route::put('/{technology}', [App\Http\Controllers\AdminTechnologyController::class, 'update'])->name('update');
         Route::delete('/{technology}', [App\Http\Controllers\AdminTechnologyController::class, 'destroy'])->name('destroy');
     });
+    
+    // Admin Partner Hero Section Management
+    Route::prefix('admin/partner-hero-sections')->name('admin.partner-hero-sections.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminPartnerHeroSectionController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminPartnerHeroSectionController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminPartnerHeroSectionController::class, 'store'])->name('store');
+        Route::get('/{partnerHeroSection}/edit', [App\Http\Controllers\AdminPartnerHeroSectionController::class, 'edit'])->name('edit');
+        Route::put('/{partnerHeroSection}', [App\Http\Controllers\AdminPartnerHeroSectionController::class, 'update'])->name('update');
+    });
 });
 
 require __DIR__.'/auth.php';
