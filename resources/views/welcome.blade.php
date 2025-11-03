@@ -68,7 +68,7 @@
             </div>
             
             <div class="p-4 d-flex flex-column" style="flex: 1;">
-              <h4 class="mb-3 fw-bold" style="color: #2c3e50; height: 50px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $service->title }}</h4>
+              <h4 class="mb-3 fw-bold" style="color: #2c3e50;  overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $service->title }}</h4>
               <p class="mb-4 text-muted" style="flex: 1; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">{{ $service->description }}</p>
               <div class="d-flex align-items-center justify-content-between" style="margin-top: auto;">
                 <a href="{{ route('services.show', $service->slug) }}" class="px-4 py-2 btn btn-primary btn-sm rounded-pill" style="background: linear-gradient(45deg, #667eea, #764ba2); border: none;">
@@ -155,7 +155,7 @@
               </div>
             </div>
             <div class="p-4 d-flex flex-column" style="flex: 1;">
-              <h4 class="mb-3 fw-bold" style="height: 50px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $product->title }}</h4>
+              <h4 class="mb-3 fw-bold" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $product->title }}</h4>
               <p class="mb-4 text-muted" style="flex: 1; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">{{ $product->description }}</p>
               <div class="d-flex align-items-center justify-content-between" style="margin-top: auto;">
                 <a href="{{ route('products.show', $product->slug) }}" class="btn btn-outline-primary btn-sm rounded-pill">
@@ -228,10 +228,10 @@
                 @endif
               </div>
             </div>
-            <div class="card-body d-flex flex-column text-center" style="flex: 1;">
-              <h5 class="mb-2" style="height: 50px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $portfolio->title }}</h5>
-              <p class="text-muted mb-3" style="flex: 1; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">{{ $portfolio->description }}</p>
-              <div class="text-center mb-3"><span class="badge bg-primary">{{ ucfirst($portfolio->category) }}</span></div>
+            <div class="text-center card-body d-flex flex-column" style="flex: 1;">
+              <h5 class="mb-2" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $portfolio->title }}</h5>
+              <p class="mb-3 text-muted" style="flex: 1; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">{{ $portfolio->description }}</p>
+              <div class="mb-3 text-center"><span class="badge bg-primary">{{ ucfirst($portfolio->category) }}</span></div>
               <a href="{{ route('portfolio.show', $portfolio->slug) }}" class="btn btn-sm" style="border: 2px solid #007bff; color: #007bff; background: transparent; font-size: 12px; padding: 6px 12px; margin-top: auto;">View Details</a>
             </div>
           </div>
@@ -429,7 +429,7 @@
           <div class="row g-4">
             @forelse($category->technologies as $tech)
             <div class="col-lg-2 col-md-3 col-sm-4 col-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 50 }}">
-              <div class="text-center bg-white shadow-sm tech-card rounded-3 p-3" style="transition: all 0.3s ease; height: 120px; display: flex; flex-direction: column; justify-content: center;">
+              <div class="p-3 text-center bg-white shadow-sm tech-card rounded-3" style="transition: all 0.3s ease; height: 120px; display: flex; flex-direction: column; justify-content: center;">
                 @if($tech->icon && file_exists(public_path('storage/technologies/' . $tech->icon)))
                   <img src="{{ asset('storage/technologies/' . $tech->icon) }}" alt="{{ $tech->name }}" class="mx-auto mb-2" style="height: 40px; width: 40px; object-fit: contain;">
                 @else
@@ -441,7 +441,7 @@
               </div>
             </div>
             @empty
-            <div class="col-12 text-center py-4">
+            <div class="py-4 text-center col-12">
               <p class="text-muted">No technologies available in this category.</p>
             </div>
             @endforelse
@@ -453,7 +453,7 @@
     @else
     <div class="row g-4">
       <div class="col-lg-2 col-md-3 col-sm-4 col-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="text-center bg-white shadow-sm tech-card rounded-3 p-3" style="height: 120px; display: flex; flex-direction: column; justify-content: center;">
+        <div class="p-3 text-center bg-white shadow-sm tech-card rounded-3" style="height: 120px; display: flex; flex-direction: column; justify-content: center;">
           <div class="mx-auto mb-2 d-flex align-items-center justify-content-center" style="height: 40px; width: 40px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 8px;">
             <i class="text-white bi bi-code-slash" style="font-size: 1.2rem;"></i>
           </div>
@@ -461,7 +461,7 @@
         </div>
       </div>
       <div class="col-lg-2 col-md-3 col-sm-4 col-6" data-aos="fade-up" data-aos-delay="150">
-        <div class="text-center bg-white shadow-sm tech-card rounded-3 p-3" style="height: 120px; display: flex; flex-direction: column; justify-content: center;">
+        <div class="p-3 text-center bg-white shadow-sm tech-card rounded-3" style="height: 120px; display: flex; flex-direction: column; justify-content: center;">
           <div class="mx-auto mb-2 d-flex align-items-center justify-content-center" style="height: 40px; width: 40px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 8px;">
             <i class="text-white bi bi-code-slash" style="font-size: 1.2rem;"></i>
           </div>
