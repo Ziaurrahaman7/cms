@@ -18,45 +18,41 @@ class AdminSiteSettingController extends Controller
     {
         $request->validate([
             'settings' => 'required|array',
+            '*_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,ico|max:2048',
         ]);
         
         // Debug: Check what's being sent
         \Log::info('Settings update request:', $request->all());
+        \Log::info('Files in request:', $request->allFiles());
 
         foreach ($request->settings as $key => $value) {
             $setting = SiteSetting::where('key', $key)->first();
             
             if ($setting) {
-                // Handle file uploads
-                if ($setting->type === 'image' && $request->hasFile("files.{$key}")) {
-                    // Delete old file
-                    if ($setting->value && Storage::disk('public')->exists($setting->value)) {
-                        Storage::disk('public')->delete($setting->value);
+                // Handle file uploads for image settings
+                if ($setting->type === 'image' && $request->hasFile("{$key}_file")) {
+                    $file = $request->file("{$key}_file");
+                    if ($file && $file->isValid()) {
+                        // Delete old file
+                        if ($setting->value && Storage::disk('public')->exists($setting->value)) {
+                            Storage::disk('public')->delete($setting->value);
+                        }
+                        
+                        // Upload new file
+                        $path = $file->store('settings', 'public');
+                        $setting->update(['value' => $path]);
+                        \Log::info("File uploaded for {$key}: {$path}");
                     }
-                    
-                    // Upload new file
-                    $file = $request->file("files.{$key}");
-                    $path = $file->store('settings', 'public');
-                    $value = $path;
-                } elseif ($setting->type === 'image' && $request->hasFile('files') && is_array($request->file('files')) && isset($request->file('files')[$key])) {
-                    // Handle array notation files[key]
-                    // Delete old file
-                    if ($setting->value && Storage::disk('public')->exists($setting->value)) {
-                        Storage::disk('public')->delete($setting->value);
+                } else {
+                    // Handle regular text settings (skip empty image settings)
+                    if ($setting->type !== 'image' || !empty($value)) {
+                        $setting->update(['value' => $value]);
+                        \Log::info("Updated setting: {$key} = {$value}");
                     }
-                    
-                    // Upload new file
-                    $file = $request->file('files')[$key];
-                    $path = $file->store('settings', 'public');
-                    $value = $path;
                 }
-                
-                $setting->update(['value' => $value]);
                 
                 // Clear cache for this setting
                 \Illuminate\Support\Facades\Cache::forget("setting_{$key}");
-                
-                \Log::info("Updated setting: {$key} = {$value}");
             } else {
                 // Create new setting if it doesn't exist (for custom scripts)
                 if (in_array($key, ['custom_header_script', 'custom_body_script'])) {

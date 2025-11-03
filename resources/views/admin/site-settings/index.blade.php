@@ -125,12 +125,14 @@
                             @if($setting->type === 'image')
                                 @if($setting->value)
                                     <div class="mb-2">
-                                        <img src="{{ asset('storage/' . $setting->value) }}" alt="Current" class="h-16 object-contain border rounded" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                        <img src="{{ asset('storage/' . $setting->value) }}" alt="Current {{ ucwords(str_replace('_', ' ', str_replace('site_', '', $setting->key))) }}" class="{{ $setting->key === 'site_favicon' ? 'h-8 w-8' : 'h-16' }} object-contain border rounded bg-white p-1" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                                         <div class="text-sm text-gray-500 p-2 bg-gray-100 rounded" style="display:none;">Current: {{ $setting->value }}</div>
+                                        <p class="text-xs text-gray-500 mt-1">Current {{ ucwords(str_replace('_', ' ', str_replace('site_', '', $setting->key))) }}</p>
                                     </div>
                                 @endif
-                                <input type="file" name="files[{{ $setting->key }}]" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <input type="file" name="{{ $setting->key }}_file" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <input type="hidden" name="settings[{{ $setting->key }}]" value="{{ $setting->value }}">
+                                <p class="text-xs text-gray-500 mt-1">{{ $setting->key === 'site_favicon' ? 'Recommended: 32x32px or 16x16px' : 'Recommended: 200x50px or similar ratio' }}</p>
                             @elseif($setting->type === 'textarea')
                                 <textarea name="settings[{{ $setting->key }}]" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-vertical">{{ $setting->value }}</textarea>
                             @else
