@@ -21,21 +21,24 @@
     <link href="{{ asset('assets/images/apple-touch-icon.png') }}" rel="apple-touch-icon">
   @endif
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <!-- Preconnect for faster font loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+  <!-- Optimized Google Fonts - only essential weights -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/stylesheets/font-awesome.min.css') }}" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+  <!-- Critical CSS first -->
   <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <!-- Non-critical CSS with preload -->
+  <link rel="preload" href="{{ asset('assets/vendor/aos/aos.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="stylesheet"></noscript>
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"></noscript>
+  <link rel="preload" href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet"></noscript>
+  <link rel="preload" href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet"></noscript>
 
   <!-- Main CSS File -->
   <link href="{{ asset('assets/stylesheets/styles.css') }}" id="theme-style" rel="stylesheet">
@@ -269,50 +272,46 @@
 
   <div id="preloader"></div>
 
-  <!-- Vendor JS Files -->
-  <script src="{{ asset('assets/javascripts/jquery.min.js') }}"></script>
-  <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
-  <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
-  <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
-  <script src="{{ asset('assets/javascripts/plugins.js') }}"></script>
-  <script src="{{ asset('assets/javascripts/purecounter_vanilla.js') }}"></script>
-  <script src="{{ asset('assets/javascripts/validator.min.js') }}"></script>
-  <script src="{{ asset('assets/javascripts/contactform.js') }}"></script>
-  <script src="{{ asset('assets/javascripts/particles.min.js') }}"></script>
-  <script src="{{ asset('assets/javascripts/script.js') }}"></script>
-  <script src="{{ asset('assets/javascripts/main.js') }}"></script>
+  <!-- Critical JS -->
+  <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}" defer></script>
+  <!-- Non-critical JS with defer -->
+  <script src="{{ asset('assets/javascripts/jquery.min.js') }}" defer></script>
+  <script src="{{ asset('assets/vendor/aos/aos.js') }}" defer></script>
+  <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}" defer></script>
+  <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}" defer></script>
+  <script src="{{ asset('assets/javascripts/purecounter_vanilla.js') }}" defer></script>
+  <script src="{{ asset('assets/javascripts/particles.min.js') }}" defer></script>
+  <script src="{{ asset('assets/javascripts/plugins.js') }}" defer></script>
+  <script src="{{ asset('assets/javascripts/script.js') }}" defer></script>
+  <script src="{{ asset('assets/javascripts/main.js') }}" defer></script>
   
   <script>
-    // Initialize GLightbox for portfolio
-    document.addEventListener('DOMContentLoaded', function() {
-      const lightbox = GLightbox({
-        selector: '.glightbox',
-        touchNavigation: true,
-        loop: true,
-        autoplayVideos: true
-      });
+    // Optimized initialization
+    window.addEventListener('load', function() {
+      // Initialize GLightbox after page load
+      if (typeof GLightbox !== 'undefined') {
+        GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true });
+      }
       
-      // Back to Top Button Functionality
+      // Back to Top Button
       const scrollTop = document.querySelector('.scroll-top');
-      
       if (scrollTop) {
-        const toggleScrollTop = function() {
-          if (window.scrollY > 100) {
-            scrollTop.classList.add('active');
-          } else {
-            scrollTop.classList.remove('active');
-          }
+        let ticking = false;
+        const toggleScrollTop = () => {
+          scrollTop.classList.toggle('active', window.scrollY > 100);
+          ticking = false;
         };
         
-        window.addEventListener('scroll', toggleScrollTop);
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            requestAnimationFrame(toggleScrollTop);
+            ticking = true;
+          }
+        });
         
-        scrollTop.addEventListener('click', function(e) {
+        scrollTop.addEventListener('click', (e) => {
           e.preventDefault();
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-          });
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       }
     });
