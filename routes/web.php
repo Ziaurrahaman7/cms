@@ -58,6 +58,8 @@ Route::get('/portfolio/{portfolio}', [App\Http\Controllers\PortfolioController::
 Route::middleware('auth')->group(function () {
     
     Route::get('/admin', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/content', [App\Http\Controllers\AdminController::class, 'content'])->name('admin.content');
+    Route::post('/admin/content/update', [App\Http\Controllers\AdminController::class, 'updateContent'])->name('admin.content.update');
     
     // Admin Posts Management
     Route::prefix('admin/posts')->name('admin.posts.')->group(function () {

@@ -195,7 +195,15 @@
           <h4>{{ $team->name }}</h4>
           <span>{{ $team->position }}</span>
           @if($team->bio)
-            <p class="bio">{{ Str::limit($team->bio, 100) }}</p>
+            <p class="bio team-bio" data-full-text="{{ $team->bio }}">
+              @if(strlen($team->bio) > 80)
+                <span class="short-text">{{ Str::limit($team->bio, 80, '') }}</span>
+                <span class="full-text" style="display: none;">{{ $team->bio }}</span>
+                <a href="#" class="see-more-btn text-primary fw-bold" onclick="toggleTeamBio(this); return false;">... See More</a>
+              @else
+                {{ $team->bio }}
+              @endif
+            </p>
           @endif
           <div class="social">
             @if($team->twitter)
@@ -330,5 +338,32 @@
   transform: translateY(-5px);
   transition: all 0.3s ease;
 }
+
+.team-bio .see-more-btn {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.team-bio .see-more-btn:hover {
+  text-decoration: underline;
+}
 </style>
+
+<script>
+function toggleTeamBio(btn) {
+  const container = btn.closest('.team-bio');
+  const shortText = container.querySelector('.short-text');
+  const fullText = container.querySelector('.full-text');
+  
+  if (fullText.style.display === 'none') {
+    shortText.style.display = 'none';
+    fullText.style.display = 'inline';
+    btn.textContent = ' See Less';
+  } else {
+    shortText.style.display = 'inline';
+    fullText.style.display = 'none';
+    btn.textContent = '... See More';
+  }
+}
+</script>
 @endsection
