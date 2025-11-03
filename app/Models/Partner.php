@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Partner extends Model
 {
     protected $fillable = [
-        'name', 'slug', 'type', 'website', 'description', 'logo', 'sort_order', 'is_active', 'sections'
+        'name', 'slug', 'type', 'website', 'description', 'country', 'logo', 'sort_order', 'is_active', 'sections', 'meta_title', 'meta_description', 'meta_keywords'
     ];
 
     protected $casts = [
