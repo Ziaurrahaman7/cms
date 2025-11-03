@@ -17,27 +17,24 @@
   </div>
 </section>
 
-<!-- Partners Worldwide Section -->
+<!-- Partners Details Section -->
 <section class="py-5">
   <div class="container">
     <div class="text-center mb-5">
-      <h2 class="mb-3">Partners Worldwide</h2>
-      <p class="text-muted">Our global network of trusted partners</p>
+      <h2 class="mb-3">Our Partners</h2>
+      <p class="text-muted">Detailed information about our business partners</p>
     </div>
     <div class="row g-4">
       @forelse($allPartners as $partner)
       <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
         <div class="border-0 shadow-sm card h-100 hover-lift">
-          @if($partner->logo)
-            <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 150px; background: #f8f9fa;">
-              <img src="{{ asset('storage/' . $partner->logo) }}" alt="{{ $partner->name }}" class="img-fluid" style="max-height: 100px; max-width: 80%;">
-            </div>
-          @endif
-          <div class="card-body text-center">
+          <div class="card-body d-flex flex-column">
+            <span class="mb-3 badge bg-primary align-self-start">{{ ucwords(str_replace('-', ' ', $partner->type)) }}</span>
             <h5 class="mb-2 card-title">{{ $partner->name }}</h5>
-            @if($partner->country)
-              <p class="text-muted mb-0">{{ $partner->country }}</p>
-            @endif
+            <p class="card-text text-muted flex-grow-1">{{ Str::limit($partner->description, 120) }}</p>
+            <div class="mt-auto">
+              <a href="{{ route('partners.show', $partner->slug) }}" class="btn btn-sm">Learn More</a>
+            </div>
           </div>
         </div>
       </div>
@@ -53,31 +50,32 @@
   </div>
 </section>
 
-<!-- Partners Details Section -->
+<!-- Partners Worldwide Section -->
 <section class="py-5 bg-light">
   <div class="container">
     <div class="text-center mb-5">
-      <h2 class="mb-3">Our Partners</h2>
-      <p class="text-muted">Detailed information about our business partners</p>
+      <h2 class="mb-3">Partners Worldwide</h2>
+      <p class="text-muted">Our global network of trusted partners</p>
     </div>
     <div class="row g-4">
-      @forelse($allPartners as $partner)
+      @forelse($worldwidePartners as $partner)
       <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
         <div class="border-0 shadow-sm card h-100 hover-lift bg-white">
-          <div class="card-body d-flex flex-column">
-            <span class="mb-3 badge bg-primary align-self-start">{{ ucwords(str_replace('-', ' ', $partner->type)) }}</span>
-            <h5 class="mb-2 card-title">{{ $partner->name }}</h5>
-            <p class="card-text text-muted flex-grow-1">{{ Str::limit($partner->description, 120) }}</p>
-            <div class="mt-auto">
-              <a href="{{ route('partners.show', $partner->slug) }}" class="btn btn-sm">Learn More</a>
+          @if($partner->logo)
+            <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 150px; background: #f8f9fa;">
+              <img src="{{ asset('storage/' . $partner->logo) }}" alt="{{ $partner->name }}" class="img-fluid" style="max-height: 100px; max-width: 80%;">
             </div>
+          @endif
+          <div class="card-body text-center">
+            <h5 class="mb-2 card-title">{{ $partner->name }}</h5>
+            <p class="text-muted mb-0">{{ $partner->country }}</p>
           </div>
         </div>
       </div>
       @empty
       <div class="col-12">
         <div class="py-5 text-center">
-          <h3 class="text-muted">No partners found</h3>
+          <h3 class="text-muted">No worldwide partners found</h3>
           <p class="text-muted">We're working on building partnerships. Check back soon!</p>
         </div>
       </div>

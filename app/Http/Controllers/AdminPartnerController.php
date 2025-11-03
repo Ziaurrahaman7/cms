@@ -123,4 +123,10 @@ class AdminPartnerController extends Controller
         $partner->delete();
         return redirect()->route('admin.partners.index')->with('success', 'Partner deleted successfully.');
     }
+    
+    public function worldwide()
+    {
+        $partners = Partner::where('is_active', true)->whereNotNull('country')->orderBy('sort_order')->get();
+        return view('admin.partners.worldwide', compact('partners'));
+    }
 }

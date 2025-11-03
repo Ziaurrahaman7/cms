@@ -308,6 +308,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/{partnerHeroSection}/edit', [App\Http\Controllers\AdminPartnerHeroSectionController::class, 'edit'])->name('edit');
         Route::put('/{partnerHeroSection}', [App\Http\Controllers\AdminPartnerHeroSectionController::class, 'update'])->name('update');
     });
+    
+    // Admin Worldwide Partners Management
+    Route::prefix('admin/worldwide-partners')->name('admin.worldwide-partners.')->group(function () {
+        Route::get('/', [App\Http\Controllers\AdminWorldwidePartnerController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\AdminWorldwidePartnerController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\AdminWorldwidePartnerController::class, 'store'])->name('store');
+        Route::get('/{worldwidePartner}/edit', [App\Http\Controllers\AdminWorldwidePartnerController::class, 'edit'])->name('edit');
+        Route::put('/{worldwidePartner}', [App\Http\Controllers\AdminWorldwidePartnerController::class, 'update'])->name('update');
+        Route::delete('/{worldwidePartner}', [App\Http\Controllers\AdminWorldwidePartnerController::class, 'destroy'])->name('destroy');
+    });
 });
 
 require __DIR__.'/auth.php';
