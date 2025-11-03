@@ -39,6 +39,22 @@
                     <label class="block text-sm font-medium text-gray-700 mb-1">Short Description</label>
                     <p class="text-gray-900">{{ $heroSection->short_description }}</p>
                 </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Our Partners Section Title</label>
+                    <p class="text-gray-900">{{ $heroSection->our_partners_title ?? 'Our Partners' }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Our Partners Section Description</label>
+                    <p class="text-gray-900">{{ $heroSection->our_partners_description ?? 'Detailed information about our business partners' }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Worldwide Partners Section Title</label>
+                    <p class="text-gray-900">{{ $heroSection->worldwide_partners_title ?? 'Partners Worldwide' }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Worldwide Partners Section Description</label>
+                    <p class="text-gray-900">{{ $heroSection->worldwide_partners_description ?? 'Our global network of trusted partners' }}</p>
+                </div>
                 <div class="text-sm text-gray-500">
                     Last updated: {{ $heroSection->updated_at->format('M d, Y \a\t g:i A') }}
                 </div>

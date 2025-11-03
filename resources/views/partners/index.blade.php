@@ -21,8 +21,8 @@
 <section class="py-5">
   <div class="container">
     <div class="text-center mb-5">
-      <h2 class="mb-3">Our Partners</h2>
-      <p class="text-muted">Detailed information about our business partners</p>
+      <h2 class="mb-3">{{ $heroSection ? $heroSection->our_partners_title : 'Our Partners' }}</h2>
+      <p class="text-muted">{{ $heroSection ? $heroSection->our_partners_description : 'Detailed information about our business partners' }}</p>
     </div>
     <div class="row g-4">
       @forelse($allPartners as $partner)
@@ -54,8 +54,8 @@
 <section class="py-5 bg-light">
   <div class="container">
     <div class="text-center mb-5">
-      <h2 class="mb-3">Partners Worldwide</h2>
-      <p class="text-muted">Our global network of trusted partners</p>
+      <h2 class="mb-3">{{ $heroSection ? $heroSection->worldwide_partners_title : 'Partners Worldwide' }}</h2>
+      <p class="text-muted">{{ $heroSection ? $heroSection->worldwide_partners_description : 'Our global network of trusted partners' }}</p>
     </div>
     <div class="row g-4">
       @forelse($worldwidePartners as $partner)

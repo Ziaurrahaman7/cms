@@ -30,9 +30,13 @@ class AdminPartnerHeroSectionController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'short_description' => 'required|string',
+            'our_partners_title' => 'required|string|max:255',
+            'our_partners_description' => 'required|string',
+            'worldwide_partners_title' => 'required|string|max:255',
+            'worldwide_partners_description' => 'required|string',
         ]);
 
-        PartnerHeroSection::create($request->only(['title', 'short_description']));
+        PartnerHeroSection::create($request->only(['title', 'short_description', 'our_partners_title', 'our_partners_description', 'worldwide_partners_title', 'worldwide_partners_description']));
 
         return redirect()->route('admin.partner-hero-sections.index')->with('success', 'Partner Hero Section created successfully!');
     }
@@ -47,9 +51,13 @@ class AdminPartnerHeroSectionController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'short_description' => 'required|string',
+            'our_partners_title' => 'required|string|max:255',
+            'our_partners_description' => 'required|string',
+            'worldwide_partners_title' => 'required|string|max:255',
+            'worldwide_partners_description' => 'required|string',
         ]);
 
-        $partnerHeroSection->update($request->only(['title', 'short_description']));
+        $partnerHeroSection->update($request->only(['title', 'short_description', 'our_partners_title', 'our_partners_description', 'worldwide_partners_title', 'worldwide_partners_description']));
 
         return redirect()->route('admin.partner-hero-sections.index')->with('success', 'Partner Hero Section updated successfully!');
     }

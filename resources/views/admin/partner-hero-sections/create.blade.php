@@ -34,6 +34,38 @@
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
+                
+                <div>
+                    <label for="our_partners_title" class="block text-sm font-medium text-gray-700 mb-2">Our Partners Section Title</label>
+                    <input type="text" name="our_partners_title" id="our_partners_title" value="{{ old('our_partners_title', 'Our Partners') }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    @error('our_partners_title')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+                
+                <div>
+                    <label for="our_partners_description" class="block text-sm font-medium text-gray-700 mb-2">Our Partners Section Description</label>
+                    <textarea name="our_partners_description" id="our_partners_description" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>{{ old('our_partners_description', 'Detailed information about our business partners') }}</textarea>
+                    @error('our_partners_description')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+                
+                <div>
+                    <label for="worldwide_partners_title" class="block text-sm font-medium text-gray-700 mb-2">Worldwide Partners Section Title</label>
+                    <input type="text" name="worldwide_partners_title" id="worldwide_partners_title" value="{{ old('worldwide_partners_title', 'Partners Worldwide') }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    @error('worldwide_partners_title')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+                
+                <div>
+                    <label for="worldwide_partners_description" class="block text-sm font-medium text-gray-700 mb-2">Worldwide Partners Section Description</label>
+                    <textarea name="worldwide_partners_description" id="worldwide_partners_description" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>{{ old('worldwide_partners_description', 'Our global network of trusted partners') }}</textarea>
+                    @error('worldwide_partners_description')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
             
             <div class="flex justify-end pt-6 border-t border-gray-200 mt-6">
