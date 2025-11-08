@@ -1,5 +1,14 @@
 @extends('layouts.app')
-
+<style>
+  .herotitle{
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: var(--hero-text-color);
+    text-transform: capitalize;
+    letter-spacing: 0.7px;
+    font-weight: 600;
+  }
+</style>
 @section('content')
 <!--  Hero Section  -->
 <section id="hero" class="hero sticked-header-offset" style="@php $heroBg = App\Models\SiteSetting::get('hero_bg_image'); @endphp @if($heroBg && file_exists(public_path('storage/' . $heroBg))) background-image: url('{{ asset('storage/' . $heroBg) }}'); background-size: cover; background-position: center; background-attachment: fixed; @endif">
@@ -10,7 +19,7 @@
   <div class="container position-relative">
     <div class="row gy-5 aos-init aos-animate">
       <div class="text-left col-lg-7 offset-lg-5 dark-bg order-lg-1 d-flex flex-column justify-content-start caption">
-        <h2 data-aos="fade-up">{{ App\Models\SiteSetting::get('hero_title', 'Delivering Superior Services IT Solutions') }}<span class="circle" data-aos="fade-right" data-aos-delay="800">.</span></h2>
+        <h1 class="herotitle" style="font-size:40px !important" data-aos="fade-up">{{ App\Models\SiteSetting::get('hero_title', 'Delivering Superior Services IT Solutions') }}<span class="circle" data-aos="fade-right" data-aos-delay="800">.</span></h1>
         <p data-aos="fade-up" data-aos-delay="400">{{ App\Models\SiteSetting::get('hero_subtitle', 'You can easily change any design to your own. It is also highly customizable SEO friendly template.') }}</p>
         <div class="social" data-aos="fade-up" data-aos-delay="600">
           @if(App\Models\SiteSetting::get('social_twitter'))
@@ -231,7 +240,9 @@
             <div class="text-center card-body d-flex flex-column" style="flex: 1;">
               <h5 class="mb-2" style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $portfolio->title }}</h5>
               <p class="mb-3 text-muted" style="flex: 1; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">{{ $portfolio->description }}</p>
-              <div class="mb-3 text-center"><span class="badge bg-primary">{{ ucfirst($portfolio->category) }}</span></div>
+              @if($portfolio->portfolioCategory)
+                <div class="mb-3 text-center"><span class="badge bg-primary">{{ $portfolio->portfolioCategory->name }}</span></div>
+              @endif
               <a href="{{ route('portfolio.show', $portfolio->slug) }}" class="btn btn-sm" style="border: 2px solid #007bff; color: #007bff; background: transparent; font-size: 12px; padding: 6px 12px; margin-top: auto;">View Details</a>
             </div>
           </div>

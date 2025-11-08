@@ -52,4 +52,9 @@ class Portfolio extends Model
     {
         return 'slug';
     }
+    
+    public function portfolioCategory()
+    {
+        return $this->belongsTo(PortfolioCategory::class, 'category', 'slug');
+    }
 }

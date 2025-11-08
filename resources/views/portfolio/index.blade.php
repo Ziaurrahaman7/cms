@@ -72,7 +72,9 @@
             <div class="card-body d-flex flex-column" style="flex: 1;">
               <h5 class="card-title mb-2" style="height: 50px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ $portfolio->title }}</h5>
               <p class="card-text text-muted mb-3" style="flex: 1; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">{{ $portfolio->description }}</p>
-              <div class="text-center mb-3"><span class="badge bg-primary">{{ ucfirst($portfolio->category) }}</span></div>
+              @if($portfolio->portfolioCategory)
+                <div class="text-center mb-3"><span class="badge bg-primary">{{ $portfolio->portfolioCategory->name }}</span></div>
+              @endif
               <a href="{{ route('portfolio.show', $portfolio->slug) }}" class="btn btn-sm" style="border: 2px solid #007bff; color: #007bff; background: transparent; font-size: 12px; padding: 6px 12px; margin-top: auto;">View Details</a>
             </div>
           </div>
