@@ -17,11 +17,11 @@
   <div id="repulse-circle-div"></div>
   @endif
   <div class="container position-relative">
-    <div class="row gy-5 aos-init aos-animate">
+    <div class="row gy-5">
       <div class="text-left col-lg-7 offset-lg-5 dark-bg order-lg-1 d-flex flex-column justify-content-start caption">
-        <h1 class="herotitle" style="font-size:40px !important" data-aos="fade-up">{{ App\Models\SiteSetting::get('hero_title', 'Delivering Superior Services IT Solutions') }}<span class="circle" data-aos="fade-right" data-aos-delay="800">.</span></h1>
-        <p data-aos="fade-up" data-aos-delay="400">{{ App\Models\SiteSetting::get('hero_subtitle', 'You can easily change any design to your own. It is also highly customizable SEO friendly template.') }}</p>
-        <div class="social" data-aos="fade-up" data-aos-delay="600">
+        <h1 class="herotitle" style="font-size:40px !important">{{ App\Models\SiteSetting::get('hero_title', 'Delivering Superior Services IT Solutions') }}<span class="circle">.</span></h1>
+        <p>{{ App\Models\SiteSetting::get('hero_subtitle', 'You can easily change any design to your own. It is also highly customizable SEO friendly template.') }}</p>
+        <div class="social">
           @if(App\Models\SiteSetting::get('social_twitter'))
             <a href="{{ App\Models\SiteSetting::get('social_twitter') }}" target="_blank"><i class="bi bi-twitter-x"></i></a>
           @endif
@@ -39,8 +39,8 @@
           @endif
         </div>
         <div class="d-flex justify-content-start">
-          <a href="{{ App\Models\SiteSetting::get('hero_button_link', '#contact') }}" class="mr-20 btn-get-started" data-aos="fade-up" data-aos-delay="800">{{ App\Models\SiteSetting::get('hero_button_text', 'Get Quotes') }}</a>
-          <a href="#services" class="btn-get-started" data-aos="fade-up" data-aos-delay="1000">Get Started</a>
+          <a href="{{ App\Models\SiteSetting::get('hero_button_link', '#contact') }}" class="mr-20 btn-get-started">{{ App\Models\SiteSetting::get('hero_button_text', 'Get Quotes') }}</a>
+          <a href="#services" class="btn-get-started">Get Started</a>
         </div>
       </div>
     </div>
@@ -63,7 +63,7 @@
         @endphp
         
         @forelse($services as $service)
-        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
+        <div class="col-lg-4 col-md-6">
           <div class="overflow-hidden bg-white shadow-lg service-card rounded-4" style="transition: all 0.3s ease; border: none; height: 480px; display: flex; flex-direction: column;">
             <div class="service-image position-relative" style="height: 200px; overflow: hidden; flex-shrink: 0;">
               @if($service->image && file_exists(public_path('storage/' . $service->image)))
@@ -89,7 +89,7 @@
           </div>
         </div>
         @empty
-        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="col-lg-4 col-md-6">
           <div class="overflow-hidden bg-white shadow-lg service-card h-100 rounded-4">
             <div class="service-image position-relative" style="height: 200px; overflow: hidden;">
               <img src="{{ asset('assets/images/services/service-1.jpg') }}" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;" alt="Web Development">
@@ -149,7 +149,7 @@
         @endphp
         
         @forelse($products as $product)
-        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
+        <div class="col-lg-4 col-md-6">
           <div class="overflow-hidden bg-white shadow-lg product-card rounded-4" style="transition: all 0.3s ease; height: 480px; display: flex; flex-direction: column;">
             <div class="product-image position-relative" style="height: 200px; overflow: hidden; flex-shrink: 0;">
               @if($product->image && file_exists(public_path('storage/' . $product->image)))
@@ -176,7 +176,7 @@
           </div>
         </div>
         @empty
-        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="col-lg-4 col-md-6">
           <div class="overflow-hidden bg-white shadow-lg product-card rounded-4 h-100">
             <div class="product-image" style="height: 200px; background: linear-gradient(45deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center;">
               <i class="text-white bi bi-laptop" style="font-size: 3rem;"></i>
@@ -210,18 +210,18 @@
   <!-- Success Stories Section -->
   <section id="success-stories" class="py-5" style="background: #f8f9fa;">
     <div class="container">
-      <div class="text-center section-header" data-aos="fade-up">
+      <div class="text-center section-header">
         <h2 class="mb-3">Our Success Stories</h2>
         <p class="text-muted">Real projects, real results - see how we've transformed businesses</p>
       </div>
       
       <div class="row g-4">
         @php
-          $portfolios = App\Models\Portfolio::active()->ordered()->take(6)->get();
+          $portfolios = App\Models\Portfolio::active()->ordered()->with('portfolioCategory')->take(6)->get();
         @endphp
         
         @forelse($portfolios as $portfolio)
-        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
+        <div class="col-lg-4 col-md-6">
           <div class="border-0 shadow-sm card portfolio-card" style="height: 550px; display: flex; flex-direction: column;">
             <div class="overflow-hidden position-relative" style="height: 250px; flex-shrink: 0;">
               @if($portfolio->image && file_exists(public_path('storage/portfolios/' . $portfolio->image)))
@@ -248,7 +248,7 @@
           </div>
         </div>
         @empty
-        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="col-lg-4 col-md-6">
           <div class="border-0 shadow-sm card h-100 portfolio-card">
             <div class="card-img-top" style="height: 250px; background: linear-gradient(45deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center;">
               <i class="text-white bi bi-trophy" style="font-size: 3rem;"></i>
@@ -327,7 +327,7 @@
   <!-- Why Choose Us Section -->
   <section id="featured" class="py-5">
     <div class="container">
-        <div class="text-center section-header" data-aos="fade-up" data-aos-delay="100">
+        <div class="text-center section-header">
           <h2>Why Choose Us</h2>
           <p>Discover what makes us the perfect choice for your business</p>
         </div>
@@ -339,7 +339,7 @@
       
       <div class="col-md-4 left">
         @forelse($leftFeatures as $feature)
-        <div class="list-wrap" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
+        <div class="list-wrap">
           <div class="description">
             <h4>{{ $feature->title }}</h4>
             <p>{{ $feature->description }}</p>
@@ -355,7 +355,7 @@
           </div>
         </div>
         @empty
-        <div class="list-wrap" data-aos="fade-up" data-aos-delay="100">
+        <div class="list-wrap">
           <div class="description">
             <h4>Experience</h4>
             <p>Years of expertise in delivering quality IT solutions and services.</p>
@@ -368,7 +368,7 @@
       </div>
       
       <div class="p-4 col-md-4 p-sm-5 center">
-        <div class="list-center-wrap" data-aos="fade-up" data-aos-delay="100">
+        <div class="list-center-wrap">
           <div class="center-icon">
             <img src="{{ asset('assets/images/features.jpg') }}" alt="icon">
           </div>
@@ -377,7 +377,7 @@
       
       <div class="col-md-4 right">
         @forelse($rightFeatures as $feature)
-        <div class="list-wrap" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 100 }}">
+        <div class="list-wrap">
           <div class="icon">
             @if($feature->icon)
               <div class="icon-wrapper" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; margin: 0 auto;">
@@ -393,7 +393,7 @@
           </div>
         </div>
         @empty
-        <div class="list-wrap" data-aos="fade-up" data-aos-delay="100">
+        <div class="list-wrap">
           <div class="icon">
             <img src="{{ asset('assets/images/icons/icon-4.svg') }}" alt="icon">
           </div>
@@ -412,7 +412,7 @@
 
 <!-- Technologies We Use Section -->
 <section id="technologies" class="py-5" style="background: #f8f9fa;">
-  <div class="container" data-aos="fade-up">
+  <div class="container">
     <div class="text-center section-header">
       <h2 class="mb-3">Technologies We Use</h2>
       <p class="text-muted">Cutting-edge technologies that power our solutions</p>
@@ -439,7 +439,7 @@
         <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="tech-{{ $category->slug }}" role="tabpanel">
           <div class="row g-4">
             @forelse($category->technologies as $tech)
-            <div class="col-lg-2 col-md-3 col-sm-4 col-6" data-aos="fade-up" data-aos-delay="{{ ($loop->index + 1) * 50 }}">
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6">
               <div class="p-3 text-center bg-white shadow-sm tech-card rounded-3" style="transition: all 0.3s ease; height: 120px; display: flex; flex-direction: column; justify-content: center;">
                 @if($tech->icon && file_exists(public_path('storage/technologies/' . $tech->icon)))
                   <img src="{{ asset('storage/technologies/' . $tech->icon) }}" alt="{{ $tech->name }}" class="mx-auto mb-2" style="height: 40px; width: 40px; object-fit: contain;">
@@ -463,7 +463,7 @@
     </div>
     @else
     <div class="row g-4">
-      <div class="col-lg-2 col-md-3 col-sm-4 col-6" data-aos="fade-up" data-aos-delay="100">
+      <div class="col-lg-2 col-md-3 col-sm-4 col-6">
         <div class="p-3 text-center bg-white shadow-sm tech-card rounded-3" style="height: 120px; display: flex; flex-direction: column; justify-content: center;">
           <div class="mx-auto mb-2 d-flex align-items-center justify-content-center" style="height: 40px; width: 40px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 8px;">
             <i class="text-white bi bi-code-slash" style="font-size: 1.2rem;"></i>
@@ -471,7 +471,7 @@
           <h6 class="mb-0" style="font-size: 0.85rem; font-weight: 600;">React</h6>
         </div>
       </div>
-      <div class="col-lg-2 col-md-3 col-sm-4 col-6" data-aos="fade-up" data-aos-delay="150">
+      <div class="col-lg-2 col-md-3 col-sm-4 col-6">
         <div class="p-3 text-center bg-white shadow-sm tech-card rounded-3" style="height: 120px; display: flex; flex-direction: column; justify-content: center;">
           <div class="mx-auto mb-2 d-flex align-items-center justify-content-center" style="height: 40px; width: 40px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 8px;">
             <i class="text-white bi bi-code-slash" style="font-size: 1.2rem;"></i>
@@ -514,15 +514,15 @@
 
 <!--  Testimonials Section  -->
 <section id="testimonials" class="testimonials">
-  <div class="container" data-aos="fade-up">
+  <div class="container">
     <div class="section-header">
       <h2>Testimonials</h2>
       <p>What our clients say about our services</p>
     </div>
-    <div class="slides-3 swiper" data-aos="fade-up" data-aos-delay="100">
+    <div class="slides-3 swiper">
       <div class="swiper-wrapper">
         @php
-          $testimonials = App\Models\Testimonial::active()->ordered()->get();
+          $testimonials = App\Models\Testimonial::active()->ordered()->take(10)->get();
         @endphp
         
         @forelse($testimonials as $testimonial)
@@ -592,7 +592,7 @@
 
 <!--  Start Counter Section  -->
 <div id="stats-counter" class="call-to-action stats-counter section">
-  <div class="container" data-aos="fade-up">
+  <div class="container">
     <div class="row gy-4 align-items-center">
       <div class="col-lg-4">
         <div class="stats-item d-flex flex-column align-items-center">
@@ -621,7 +621,7 @@
 
 <!--  Clients Section -->
 <div id="clients" class="clients section">
-  <div class="container" data-aos="zoom-out">
+  <div class="container">
     <div class="text-center section-header">
       <h2>Our Trusted Clients</h2>
       <p>We're proud to work with amazing companies across different sectors</p>
@@ -828,7 +828,7 @@
 @endphp
 @if($discussSection->is_active)
 <section id="call-to-action" class="call-to-action">
-  <div class="container text-center aos-init aos-animate" data-aos="zoom-out">
+  <div class="container text-center">
      <div class="row gy-4">
       <div class="col-lg-12">
           <h3>{{ $discussSection->title }}</h3>
@@ -846,7 +846,7 @@
 
 <!--  Recent Blog Posts Section  -->
 <section id="recent-posts" class="recent-posts sections-bg">
-  <div class="container" data-aos="fade-up">
+  <div class="container">
     <div class="section-header">
       <h2>Latest Blogs</h2>
       <p>Stay updated with our latest insights</p>
@@ -921,7 +921,7 @@
     @endif
     
     <div class="row">
-      <div class="col-lg-4 col-md-12" data-aos="fade-right">
+      <div class="col-lg-4 col-md-12">
         <div class="contact-information-box-3">
           <div class="row">
             <div class="col-lg-12">
@@ -954,7 +954,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-8 col-md-12" data-aos="fade-left">
+      <div class="col-lg-8 col-md-12">
         <div class="contact-form-box contact-form contact-form-3">
           <div class="form-container-box">
             <form class="contact-form form" method="POST" action="{{ route('contact.store') }}">

@@ -42,12 +42,7 @@
       <div>
         <ul class="portfolio-flters">
           <li data-filter="*" class="filter-active">All</li>
-          @php
-            $usedCategories = $portfolios->pluck('category')->unique()->filter();
-          @endphp
-          @foreach($usedCategories as $category)
-            <li data-filter=".filter-{{ Str::slug($category) }}">{{ ucfirst($category) }}</li>
-          @endforeach
+
         </ul>
       </div>
       
