@@ -15,6 +15,10 @@ class ContactForm extends Model
         'message',
         'status'
     ];
+    
+    protected $attributes = [
+        'status' => 'new'
+    ];
 
     public function scopeNew($query)
     {
