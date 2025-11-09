@@ -8,7 +8,7 @@
   <meta name="keywords" content="@yield('keywords', App\Models\SiteSetting::get('meta_keywords', 'IT solutions, web development, business services'))">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="canonical" href="{{ url()->current() }}">
-
+<meta name="google-site-verification" content="AH9ELyhFwLwsGBfUc-1JfTXexCESxKv1G_ENIWwEof0"/>
   <!-- Favicons -->
   @php
     $siteFavicon = App\Models\SiteSetting::get('site_favicon');
