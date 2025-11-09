@@ -1207,7 +1207,7 @@ section {background: var(--light-color);}
   height: 100%;
   background: #000000;
   z-index: 0;
-  opacity: 0.6;
+  opacity: 0.1;
 }
 
 .call-to-action .play-btn:hover:before {

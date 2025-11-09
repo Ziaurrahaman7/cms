@@ -178,7 +178,19 @@
       color: white;
       text-decoration: none;
     }
-    
+    .call-to-action:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  z-index: 0;
+  opacity: 0.1 !important;
+}
     /* WhatsApp Float Button */
     .whatsapp-float {
       position: fixed;

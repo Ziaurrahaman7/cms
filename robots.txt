@@ -1,0 +1,14 @@
+User-agent: *
+Disallow: 
+Allow: /
+Disallow: /cgi-bin/
+Disallow: /public/
+Disallow: /admin/
+Disallow: /wp-admin/
+Disallow: /login/
+Disallow: /tmp/
+Allow: /wp-admin/admin-ajax.php
+
+Sitemap: https://primacyinfotechltd.com/sitemap.xml
+
+
