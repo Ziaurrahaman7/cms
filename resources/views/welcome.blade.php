@@ -620,7 +620,7 @@
 </div>
 
 <!--  Clients Section -->
-<div id="clients" class="clients section">
+<div id="clients" class="clients section" style="padding: 30px 0;">
   <div class="container">
     <div class="text-center section-header">
       <h2>Our Trusted Clients</h2>
@@ -653,102 +653,88 @@
         
         <!-- All Clients Tab -->
         <div class="tab-pane fade show active" id="all" role="tabpanel">
-          <div class="clients-slider swiper">
-            <div class="swiper-wrapper align-items-center">
+          <div class="swiper all-clients-swiper">
+            <div class="swiper-wrapper">
               @forelse($allClients as $client)
-                <div class="swiper-slide">
-                  @if($client->website_url)
-                    <a href="{{ $client->website_url }}" target="_blank">
-                  @endif
-                  @if($client->logo && file_exists(public_path('storage/clients/' . $client->logo)))
-                    <img src="{{ asset('storage/clients/' . $client->logo) }}" class="img-fluid client-logo" alt="{{ $client->name }}">
-                  @else
-                    <img src="{{ asset('assets/images/clients/client-' . (($loop->index % 6) + 1) . '.png') }}" class="img-fluid client-logo" alt="{{ $client->name }}">
-                  @endif
-                  @if($client->website_url)
-                    </a>
-                  @endif
-                </div>
+                @if($client->logo)
+                  <div class="swiper-slide">
+                    <img src="{{ asset('storage/clients/' . $client->logo) }}" class="client-logo" alt="{{ $client->name }}">
+                  </div>
+                @endif
               @empty
-                <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-1.png') }}" class="img-fluid client-logo" alt="Client 1"></div>
-                <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-2.png') }}" class="img-fluid client-logo" alt="Client 2"></div>
+                <div class="swiper-slide">
+                  <img src="{{ asset('assets/images/clients/client-1.png') }}" class="client-logo" alt="Client 1">
+                </div>
+                <div class="swiper-slide">
+                  <img src="{{ asset('assets/images/clients/client-2.png') }}" class="client-logo" alt="Client 2">
+                </div>
               @endforelse
             </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
           </div>
         </div>
         
         <!-- Private Companies Tab -->
         <div class="tab-pane fade" id="private" role="tabpanel">
-          <div class="clients-slider swiper">
-            <div class="swiper-wrapper align-items-center">
+          <div class="swiper private-clients-swiper">
+            <div class="swiper-wrapper">
               @forelse($privateClients as $client)
-                <div class="swiper-slide">
-                  @if($client->website_url)
-                    <a href="{{ $client->website_url }}" target="_blank">
-                  @endif
-                  @if($client->logo && file_exists(public_path('storage/clients/' . $client->logo)))
-                    <img src="{{ asset('storage/clients/' . $client->logo) }}" class="img-fluid client-logo" alt="{{ $client->name }}">
-                  @else
-                    <img src="{{ asset('assets/images/clients/client-1.png') }}" class="img-fluid client-logo" alt="{{ $client->name }}">
-                  @endif
-                  @if($client->website_url)
-                    </a>
-                  @endif
-                </div>
+                @if($client->logo)
+                  <div class="swiper-slide">
+                    <img src="{{ asset('storage/clients/' . $client->logo) }}" class="client-logo" alt="{{ $client->name }}">
+                  </div>
+                @endif
               @empty
-                <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-1.png') }}" class="img-fluid client-logo" alt="Private Client 1"></div>
+                <div class="swiper-slide">
+                  <img src="{{ asset('assets/images/clients/client-1.png') }}" class="client-logo" alt="Private Client 1">
+                </div>
               @endforelse
             </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
           </div>
         </div>
         
         <!-- Government Tab -->
         <div class="tab-pane fade" id="government" role="tabpanel">
-          <div class="clients-slider swiper">
-            <div class="swiper-wrapper align-items-center">
+          <div class="swiper government-clients-swiper">
+            <div class="swiper-wrapper">
               @forelse($governmentClients as $client)
-                <div class="swiper-slide">
-                  @if($client->website_url)
-                    <a href="{{ $client->website_url }}" target="_blank">
-                  @endif
-                  @if($client->logo && file_exists(public_path('storage/clients/' . $client->logo)))
-                    <img src="{{ asset('storage/clients/' . $client->logo) }}" class="img-fluid client-logo" alt="{{ $client->name }}">
-                  @else
-                    <img src="{{ asset('assets/images/clients/client-5.png') }}" class="img-fluid client-logo" alt="{{ $client->name }}">
-                  @endif
-                  @if($client->website_url)
-                    </a>
-                  @endif
-                </div>
+                @if($client->logo)
+                  <div class="swiper-slide">
+                    <img src="{{ asset('storage/clients/' . $client->logo) }}" class="client-logo" alt="{{ $client->name }}">
+                  </div>
+                @endif
               @empty
-                <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-5.png') }}" class="img-fluid client-logo" alt="Government Client 1"></div>
+                <div class="swiper-slide">
+                  <img src="{{ asset('assets/images/clients/client-5.png') }}" class="client-logo" alt="Government Client 1">
+                </div>
               @endforelse
             </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
           </div>
         </div>
         
         <!-- Global Clients Tab -->
         <div class="tab-pane fade" id="global" role="tabpanel">
-          <div class="clients-slider swiper">
-            <div class="swiper-wrapper align-items-center">
+          <div class="swiper global-clients-swiper">
+            <div class="swiper-wrapper">
               @forelse($globalClients as $client)
-                <div class="swiper-slide">
-                  @if($client->website_url)
-                    <a href="{{ $client->website_url }}" target="_blank">
-                  @endif
-                  @if($client->logo && file_exists(public_path('storage/clients/' . $client->logo)))
-                    <img src="{{ asset('storage/clients/' . $client->logo) }}" class="img-fluid client-logo" alt="{{ $client->name }}">
-                  @else
-                    <img src="{{ asset('assets/images/clients/client-3.png') }}" class="img-fluid client-logo" alt="{{ $client->name }}">
-                  @endif
-                  @if($client->website_url)
-                    </a>
-                  @endif
-                </div>
+                @if($client->logo)
+                  <div class="swiper-slide">
+                    <img src="{{ asset('storage/clients/' . $client->logo) }}" class="client-logo" alt="{{ $client->name }}">
+                  </div>
+                @endif
               @empty
-                <div class="swiper-slide"><img src="{{ asset('assets/images/clients/client-3.png') }}" class="img-fluid client-logo" alt="Global Client 1"></div>
+                <div class="swiper-slide">
+                  <img src="{{ asset('assets/images/clients/client-3.png') }}" class="client-logo" alt="Global Client 1">
+                </div>
               @endforelse
             </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
           </div>
         </div>
       </div>
@@ -758,10 +744,14 @@
 
 <style>
 .client-logo {
-  max-height: 80px;
+  max-height: 60px;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
   filter: grayscale(100%);
   transition: all 0.3s ease;
-  padding: 10px;
+  padding: 5px;
 }
 .client-logo:hover {
   filter: grayscale(0%) !important;
@@ -787,6 +777,71 @@
 .clients-tabs .nav-link:hover {
   color: #007bff;
   background-color: #f8f9fa;
+}
+
+.all-clients-swiper,
+.private-clients-swiper,
+.government-clients-swiper,
+.global-clients-swiper {
+  height: 80px;
+  overflow: hidden;
+  padding: 0 50px;
+}
+
+.all-clients-swiper .swiper-slide,
+.private-clients-swiper .swiper-slide,
+.government-clients-swiper .swiper-slide,
+.global-clients-swiper .swiper-slide {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.all-clients-swiper .swiper-button-next,
+.all-clients-swiper .swiper-button-prev,
+.private-clients-swiper .swiper-button-next,
+.private-clients-swiper .swiper-button-prev,
+.government-clients-swiper .swiper-button-next,
+.government-clients-swiper .swiper-button-prev,
+.global-clients-swiper .swiper-button-next,
+.global-clients-swiper .swiper-button-prev {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  border-radius: 50%;
+  color: white;
+  margin-top: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.all-clients-swiper .swiper-button-next:hover,
+.all-clients-swiper .swiper-button-prev:hover,
+.private-clients-swiper .swiper-button-next:hover,
+.private-clients-swiper .swiper-button-prev:hover,
+.government-clients-swiper .swiper-button-next:hover,
+.government-clients-swiper .swiper-button-prev:hover,
+.global-clients-swiper .swiper-button-next:hover,
+.global-clients-swiper .swiper-button-prev:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.all-clients-swiper .swiper-button-next::after,
+.all-clients-swiper .swiper-button-prev::after,
+.private-clients-swiper .swiper-button-next::after,
+.private-clients-swiper .swiper-button-prev::after,
+.government-clients-swiper .swiper-button-next::after,
+.government-clients-swiper .swiper-button-prev::after,
+.global-clients-swiper .swiper-button-next::after,
+.global-clients-swiper .swiper-button-prev::after {
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .testimonial-wrap {
@@ -1040,5 +1095,59 @@ function toggleTestimonial(btn) {
     btn.textContent = '... See More';
   }
 }
+
+// Initialize all client sliders
+document.addEventListener('DOMContentLoaded', function() {
+  const swiperConfig = {
+    slidesPerView: 6,
+    spaceBetween: 20,
+    loop: true,
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
+    breakpoints: {
+      320: { slidesPerView: 2, spaceBetween: 15 },
+      768: { slidesPerView: 4, spaceBetween: 20 },
+      1024: { slidesPerView: 6, spaceBetween: 20 }
+    }
+  };
+
+  // All Clients Slider
+  new Swiper('.all-clients-swiper', {
+    ...swiperConfig,
+    navigation: {
+      nextEl: '.all-clients-swiper .swiper-button-next',
+      prevEl: '.all-clients-swiper .swiper-button-prev',
+    }
+  });
+
+  // Private Clients Slider
+  new Swiper('.private-clients-swiper', {
+    ...swiperConfig,
+    navigation: {
+      nextEl: '.private-clients-swiper .swiper-button-next',
+      prevEl: '.private-clients-swiper .swiper-button-prev',
+    }
+  });
+
+  // Government Clients Slider
+  new Swiper('.government-clients-swiper', {
+    ...swiperConfig,
+    navigation: {
+      nextEl: '.government-clients-swiper .swiper-button-next',
+      prevEl: '.government-clients-swiper .swiper-button-prev',
+    }
+  });
+
+  // Global Clients Slider
+  new Swiper('.global-clients-swiper', {
+    ...swiperConfig,
+    navigation: {
+      nextEl: '.global-clients-swiper .swiper-button-next',
+      prevEl: '.global-clients-swiper .swiper-button-prev',
+    }
+  });
+});
 </script>
 @endsection
