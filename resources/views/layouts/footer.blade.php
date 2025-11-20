@@ -1,3 +1,14 @@
+<style>
+  .sbform{
+        overflow: visible !important;
+  }
+  .sbform button{
+    top:0px;
+  }
+  .sbform input{
+    border-radius: 10px;
+  }
+</style>
 <footer id="footer" class="footer-section">
   <div class="container">
       <div class="pt-5 pb-2 footer-content">
@@ -96,7 +107,7 @@
                       <div class="footer-text mb-25">
                           <p>Don't miss to subscribe to our new feeds, kindly fill the form below.</p>
                       </div>
-                      <div class="subscribe-form">
+                      <div class="subscribe-form sbform">
                           <form action="#">
                               <input type="text" placeholder="Email Address">
                               <button><i class="bi bi-telegram"></i></button>
